@@ -1,0 +1,51 @@
+[project]
+name = "siid"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "ipykernel>=7.2.0",
+    "kagglehub>=1.0.0",
+    "nbclient>=0.10.4",
+    "nbformat>=5.10.4",
+    "numpy>=2.4.3",
+    "pandas>=3.0.1",
+    "scikit-learn>=1.8.0",
+    "scipy>=1.17.1",
+    "seaborn>=0.13.2",
+    "statsmodels>=0.14.6",
+    "xgboost>=3.2.0",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py314"
+exclude = [".venv", "__pycache__", ".git"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes (variables no usadas, imports no usados, etc.)
+    "I",   # isort (orden de imports)
+    "UP",  # pyupgrade (moderniza sintaxis Python)
+]
+ignore = [
+    "E501",  # líneas largas — controlado por line-length
+    "F401",  # import no usado — frecuente en notebooks
+    "F811",  # redefinición — frecuente en notebooks (re-ejecución de celdas)
+    "E402",  # imports fuera del top — frecuente en scripts de análisis
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["src"]
+force-sort-within-sections = true
+
+[tool.ruff.lint.per-file-ignores]
+"notebooks/*.py" = ["E402", "F401", "F811"]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.10",
+]
