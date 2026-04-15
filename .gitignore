@@ -11,3 +11,6 @@ wheels/
 
 # Data — datasets locales, no versionar
 data/
+
+# Editor
+.vscode/
