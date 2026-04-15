@@ -46,6 +46,79 @@ El objetivo central de este estudio es desarrollar una herramienta analítica qu
 
 # Análisis Exploratorio Detallado (EDA)
 
+En esta sección se exploran las dimensiones clave del dataset para entender los factores que influyen en la logística global de DataCo.
+
+## Análisis Temporal
+El volumen de ventas y órdenes muestra una estacionalidad marcada. A continuación se presenta la tendencia mensual de ventas.
+
+```{python}
+#| label: temporal-analysis
+#| echo: false
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Convertir fechas
+df['order_date'] = pd.to_datetime(df['order date (DateOrders)'])
+df['order_month'] = df['order_date'].dt.to_period('M')
+
+monthly_sales = df.groupby('order_month')['Sales'].sum().reset_index()
+monthly_sales['order_month'] = monthly_sales['order_month'].astype(str)
+
+plt.figure(figsize=(10, 5))
+sns.lineplot(data=monthly_sales, x='order_month', y='Sales')
+plt.xticks(rotation=45)
+plt.title("Tendencia Mensual de Ventas (USD)")
+plt.xlabel("Mes")
+plt.ylabel("Ventas Totales")
+plt.tight_layout()
+plt.show()
+```
+
+## Distribución Geográfica y Mercados
+DataCo opera en múltiples regiones. El mercado de **Europa** y **LATAM** concentran la mayor parte de las transacciones, pero también presentan retos logísticos diferenciados.
+
+```{python}
+#| label: geographic-analysis
+#| echo: false
+market_counts = df['Market'].value_counts()
+
+plt.figure(figsize=(8, 4))
+sns.barplot(x=market_counts.index, y=market_counts.values, hue=market_counts.index, palette='viridis', legend=False)
+plt.title("Distribución de Órdenes por Mercado")
+plt.ylabel("Cantidad de Órdenes")
+plt.show()
+```
+
+## Correlaciones y Distribución de Beneficios
+El beneficio por orden suele estar concentrado en valores positivos, aunque existe una cola significativa de órdenes con pérdidas (beneficios negativos), lo cual es crítico para la salud financiera de la operación.
+
+```{python}
+#| label: benefit-dist
+#| echo: false
+plt.figure(figsize=(8, 4))
+sns.histplot(df['Order Profit Per Order'], bins=50, kde=True, color='teal')
+plt.title("Distribución de Beneficios por Orden")
+plt.xlabel("Beneficio (USD)")
+plt.show()
+```
+
+## Dependencias y Correlaciones
+Se observa una fuerte correlación entre las ventas brutas y las ventas netas por cliente. Asimismo, el riesgo de entrega tardía está intrínsecamente ligado al modo de envío seleccionado y a los días programados de transporte.
+
+```{python}
+#| label: correlation-matrix
+#| echo: false
+# Seleccionamos solo columnas numéricas relevantes para evitar ruido
+cols_corr = ['Days for shipping (real)', 'Days for shipment (scheduled)', 
+             'Order Profit Per Order', 'Sales per customer', 'Late_delivery_risk']
+corr_matrix = df[cols_corr].corr()
+
+plt.figure(figsize=(8, 6))
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+plt.title("Matriz de Correlación de Variables Logísticas")
+plt.show()
+```
+
 # Definición del Problema y Metodología
 
 # Implementación y Evaluación de Modelos
