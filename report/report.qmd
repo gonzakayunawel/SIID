@@ -121,6 +121,23 @@ plt.show()
 
 # Definición del Problema y Metodología
 
+## Selección del Problema: Late Delivery Risk
+En la logística moderna, el cumplimiento de los tiempos de entrega es el factor crítico de la satisfacción del cliente. DataCo define el **Riesgo de Entrega Tardía** (`Late_delivery_risk`) como un indicador binario activo cuando el tiempo real de envío supera al tiempo programado. 
+
+Dada la alta prevalencia de este riesgo en el dataset (aprox. 55%), su predicción temprana permite a la empresa:
+- Notificar proactivamente al cliente.
+- Reasignar transportistas para rutas críticas.
+- Optimizar la planificación de inventarios regionales.
+
+## Preprocesamiento y Limpieza
+Para asegurar un modelo robusto y generalizable, se aplicaron las siguientes técnicas:
+1. **Imputación de Valores Nulos**: Se identificaron valores ausentes en códigos postales (`Customer Zipcode`) y descripciones de productos, los cuales fueron imputados mediante la moda por ciudad o descartados si no aportaban valor discriminatorio.
+2. **Normalización**: Las variables numéricas como `Sales` y `Quantity` fueron escaladas utilizando `StandardScaler` para evitar que las magnitudes afecten a los modelos lineales.
+3. **Prevención de Data Leakage (Fuga de Datos)**: Este paso es fundamental. Se eliminaron variables que contienen información "del futuro" o que son redundantes con el objetivo, tales como:
+   - `Delivery Status` (un indicador que ya sabe si llegó tarde).
+   - `Days for shipping (real)` (el componente directo del cálculo del riesgo).
+   - Columnas financieras post-venta que no estarían disponibles al momento del despacho.
+
 # Implementación y Evaluación de Modelos
 
 # Conclusiones y Recomendaciones
