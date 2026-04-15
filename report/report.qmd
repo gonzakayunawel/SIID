@@ -181,3 +181,18 @@ plt.show()
 Para la predicción de días de envío reales, los modelos de regresión como **Random Forest Regressor** alcanzaron un R² de **0.99**, permitiendo una planificación de inventario extremadamente precisa.
 
 # Conclusiones y Recomendaciones
+
+## Hallazgos Principales
+1. **Poder Predictivo**: El uso de modelos ensamble como XGBoost permite anticipar con alta fiabilidad los retrasos en la entrega, lo que representa una ventaja competitiva significativa para DataCo.
+2. **Impacto Geográfico**: Los mercados de Europa y LATAM requieren una revisión de sus tiempos programados, ya que presentan una mayor variabilidad en sus despachos reales.
+3. **Optimización Financiera**: Identificar proactivamente órdenes en riesgo permite reducir costos de compensación y mejorar la retención de clientes.
+
+## Recomendaciones
+- **Sincronización de Tiempos**: Ajustar los "Scheduled Shipping Days" en función de la analítica histórica regional.
+- **Monitoreo en Tiempo Real**: Desplegar el modelo XGBoost en el backend del ERP para alertar sobre riesgos en el momento de creación de la orden.
+- **Expansión del Modelo**: Integrar variables externas como condiciones climáticas o huelgas portuarias para mejorar la precisión en rutas críticas.
+
+# Bibliografía y Referencias
+- DataCo Smart Supply Chain Dataset, Kaggle Hub.
+- Documentación de Scikit-learn y XGBoost.
+- Repositorio SIID (Smart Industrial Information Dashboard).
