@@ -217,12 +217,14 @@ print(results_reg_df.to_string(float_format="{:.4f}".format))
 print("\n✅ Mejor modelo por R²:", results_reg_df["R²"].idxmax())
 ```
 
-## Modelo de Clasificación: Predicción de Riesgo de Entrega Tardía
+## Modelo de Clasificación: Benchmarking
 
-Para el problema de clasificación binaria (`Late_delivery_risk`), se implementó un **Decision Tree Classifier** como modelo de referencia, complementado con un análisis de importancia de variables.
+Se seleccionaron las características con importancia superior al 1% identificadas con el Decision Tree de referencia y se evaluaron cuatro algoritmos para predecir el `Late_delivery_risk`.
+
+### Paso 1 — Selección de features por importancia
 
 ```{python}
-#| label: classification-model
+#| label: clf-feature-selection
 #| echo: true
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.tree import DecisionTreeClassifier
@@ -243,24 +245,162 @@ feature_cols_clf = [c for c in numeric_cols_clf if c not in drop_cols_clf]
 X_clf = df[feature_cols_clf]
 y_clf = df[TARGET_CLF]
 
-print(f"Distribución del target:\n{y_clf.value_counts()}")
-
+# Árbol de referencia para obtener importancias
 X_train_clf, X_test_clf, y_train_clf, y_test_clf = train_test_split(
     X_clf, y_clf, test_size=0.2, random_state=42, stratify=y_clf
 )
 
-dt_pipe = Pipeline([
+dt_ref = Pipeline([
     ("imputer", SimpleImputer(strategy="median")),
     ("scaler",  StandardScaler()),
     ("model",   DecisionTreeClassifier(max_depth=6, random_state=42)),
 ])
+dt_ref.fit(X_train_clf, y_train_clf)
 
-dt_pipe.fit(X_train_clf, y_train_clf)
-y_pred_clf = dt_pipe.predict(X_test_clf)
+importances = pd.Series(
+    dt_ref.named_steps["model"].feature_importances_,
+    index=feature_cols_clf
+).sort_values(ascending=False)
 
-print(f"\nAccuracy: {accuracy_score(y_test_clf, y_pred_clf):.4f}\n")
-print(classification_report(y_test_clf, y_pred_clf,
-                             target_names=["No tardío (0)", "Tardío (1)"]))
+IMPORTANCE_THRESHOLD = 0.01
+selected_features = importances[importances >= IMPORTANCE_THRESHOLD].index.tolist()
+
+print(f"Features seleccionadas ({len(selected_features)}):")
+for feat in selected_features:
+    print(f"  {feat:<35} {importances[feat]:.4f}")
+
+X_final = df[selected_features]
+y_final = df[TARGET_CLF]
+
+X_train_f, X_test_f, y_train_f, y_test_f = train_test_split(
+    X_final, y_final, test_size=0.2, random_state=42, stratify=y_final
+)
+print(f"\nConjunto de entrenamiento : X={X_train_f.shape} | y={y_train_f.shape}")
+print(f"Conjunto de prueba        : X={X_test_f.shape}  | y={y_test_f.shape}")
+```
+
+### Paso 2 — Benchmarking de clasificadores
+
+```{python}
+#| label: clf-benchmarking
+#| echo: true
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import (
+    accuracy_score, f1_score, precision_score, recall_score, roc_auc_score,
+)
+from xgboost import XGBClassifier
+
+clf_models = {
+    "Logistic Regression": LogisticRegression(max_iter=1000, random_state=42),
+    "Decision Tree":       DecisionTreeClassifier(max_depth=6, random_state=42),
+    "Random Forest":       RandomForestClassifier(n_estimators=100, max_depth=6,
+                                                  random_state=42, n_jobs=-1),
+    "XGBoost":             XGBClassifier(n_estimators=100, max_depth=6,
+                                         learning_rate=0.1, random_state=42,
+                                         eval_metric="logloss",
+                                         verbosity=0),
+}
+
+clf_results = []
+
+for name, model in clf_models.items():
+    pipe = Pipeline([
+        ("imputer", SimpleImputer(strategy="median")),
+        ("scaler",  StandardScaler()),
+        ("model",   model),
+    ])
+    start = time.time()
+    pipe.fit(X_train_f, y_train_f)
+    elapsed = time.time() - start
+
+    y_pred  = pipe.predict(X_test_f)
+    y_proba = pipe.predict_proba(X_test_f)[:, 1]
+
+    clf_results.append({
+        "Modelo":      name,
+        "Accuracy":    accuracy_score(y_test_f, y_pred),
+        "Precision":   precision_score(y_test_f, y_pred, zero_division=0),
+        "Recall":      recall_score(y_test_f, y_pred, zero_division=0),
+        "F1-Score":    f1_score(y_test_f, y_pred, zero_division=0),
+        "ROC-AUC":     roc_auc_score(y_test_f, y_proba),
+        "Tiempo(s)":   round(elapsed, 4),
+    })
+    print(f"✔ {name:<22} entrenado en {elapsed:.4f}s")
+
+clf_results_df = pd.DataFrame(clf_results).set_index("Modelo").sort_values("F1-Score", ascending=False)
+
+print("\n" + "=" * 72)
+print("              BENCHMARKING — MODELOS DE CLASIFICACIÓN")
+print("=" * 72)
+print(clf_results_df.to_string(float_format="{:.4f}".format))
+print(f"\n🏆 Mejor Accuracy : {clf_results_df['Accuracy'].idxmax()}")
+print(f"🏆 Mejor F1-Score : {clf_results_df['F1-Score'].idxmax()}")
+print(f"🏆 Mejor ROC-AUC  : {clf_results_df['ROC-AUC'].idxmax()}")
+```
+
+### Paso 3 — Visualización de métricas y Curva ROC
+
+```{python}
+#| label: clf-metrics-bar
+#| echo: false
+metrics = ["Accuracy", "Precision", "Recall", "F1-Score", "ROC-AUC"]
+
+clf_results_df[metrics].plot(
+    kind="bar", figsize=(12, 5), colormap="tab10",
+    edgecolor="white", rot=15
+)
+plt.title("Benchmarking — Métricas por Modelo", fontsize=14, pad=15)
+plt.ylabel("Score")
+plt.ylim(0, 1.05)
+plt.legend(loc="lower right")
+plt.tight_layout()
+plt.show()
+```
+
+```{python}
+#| label: clf-roc-curve
+#| echo: false
+from sklearn.metrics import auc, roc_curve
+
+clf_models_roc = {
+    "Logistic Regression": LogisticRegression(max_iter=1000, random_state=42),
+    "Decision Tree":       DecisionTreeClassifier(max_depth=6, random_state=42),
+    "Random Forest":       RandomForestClassifier(n_estimators=100, max_depth=6,
+                                                  random_state=42, n_jobs=-1),
+    "XGBoost":             XGBClassifier(n_estimators=100, max_depth=6,
+                                         learning_rate=0.1, random_state=42,
+                                         eval_metric="logloss", verbosity=0),
+}
+
+fig, ax = plt.subplots(figsize=(8, 7))
+colors = ["#4C72B0", "#DD8452", "#55A868", "#C44E52"]
+
+for (name, model), color in zip(clf_models_roc.items(), colors):
+    pipe = Pipeline([
+        ("imputer", SimpleImputer(strategy="median")),
+        ("scaler",  StandardScaler()),
+        ("model",   model),
+    ])
+    pipe.fit(X_train_f, y_train_f)
+    y_proba = pipe.predict_proba(X_test_f)[:, 1]
+
+    fpr, tpr, _ = roc_curve(y_test_f, y_proba)
+    roc_auc = auc(fpr, tpr)
+
+    ax.plot(fpr, tpr, color=color, lw=2,
+            label=f"{name}  (AUC = {roc_auc:.4f})")
+
+ax.plot([0, 1], [0, 1], "k--", lw=1.2, label="Aleatorio (AUC = 0.50)")
+ax.set_xlim([0.0, 1.0])
+ax.set_ylim([0.0, 1.05])
+ax.set_xlabel("Tasa de Falsos Positivos (FPR)", fontsize=12)
+ax.set_ylabel("Tasa de Verdaderos Positivos (TPR)", fontsize=12)
+ax.set_title("Curva ROC — Modelos de Clasificación\n(Late Delivery Risk)", fontsize=13, pad=15)
+ax.legend(loc="lower right", fontsize=10, framealpha=0.9)
+ax.grid(alpha=0.3)
+plt.tight_layout()
+plt.show()
 ```
 
 ## Importancia de Variables (Feature Importance)
@@ -270,11 +410,6 @@ El análisis de importancia revela que los días de envío —real y programado�
 ```{python}
 #| label: feature-importance
 #| echo: false
-importances = pd.Series(
-    dt_pipe.named_steps["model"].feature_importances_,
-    index=feature_cols_clf
-).sort_values(ascending=False)
-
 fig, ax = plt.subplots(figsize=(10, 6))
 importances.plot(kind="bar", ax=ax, color="steelblue", edgecolor="white")
 ax.set_title("Importancia de Características — Decision Tree", fontsize=14, pad=15)

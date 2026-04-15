@@ -107,7 +107,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#implementación-y-evaluación-de-modelos" id="toc-implementación-y-evaluación-de-modelos" class="nav-link" data-scroll-target="#implementación-y-evaluación-de-modelos">Implementación y Evaluación de Modelos</a>
   <ul class="collapse">
   <li><a href="#modelo-de-regresión-predicción-de-ventas" id="toc-modelo-de-regresión-predicción-de-ventas" class="nav-link" data-scroll-target="#modelo-de-regresión-predicción-de-ventas">Modelo de Regresión: Predicción de Ventas</a></li>
-  <li><a href="#modelo-de-clasificación-predicción-de-riesgo-de-entrega-tardía" id="toc-modelo-de-clasificación-predicción-de-riesgo-de-entrega-tardía" class="nav-link" data-scroll-target="#modelo-de-clasificación-predicción-de-riesgo-de-entrega-tardía">Modelo de Clasificación: Predicción de Riesgo de Entrega Tardía</a></li>
+  <li><a href="#modelo-de-clasificación-benchmarking" id="toc-modelo-de-clasificación-benchmarking" class="nav-link" data-scroll-target="#modelo-de-clasificación-benchmarking">Modelo de Clasificación: Benchmarking</a>
+  <ul class="collapse">
+  <li><a href="#paso-1-selección-de-features-por-importancia" id="toc-paso-1-selección-de-features-por-importancia" class="nav-link" data-scroll-target="#paso-1-selección-de-features-por-importancia">Paso 1 — Selección de features por importancia</a></li>
+  <li><a href="#paso-2-benchmarking-de-clasificadores" id="toc-paso-2-benchmarking-de-clasificadores" class="nav-link" data-scroll-target="#paso-2-benchmarking-de-clasificadores">Paso 2 — Benchmarking de clasificadores</a></li>
+  <li><a href="#paso-3-visualización-de-métricas-y-curva-roc" id="toc-paso-3-visualización-de-métricas-y-curva-roc" class="nav-link" data-scroll-target="#paso-3-visualización-de-métricas-y-curva-roc">Paso 3 — Visualización de métricas y Curva ROC</a></li>
+  </ul></li>
   <li><a href="#importancia-de-variables-feature-importance" id="toc-importancia-de-variables-feature-importance" class="nav-link" data-scroll-target="#importancia-de-variables-feature-importance">Importancia de Variables (Feature Importance)</a></li>
   </ul></li>
   <li><a href="#conclusiones-y-recomendaciones" id="toc-conclusiones-y-recomendaciones" class="nav-link" data-scroll-target="#conclusiones-y-recomendaciones">Conclusiones y Recomendaciones</a>
@@ -325,19 +330,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ============================================================
                       MAE    RMSE     R²  Tiempo(s)
 Modelo                                             
-Linear Regression  0.0006  0.0015 1.0000     0.2054
-Ridge              0.0017  0.0033 1.0000     0.1598
-Lasso              0.8359  1.1550 0.9999     0.1910
-ElasticNet        21.3449 30.1334 0.9476     0.1842
+Linear Regression  0.0006  0.0015 1.0000     0.2194
+Ridge              0.0017  0.0033 1.0000     0.2030
+Lasso              0.8359  1.1550 0.9999     0.1664
+ElasticNet        21.3449 30.1334 0.9476     0.2289
 
 ✅ Mejor modelo por R²: Linear Regression</code></pre>
 </div>
 </div>
 </section>
-<section id="modelo-de-clasificación-predicción-de-riesgo-de-entrega-tardía" class="level2">
-<h2 class="anchored" data-anchor-id="modelo-de-clasificación-predicción-de-riesgo-de-entrega-tardía">Modelo de Clasificación: Predicción de Riesgo de Entrega Tardía</h2>
-<p>Para el problema de clasificación binaria (<code>Late_delivery_risk</code>), se implementó un <strong>Decision Tree Classifier</strong> como modelo de referencia, complementado con un análisis de importancia de variables.</p>
-<div id="classification-model" class="cell" data-execution_count="7">
+<section id="modelo-de-clasificación-benchmarking" class="level2">
+<h2 class="anchored" data-anchor-id="modelo-de-clasificación-benchmarking">Modelo de Clasificación: Benchmarking</h2>
+<p>Se seleccionaron las características con importancia superior al 1% identificadas con el Decision Tree de referencia y se evaluaron cuatro algoritmos para predecir el <code>Late_delivery_risk</code>.</p>
+<section id="paso-1-selección-de-features-por-importancia" class="level3">
+<h3 class="anchored" data-anchor-id="paso-1-selección-de-features-por-importancia">Paso 1 — Selección de features por importancia</h3>
+<div id="clf-feature-selection" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, classification_report</span>
@@ -359,50 +366,156 @@ ElasticNet        21.3449 30.1334 0.9476     0.1842
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>X_clf <span class="op">=</span> df[feature_cols_clf]</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>y_clf <span class="op">=</span> df[TARGET_CLF]</span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Distribución del target:</span><span class="ch">\n</span><span class="sc">{</span>y_clf<span class="sc">.</span>value_counts()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>X_train_clf, X_test_clf, y_train_clf, y_test_clf <span class="op">=</span> train_test_split(</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    X_clf, y_clf, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>, stratify<span class="op">=</span>y_clf</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>dt_pipe <span class="op">=</span> Pipeline([</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"imputer"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)),</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"scaler"</span>,  StandardScaler()),</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>,   DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">6</span>, random_state<span class="op">=</span><span class="dv">42</span>)),</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Árbol de referencia para obtener importancias</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>X_train_clf, X_test_clf, y_train_clf, y_test_clf <span class="op">=</span> train_test_split(</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    X_clf, y_clf, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>, stratify<span class="op">=</span>y_clf</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>dt_ref <span class="op">=</span> Pipeline([</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"imputer"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)),</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"scaler"</span>,  StandardScaler()),</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>,   DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">6</span>, random_state<span class="op">=</span><span class="dv">42</span>)),</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>dt_ref.fit(X_train_clf, y_train_clf)</span>
 <span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>dt_pipe.fit(X_train_clf, y_train_clf)</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>y_pred_clf <span class="op">=</span> dt_pipe.predict(X_test_clf)</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Accuracy: </span><span class="sc">{</span>accuracy_score(y_test_clf, y_pred_clf)<span class="sc">:.4f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test_clf, y_pred_clf,</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>                             target_names<span class="op">=</span>[<span class="st">"No tardío (0)"</span>, <span class="st">"Tardío (1)"</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>importances <span class="op">=</span> pd.Series(</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    dt_ref.named_steps[<span class="st">"model"</span>].feature_importances_,</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>feature_cols_clf</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>).sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>IMPORTANCE_THRESHOLD <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>selected_features <span class="op">=</span> importances[importances <span class="op">&gt;=</span> IMPORTANCE_THRESHOLD].index.tolist()</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Features seleccionadas (</span><span class="sc">{</span><span class="bu">len</span>(selected_features)<span class="sc">}</span><span class="ss">):"</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> feat <span class="kw">in</span> selected_features:</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>feat<span class="sc">:&lt;35}</span><span class="ss"> </span><span class="sc">{</span>importances[feat]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>X_final <span class="op">=</span> df[selected_features]</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>y_final <span class="op">=</span> df[TARGET_CLF]</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>X_train_f, X_test_f, y_train_f, y_test_f <span class="op">=</span> train_test_split(</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>    X_final, y_final, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>, stratify<span class="op">=</span>y_final</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Conjunto de entrenamiento : X=</span><span class="sc">{</span>X_train_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss"> | y=</span><span class="sc">{</span>y_train_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Conjunto de prueba        : X=</span><span class="sc">{</span>X_test_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">  | y=</span><span class="sc">{</span>y_test_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Distribución del target:
-Late_delivery_risk
-1    98977
-0    81542
-Name: count, dtype: int64
+<pre><code>Features seleccionadas (2):
+  Days for shipping (real)            0.5323
+  Days for shipment (scheduled)       0.4670
 
-Accuracy: 0.9743
-
-               precision    recall  f1-score   support
-
-No tardío (0)       1.00      0.94      0.97     16308
-   Tardío (1)       0.96      1.00      0.98     19796
-
-     accuracy                           0.97     36104
-    macro avg       0.98      0.97      0.97     36104
- weighted avg       0.98      0.97      0.97     36104
-</code></pre>
+Conjunto de entrenamiento : X=(144415, 2) | y=(144415,)
+Conjunto de prueba        : X=(36104, 2)  | y=(36104,)</code></pre>
 </div>
 </div>
+</section>
+<section id="paso-2-benchmarking-de-clasificadores" class="level3">
+<h3 class="anchored" data-anchor-id="paso-2-benchmarking-de-clasificadores">Paso 2 — Benchmarking de clasificadores</h3>
+<div id="clf-benchmarking" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> (</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    accuracy_score, f1_score, precision_score, recall_score, roc_auc_score,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xgboost <span class="im">import</span> XGBClassifier</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>clf_models <span class="op">=</span> {</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Logistic Regression"</span>: LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>, random_state<span class="op">=</span><span class="dv">42</span>),</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Decision Tree"</span>:       DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">6</span>, random_state<span class="op">=</span><span class="dv">42</span>),</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Random Forest"</span>:       RandomForestClassifier(n_estimators<span class="op">=</span><span class="dv">100</span>, max_depth<span class="op">=</span><span class="dv">6</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                                                  random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>),</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XGBoost"</span>:             XGBClassifier(n_estimators<span class="op">=</span><span class="dv">100</span>, max_depth<span class="op">=</span><span class="dv">6</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                                         learning_rate<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>                                         eval_metric<span class="op">=</span><span class="st">"logloss"</span>,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>                                         verbosity<span class="op">=</span><span class="dv">0</span>),</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>clf_results <span class="op">=</span> []</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, model <span class="kw">in</span> clf_models.items():</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    pipe <span class="op">=</span> Pipeline([</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"imputer"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)),</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"scaler"</span>,  StandardScaler()),</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"model"</span>,   model),</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    ])</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> time.time()</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    pipe.fit(X_train_f, y_train_f)</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    elapsed <span class="op">=</span> time.time() <span class="op">-</span> start</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    y_pred  <span class="op">=</span> pipe.predict(X_test_f)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    y_proba <span class="op">=</span> pipe.predict_proba(X_test_f)[:, <span class="dv">1</span>]</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    clf_results.append({</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Modelo"</span>:      name,</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Accuracy"</span>:    accuracy_score(y_test_f, y_pred),</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Precision"</span>:   precision_score(y_test_f, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>),</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Recall"</span>:      recall_score(y_test_f, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>),</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"F1-Score"</span>:    f1_score(y_test_f, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>),</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ROC-AUC"</span>:     roc_auc_score(y_test_f, y_proba),</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Tiempo(s)"</span>:   <span class="bu">round</span>(elapsed, <span class="dv">4</span>),</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"✔ </span><span class="sc">{</span>name<span class="sc">:&lt;22}</span><span class="ss"> entrenado en </span><span class="sc">{</span>elapsed<span class="sc">:.4f}</span><span class="ss">s"</span>)</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>clf_results_df <span class="op">=</span> pd.DataFrame(clf_results).set_index(<span class="st">"Modelo"</span>).sort_values(<span class="st">"F1-Score"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span> <span class="op">*</span> <span class="dv">72</span>)</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"              BENCHMARKING — MODELOS DE CLASIFICACIÓN"</span>)</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">72</span>)</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(clf_results_df.to_string(float_format<span class="op">=</span><span class="st">"</span><span class="sc">{:.4f}</span><span class="st">"</span>.<span class="bu">format</span>))</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">🏆 Mejor Accuracy : </span><span class="sc">{</span>clf_results_df[<span class="st">'Accuracy'</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"🏆 Mejor F1-Score : </span><span class="sc">{</span>clf_results_df[<span class="st">'F1-Score'</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"🏆 Mejor ROC-AUC  : </span><span class="sc">{</span>clf_results_df[<span class="st">'ROC-AUC'</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>✔ Logistic Regression    entrenado en 0.1026s
+✔ Decision Tree          entrenado en 0.0346s
+✔ Random Forest          entrenado en 0.5414s
+✔ XGBoost                entrenado en 1.2084s
+
+========================================================================
+              BENCHMARKING — MODELOS DE CLASIFICACIÓN
+========================================================================
+                     Accuracy  Precision  Recall  F1-Score  ROC-AUC  Tiempo(s)
+Modelo                                                                        
+Logistic Regression    0.9745     0.9555  1.0000    0.9772   0.9727     0.1026
+Decision Tree          0.9745     0.9555  1.0000    0.9772   0.9728     0.0346
+Random Forest          0.9745     0.9555  1.0000    0.9772   0.9728     0.5414
+XGBoost                0.9745     0.9555  1.0000    0.9772   0.9728     1.2084
+
+🏆 Mejor Accuracy : Logistic Regression
+🏆 Mejor F1-Score : Logistic Regression
+🏆 Mejor ROC-AUC  : Decision Tree</code></pre>
+</div>
+</div>
+</section>
+<section id="paso-3-visualización-de-métricas-y-curva-roc" class="level3">
+<h3 class="anchored" data-anchor-id="paso-3-visualización-de-métricas-y-curva-roc">Paso 3 — Visualización de métricas y Curva ROC</h3>
+<div id="cell-clf-metrics-bar" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/clf-metrics-bar-output-1.png" id="clf-metrics-bar" width="1142" height="469" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-clf-roc-curve" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/clf-roc-curve-output-1.png" id="clf-roc-curve" width="759" height="661" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="importancia-de-variables-feature-importance" class="level2">
 <h2 class="anchored" data-anchor-id="importancia-de-variables-feature-importance">Importancia de Variables (Feature Importance)</h2>
 <p>El análisis de importancia revela que los días de envío —real y programado— son los predictores dominantes, concentrando más del 99% de la importancia total en el árbol de decisión.</p>
-<div id="cell-feature-importance" class="cell" data-execution_count="8">
+<div id="cell-feature-importance" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
