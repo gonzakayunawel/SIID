@@ -1,0 +1,37 @@
+---
+title: "Reporte Técnico SIID: Análisis de Riesgos en Supply Chain"
+subtitle: "Optimización de Entregas y Modelado Predictivo con DataCo Smart Supply Chain"
+author: "Antigravity AI (Project SIID)"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: true
+    theme: cosmo
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+---
+
+# Resumen Ejecutivo
+
+Este informe presenta un análisis detallado del dataset **DataCo Smart Supply Chain**, centrándose en la identificación y mitigación del riesgo de entregas tardías (*Late Delivery Risk*). A través de un análisis exploratorio exhaustivo y la implementación de modelos de aprendizaje automático, se proponen estrategias para optimizar la cadena de suministro.
+
+# Introducción y Contexto
+
+## Descripción del Dataset
+El dataset utilizado contiene información extensa sobre operaciones de suministro, incluyendo ventas, logística y detalles de clientes de una empresa global.
+
+## Objetivos del Proyecto
+1. Realizar un análisis exploratorio completo.
+2. Definir métricas clave de desempeño (KPIs).
+3. Desarrollar modelos predictivos para el riesgo de entrega tardía.
+
+# Análisis Exploratorio Detallado (EDA)
+
+# Definición del Problema y Metodología
+
+# Implementación y Evaluación de Modelos
+
+# Conclusiones y Recomendaciones
