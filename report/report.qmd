@@ -140,45 +140,152 @@ Para asegurar un modelo robusto y generalizable, se aplicaron las siguientes té
 
 # Implementación y Evaluación de Modelos
 
-El modelado se abordó desde dos perspectivas: regresión (para predecir tiempos de despacho) y clasificación (para predecir el riesgo de entrega tardía).
+El modelado se abordó desde dos perspectivas: regresión (para predecir ventas totales) y clasificación (para predecir el riesgo de entrega tardía).
 
-## Benchmarking de Modelos de Clasificación
-Se evaluaron cuatro algoritmos principales para predecir el `Late_delivery_risk`. Los resultados muestran un desempeño excepcional en todos los modelos probados, sugiriendo que las características logísticas son altamente predictivas.
+## Modelo de Regresión: Predicción de Ventas
 
-| Modelo | Accuracy | F1-Score | ROC-AUC |
-| :--- | :---: | :---: | :---: |
-| **Logistic Regression** | 0.9745 | 0.9772 | 0.9727 |
-| **Decision Tree** | 0.9745 | 0.9772 | **0.9728** |
-| **Random Forest** | 0.9745 | 0.9772 | 0.9728 |
-| **XGBoost** | 0.9745 | 0.9772 | 0.9728 |
-
-El modelo **XGBoost** fue seleccionado como el candidato final debido a su capacidad para manejar relaciones no lineales y su robustez ante el sobreajuste mediante regularización.
-
-## Importancia de Variables (Feature Importance)
-El análisis de importancia revela que los días programados de envío y las distancias geográficas son los predictores más críticos. Esto confirma que la optimización de los cronogramas de despacho es la palanca más efectiva para reducir retrasos.
+Se implementó un benchmarking sobre cuatro modelos lineales clásicos para estimar las **ventas brutas** (`Sales`) a partir de variables numéricas del pedido, evitando fugas de datos (variables derivadas de `Sales`).
 
 ```{python}
-#| label: model-eval
-#| echo: false
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+#| label: regression-model
+#| echo: true
+import time
 import numpy as np
 
-# Simulación de matriz de confusión para ilustración basada en resultados de entrenamiento
-y_true = [0, 1, 0, 1] # Placeholder
-y_pred = [0, 1, 0, 1] 
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import ElasticNet, Lasso, LinearRegression, Ridge
+from sklearn.metrics import mean_absolute_error, r2_score, root_mean_squared_error
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
-cm = [[15620, 688], [236, 19560]] # Basado en benchmarks de los notebooks
+TARGET = 'Sales'
 
-plt.figure(figsize=(6, 5))
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-plt.title("Matriz de Confusión - XGBoost Classifier")
-plt.xlabel("Predicción")
-plt.ylabel("Real")
-plt.show()
+drop_cols = [
+    TARGET,
+    'Customer Id', 'Order Customer Id', 'Order Id',
+    'Order Item Id', 'Order Item Cardprod Id',
+    'Product Card Id', 'Product Category Id', 'Category Id', 'Department Id',
+    # Fuga de datos (data leakage) — derivadas de Sales
+    'Order Item Total',
+    'Order Profit Per Order',
+    'Benefit per order',
+    # Sin datos útiles
+    'Product Description',
+]
+
+numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
+feature_cols = [c for c in numeric_cols if c not in drop_cols]
+
+X = df[feature_cols]
+y = df[TARGET]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+models_reg = {
+    "Linear Regression": LinearRegression(),
+    "Ridge":             Ridge(alpha=1.0),
+    "Lasso":             Lasso(alpha=1.0, max_iter=5000),
+    "ElasticNet":        ElasticNet(alpha=1.0, l1_ratio=0.5, max_iter=5000),
+}
+
+results_reg = []
+
+for name, model in models_reg.items():
+    pipe = Pipeline([
+        ("imputer", SimpleImputer(strategy="median")),
+        ("scaler",  StandardScaler()),
+        ("model",   model),
+    ])
+    start = time.time()
+    pipe.fit(X_train, y_train)
+    elapsed = time.time() - start
+    y_pred = pipe.predict(X_test)
+    results_reg.append({
+        "Modelo":    name,
+        "MAE":       round(mean_absolute_error(y_test, y_pred), 4),
+        "RMSE":      round(root_mean_squared_error(y_test, y_pred), 4),
+        "R²":        round(r2_score(y_test, y_pred), 4),
+        "Tiempo(s)": round(elapsed, 4),
+    })
+
+results_reg_df = pd.DataFrame(results_reg).set_index("Modelo").sort_values("R²", ascending=False)
+print("=" * 60)
+print("           BENCHMARKING — MODELOS DE REGRESIÓN")
+print("=" * 60)
+print(results_reg_df.to_string(float_format="{:.4f}".format))
+print("\n✅ Mejor modelo por R²:", results_reg_df["R²"].idxmax())
 ```
 
-## Evaluación de Regresión
-Para la predicción de días de envío reales, los modelos de regresión como **Random Forest Regressor** alcanzaron un R² de **0.99**, permitiendo una planificación de inventario extremadamente precisa.
+## Modelo de Clasificación: Predicción de Riesgo de Entrega Tardía
+
+Para el problema de clasificación binaria (`Late_delivery_risk`), se implementó un **Decision Tree Classifier** como modelo de referencia, complementado con un análisis de importancia de variables.
+
+```{python}
+#| label: classification-model
+#| echo: true
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn.tree import DecisionTreeClassifier
+
+TARGET_CLF = 'Late_delivery_risk'
+
+drop_cols_clf = [
+    TARGET_CLF,
+    'Customer Id', 'Order Customer Id', 'Order Id',
+    'Order Item Id', 'Order Item Cardprod Id',
+    'Product Card Id', 'Product Category Id', 'Category Id', 'Department Id',
+    'Product Description',
+]
+
+numeric_cols_clf = df.select_dtypes(include=[np.number]).columns.tolist()
+feature_cols_clf = [c for c in numeric_cols_clf if c not in drop_cols_clf]
+
+X_clf = df[feature_cols_clf]
+y_clf = df[TARGET_CLF]
+
+print(f"Distribución del target:\n{y_clf.value_counts()}")
+
+X_train_clf, X_test_clf, y_train_clf, y_test_clf = train_test_split(
+    X_clf, y_clf, test_size=0.2, random_state=42, stratify=y_clf
+)
+
+dt_pipe = Pipeline([
+    ("imputer", SimpleImputer(strategy="median")),
+    ("scaler",  StandardScaler()),
+    ("model",   DecisionTreeClassifier(max_depth=6, random_state=42)),
+])
+
+dt_pipe.fit(X_train_clf, y_train_clf)
+y_pred_clf = dt_pipe.predict(X_test_clf)
+
+print(f"\nAccuracy: {accuracy_score(y_test_clf, y_pred_clf):.4f}\n")
+print(classification_report(y_test_clf, y_pred_clf,
+                             target_names=["No tardío (0)", "Tardío (1)"]))
+```
+
+## Importancia de Variables (Feature Importance)
+
+El análisis de importancia revela que los días de envío —real y programado— son los predictores dominantes, concentrando más del 99% de la importancia total en el árbol de decisión.
+
+```{python}
+#| label: feature-importance
+#| echo: false
+importances = pd.Series(
+    dt_pipe.named_steps["model"].feature_importances_,
+    index=feature_cols_clf
+).sort_values(ascending=False)
+
+fig, ax = plt.subplots(figsize=(10, 6))
+importances.plot(kind="bar", ax=ax, color="steelblue", edgecolor="white")
+ax.set_title("Importancia de Características — Decision Tree", fontsize=14, pad=15)
+ax.set_ylabel("Importancia (Gini)")
+plt.xticks(rotation=45, ha="right", fontsize=9)
+plt.tight_layout()
+plt.show()
+
+print("\nTop 5 características más importantes:")
+print(importances.head(5).to_string(float_format="{:.4f}".format))
+```
 
 # Conclusiones y Recomendaciones
 
