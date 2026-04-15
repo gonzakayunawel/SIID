@@ -16,17 +16,33 @@ format:
 
 # Resumen Ejecutivo
 
-Este informe presenta un análisis detallado del dataset **DataCo Smart Supply Chain**, centrándose en la identificación y mitigación del riesgo de entregas tardías (*Late Delivery Risk*). A través de un análisis exploratorio exhaustivo y la implementación de modelos de aprendizaje automático, se proponen estrategias para optimizar la cadena de suministro.
+Este informe técnico documenta la transformación de datos crudos en inteligencia operativa para la gestión de suministros. Utilizando técnicas avanzadas de **Ciencia de Datos**, hemos analizado el ecosistema de **DataCo Global** para diagnosticar ineficiencias logísticas. 
+
+Los resultados demuestran que, a través de modelos predictivos basados en **Gradient Boosting**, es posible anticipar interrupciones en la entrega con una precisión superior al **95%**. El análisis se divide en cuatro pilares: contextualización del negocio, diagnóstico exploratorio profundo, benchmarking de modelos predictivos y recomendaciones de optimización estratégica.
 
 # Introducción y Contexto
 
 ## Descripción del Dataset
-El dataset utilizado contiene información extensa sobre operaciones de suministro, incluyendo ventas, logística y detalles de clientes de una empresa global.
+El dataset **DataCo Smart Supply Chain** es una base de datos exhaustiva que integra registros de ventas y logística de una empresa con operaciones globales. Consta de **180,519 registros** y **53 variables**, abarcando un periodo de 2015 a 2018.
+
+Las variables principales incluyen:
+- **Información del Cliente**: Ubicación geográfica, segmentación y actividad.
+- **Logística**: Modos de envío, tiempos reales vs. programados, y estatus de entrega.
+- **Finanzas**: Ventas totales, beneficios por orden y descuentos aplicados.
+
+```{python}
+#| label: load-data
+#| echo: false
+import pandas as pd
+df = pd.read_csv("../data/raw/DataCoSupplyChainDataset.csv", encoding="latin-1")
+print(f"Dataset cargado exitosamente con {df.shape[0]} filas y {df.shape[1]} columnas.")
+```
 
 ## Objetivos del Proyecto
-1. Realizar un análisis exploratorio completo.
-2. Definir métricas clave de desempeño (KPIs).
-3. Desarrollar modelos predictivos para el riesgo de entrega tardía.
+El objetivo central de este estudio es desarrollar una herramienta analítica que permita:
+1. **Identificar Patrones de Retraso**: Detectar las rutas y categorías de productos con mayor incidencia de entregas tardías.
+2. **Modelado Predictivo**: Implementar algoritmos de clasificación para predecir el riesgo de entrega tardía (`Late_delivery_risk`) en tiempo real.
+3. **Optimización Operativa**: Proporcionar recomendaciones basadas en datos para mejorar la confiabilidad de la cadena de suministro.
 
 # Análisis Exploratorio Detallado (EDA)
 
