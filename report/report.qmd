@@ -71,7 +71,9 @@ execute:
 
 Este informe técnico documenta la transformación de datos crudos en inteligencia operativa para la gestión de la cadena de suministros (Supply Chain Managment). Utilizando técnicas avanzadas de **Ciencia de Datos**, hemos analizado el ecosistema de **DataCo Global** para diagnosticar ineficiencias logísticas.
 
-Los resultados demuestran que, a través de modelos de clasificación como **Logistic Regression** o **XGBoost**, es posible anticipar interrupciones en la entrega con una precisión superior al **95%**, así como el uso de modelos como **Linear Regression** podemos hacer una previsión de *Sales* con R^2^ de 1. El análisis se estructura en cuatro pilares: contextualización del negocio y calidad de datos, diagnóstico exploratorio con análisis probabilístico, benchmarking de modelos predictivos y recomendaciones de optimización estratégica.
+Los resultados demuestran que, a través de modelos de clasificación como **Logistic Regression** o **XGBoost**, es posible anticipar interrupciones en la entrega con una precisión superior al **95%**. Por otra lado, con el uso de modelos de la familia de **Linear Regression**, podemos hacer una previsión de *Sales* con R^2^ igual a 1. 
+
+El análisis se estructura en cuatro pilares: contextualización del negocio y calidad de datos, diagnóstico exploratorio con análisis probabilístico, benchmarking de modelos predictivos y recomendaciones de optimización estratégica.
 
 # Introducción y Contexto
 
