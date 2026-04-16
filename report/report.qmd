@@ -31,20 +31,35 @@ format:
     code-overflow: wrap
     fig-pos: "H"
     include-in-header:
-      - text: |
-          \usepackage{fvextra}
-          \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines=true,breakanywhere=true}
-          \usepackage{booktabs}
-          \usepackage{longtable}
-          \usepackage{float}
-          \usepackage[spanish]{babel}
-          \usepackage[utf8]{inputenc}
-          \usepackage{authblk}
-          \renewcommand\Affilfont{\itshape\small}
-          \setkomafont{title}{\raggedright\bfseries\Large}
-          \setkomafont{subtitle}{\raggedright\mdseries\normalsize}
-          \setkomafont{author}{\raggedright\mdseries\normalsize}
-          \setkomafont{date}{\raggedright\mdseries\small}
+    - text: |
+        \usepackage{fvextra}
+        \RecustomVerbatimEnvironment{Verbatim}{Verbatim}{
+            breaklines=true,
+            breaksymbol=\small\swarrow,
+            commandchars=\\\{\}
+        }
+        \usepackage{booktabs}
+        \usepackage{longtable}
+        \usepackage{float}
+        \usepackage[spanish]{babel}
+        \usepackage[utf8]{inputenc}
+        \usepackage{authblk}
+        \makeatletter
+        \renewcommand\@maketitle{%
+            {\raggedright\Large\bfseries\@title\par}
+            \vspace{0.5em}
+            {\raggedright\normalsize\@subtitle\par}
+            \vspace{1.5em}
+            {\raggedright\normalsize\@author\par}
+            \vspace{0.3em}
+            {\raggedright\small\itshape Sistemas de Información e Inteligencia de los Datos\par}
+            {\raggedright\small\itshape Doctorado en Ingeniería de Sistemas Avanzados\par}
+            {\raggedright\small\itshape Universidad Andrés Bello (CL), 2026\par}
+            \vspace{0.5em}
+            {\raggedright\small\@date\par}
+            \vspace{2em}
+        }
+        \makeatother
 execute:
   warning: false
   message: false
