@@ -113,11 +113,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#probabilidades-condicionales-vía-bayes" id="toc-probabilidades-condicionales-vía-bayes" class="nav-link" data-scroll-target="#probabilidades-condicionales-vía-bayes">Probabilidades Condicionales vía Bayes</a></li>
   </ul></li>
   <li><a href="#muestreo-aleatorio-e-intervalo-de-confianza" id="toc-muestreo-aleatorio-e-intervalo-de-confianza" class="nav-link" data-scroll-target="#muestreo-aleatorio-e-intervalo-de-confianza">Muestreo Aleatorio e Intervalo de Confianza</a></li>
+  <li><a href="#importancia-de-características" id="toc-importancia-de-características" class="nav-link" data-scroll-target="#importancia-de-características">Importancia de Características</a></li>
   <li><a href="#matriz-de-correlación" id="toc-matriz-de-correlación" class="nav-link" data-scroll-target="#matriz-de-correlación">Matriz de Correlación</a></li>
   </ul></li>
   <li><a href="#definición-del-problema-y-metodología" id="toc-definición-del-problema-y-metodología" class="nav-link" data-scroll-target="#definición-del-problema-y-metodología">Definición del Problema y Metodología</a>
   <ul class="collapse">
-  <li><a href="#selección-del-problema-late-delivery-risk" id="toc-selección-del-problema-late-delivery-risk" class="nav-link" data-scroll-target="#selección-del-problema-late-delivery-risk">Selección del Problema: Late Delivery Risk</a></li>
+  <li><a href="#selección-del-problema-late-delivery-risk-y-sales" id="toc-selección-del-problema-late-delivery-risk-y-sales" class="nav-link" data-scroll-target="#selección-del-problema-late-delivery-risk-y-sales">Selección del Problema: Late Delivery Risk y Sales</a></li>
   <li><a href="#preprocesamiento-y-prevención-de-data-leakage" id="toc-preprocesamiento-y-prevención-de-data-leakage" class="nav-link" data-scroll-target="#preprocesamiento-y-prevención-de-data-leakage">Preprocesamiento y Prevención de Data Leakage</a></li>
   </ul></li>
   <li><a href="#implementación-y-evaluación-de-modelos" id="toc-implementación-y-evaluación-de-modelos" class="nav-link" data-scroll-target="#implementación-y-evaluación-de-modelos">Implementación y Evaluación de Modelos</a>
@@ -125,11 +126,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#modelo-de-regresión-predicción-de-ventas" id="toc-modelo-de-regresión-predicción-de-ventas" class="nav-link" data-scroll-target="#modelo-de-regresión-predicción-de-ventas">Modelo de Regresión: Predicción de Ventas</a></li>
   <li><a href="#modelo-de-clasificación-riesgo-de-entrega-tardía" id="toc-modelo-de-clasificación-riesgo-de-entrega-tardía" class="nav-link" data-scroll-target="#modelo-de-clasificación-riesgo-de-entrega-tardía">Modelo de Clasificación: Riesgo de Entrega Tardía</a>
   <ul class="collapse">
-  <li><a href="#paso-1-selección-de-features-por-importancia" id="toc-paso-1-selección-de-features-por-importancia" class="nav-link" data-scroll-target="#paso-1-selección-de-features-por-importancia">Paso 1 — Selección de Features por Importancia</a></li>
-  <li><a href="#paso-2-benchmarking-de-clasificadores" id="toc-paso-2-benchmarking-de-clasificadores" class="nav-link" data-scroll-target="#paso-2-benchmarking-de-clasificadores">Paso 2 — Benchmarking de Clasificadores</a></li>
-  <li><a href="#paso-3-métricas-por-modelo-y-curva-roc" id="toc-paso-3-métricas-por-modelo-y-curva-roc" class="nav-link" data-scroll-target="#paso-3-métricas-por-modelo-y-curva-roc">Paso 3 — Métricas por Modelo y Curva ROC</a></li>
+  <li><a href="#selección-de-features-por-importancia" id="toc-selección-de-features-por-importancia" class="nav-link" data-scroll-target="#selección-de-features-por-importancia">Selección de Features por Importancia</a></li>
+  <li><a href="#benchmarking-de-clasificadores" id="toc-benchmarking-de-clasificadores" class="nav-link" data-scroll-target="#benchmarking-de-clasificadores">Benchmarking de Clasificadores</a></li>
+  <li><a href="#métricas-por-modelo-y-curva-roc" id="toc-métricas-por-modelo-y-curva-roc" class="nav-link" data-scroll-target="#métricas-por-modelo-y-curva-roc">Métricas por Modelo y Curva ROC</a></li>
   </ul></li>
-  <li><a href="#importancia-de-variables" id="toc-importancia-de-variables" class="nav-link" data-scroll-target="#importancia-de-variables">Importancia de Variables</a></li>
   </ul></li>
   <li><a href="#conclusiones-y-recomendaciones" id="toc-conclusiones-y-recomendaciones" class="nav-link" data-scroll-target="#conclusiones-y-recomendaciones">Conclusiones y Recomendaciones</a>
   <ul class="collapse">
@@ -189,8 +189,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="resumen-ejecutivo" class="level1">
 <h1>Resumen Ejecutivo</h1>
-<p>Este informe técnico documenta la transformación de datos crudos en inteligencia operativa para la gestión de la cadena de suministros (Supply Chain Managment). Utilizando técnicas avanzadas de <strong>Ciencia de Datos</strong>, hemos analizado el ecosistema de <strong>DataCo Global</strong> para diagnosticar ineficiencias logísticas.</p>
-<p>Los resultados demuestran que, a través de modelos de clasificación como <strong>Logistic Regression</strong> o <strong>XGBoost</strong>, es posible anticipar interrupciones en la entrega con una precisión superior al <strong>95%</strong>. Por otra lado, con el uso de modelos como <strong>Linear Regression</strong>, podemos hacer una previsión de las ventas con R<sup>2</sup> igual a 1.</p>
+<p>Este informe técnico documenta la transformación de datos crudos en inteligencia operativa para la gestión de la cadena de suministros (Supply Chain Managment). Utilizando técnicas avanzadas de <strong>Ciencia de Datos</strong>, se ha analizado el ecosistema de <strong>DataCo Global</strong> para diagnosticar ineficiencias logísticas.</p>
+<p>Los resultados demuestran que, a través de modelos de clasificación como <strong>Logistic Regression</strong> o <strong>XGBoost</strong>, es posible anticipar interrupciones en la entrega con una precisión superior al <strong>95%</strong>. Por otra lado, con el uso de modelos como <strong>Linear Regression</strong>, podemos hacer una previsión de las ventas con un R<sup>2</sup> igual a 1.</p>
 <p>El análisis se estructura en cuatro pilares: contextualización del negocio y calidad de datos, diagnóstico exploratorio con análisis probabilístico, benchmarking de modelos predictivos y recomendaciones de optimización estratégica.</p>
 </section>
 <section id="introducción-y-contexto" class="level1">
@@ -585,9 +585,57 @@ Intervalo de confianza 95%: [181.91, 186.88] USD</code></pre>
 </div>
 </div>
 </section>
+<section id="importancia-de-características" class="level2">
+<h2 class="anchored" data-anchor-id="importancia-de-características">Importancia de Características</h2>
+<p>El análisis revela que los días de envío —real y programado— concentran más del 99% de la importancia total en el árbol de decisión, lo que valida la intuición operativa sobre los factores determinantes del retraso.</p>
+<div id="feature-importance" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/feature-importance-output-1.png" id="feature-importance-1" width="661" height="374" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div id="feature-importance-2" class="cell-output cell-output-display">
+<style type="text/css">
+</style>
+
+<table id="T_684bb" class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th id="T_684bb_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Importancia (Gini)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th id="T_684bb_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Days for shipping (real)</th>
+<td id="T_684bb_row0_col0" class="data row0 col0">0.5323</td>
+</tr>
+<tr class="even">
+<th id="T_684bb_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Days for shipment (scheduled)</th>
+<td id="T_684bb_row1_col0" class="data row1 col0">0.4670</td>
+</tr>
+<tr class="odd">
+<th id="T_684bb_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Latitude</th>
+<td id="T_684bb_row2_col0" class="data row2 col0">0.0002</td>
+</tr>
+<tr class="even">
+<th id="T_684bb_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Order Zipcode</th>
+<td id="T_684bb_row3_col0" class="data row3 col0">0.0002</td>
+</tr>
+<tr class="odd">
+<th id="T_684bb_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Longitude</th>
+<td id="T_684bb_row4_col0" class="data row4 col0">0.0001</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
 <section id="matriz-de-correlación" class="level2">
 <h2 class="anchored" data-anchor-id="matriz-de-correlación">Matriz de Correlación</h2>
-<div id="correlation-matrix" class="cell" data-fig-height="6" data-fig-width="7" data-execution_count="12">
+<div id="correlation-matrix" class="cell" data-fig-height="6" data-fig-width="7" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -653,8 +701,8 @@ Correlaciones con Late_delivery_risk (por valor absoluto):</code></pre>
 </section>
 <section id="definición-del-problema-y-metodología" class="level1">
 <h1>Definición del Problema y Metodología</h1>
-<section id="selección-del-problema-late-delivery-risk" class="level2">
-<h2 class="anchored" data-anchor-id="selección-del-problema-late-delivery-risk">Selección del Problema: Late Delivery Risk</h2>
+<section id="selección-del-problema-late-delivery-risk-y-sales" class="level2">
+<h2 class="anchored" data-anchor-id="selección-del-problema-late-delivery-risk-y-sales">Selección del Problema: Late Delivery Risk y Sales</h2>
 <p>En la logística moderna, el cumplimiento de los tiempos de entrega es el factor crítico de la satisfacción del cliente. DataCo define el <strong>Riesgo de Entrega Tardía</strong> (<code>Late_delivery_risk</code>) como un indicador binario activo cuando el tiempo real de envío supera al tiempo programado.</p>
 <p>Dado que el ~55% de las órdenes presenta este riesgo, su predicción temprana permite:</p>
 <ul>
@@ -662,6 +710,7 @@ Correlaciones con Late_delivery_risk (por valor absoluto):</code></pre>
 <li>Reasignar transportistas en rutas críticas.</li>
 <li>Optimizar la planificación de inventarios regionales.</li>
 </ul>
+<p>Por otra parte, las ventas (<code>Sales</code>) son el motor financiero que genera ingresos y rentabilidad empresarial, permitiendo reinversión en operaciones, innovación y crecimiento. En <strong>supply chain</strong>, optimizar ventas mediante entregas puntuales, reducción de costos y satisfacción del cliente es fundamental para la sostenibilidad y competitividad del negocio.</p>
 </section>
 <section id="preprocesamiento-y-prevención-de-data-leakage" class="level2">
 <h2 class="anchored" data-anchor-id="preprocesamiento-y-prevención-de-data-leakage">Preprocesamiento y Prevención de Data Leakage</h2>
@@ -684,7 +733,7 @@ Correlaciones con Late_delivery_risk (por valor absoluto):</code></pre>
 <section id="modelo-de-regresión-predicción-de-ventas" class="level2">
 <h2 class="anchored" data-anchor-id="modelo-de-regresión-predicción-de-ventas">Modelo de Regresión: Predicción de Ventas</h2>
 <p>Benchmarking de cuatro modelos lineales para estimar <code>Sales</code> a partir de variables numéricas del pedido.</p>
-<div id="cell-regression-model" class="cell" data-execution_count="13">
+<div id="cell-regression-model" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
@@ -757,20 +806,20 @@ Correlaciones con Late_delivery_risk (por valor absoluto):</code></pre>
 <style type="text/css">
 </style>
 
-<div id="T_8a725" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
+<div id="T_a5620" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_8a725-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_a5620-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: Benchmarking — Modelos de Regresión
 </figcaption>
-<div aria-describedby="T_8a725-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_8a725" class="caption-top table table-sm table-striped small">
+<div aria-describedby="T_a5620-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="T_a5620" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_8a725_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">MAE</th>
-<th id="T_8a725_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">RMSE</th>
-<th id="T_8a725_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">R²</th>
-<th id="T_8a725_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Tiempo(s)</th>
+<th id="T_a5620_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">MAE</th>
+<th id="T_a5620_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">RMSE</th>
+<th id="T_a5620_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">R²</th>
+<th id="T_a5620_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Tiempo(s)</th>
 </tr>
 <tr class="even">
 <th class="index_name level0" data-quarto-table-cell-role="th">Modelo</th>
@@ -782,32 +831,32 @@ Table&nbsp;1: Benchmarking — Modelos de Regresión
 </thead>
 <tbody>
 <tr class="odd">
-<th id="T_8a725_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Linear Regression</th>
-<td id="T_8a725_row0_col0" class="data row0 col0">0.0006</td>
-<td id="T_8a725_row0_col1" class="data row0 col1">0.0015</td>
-<td id="T_8a725_row0_col2" class="data row0 col2">1.0000</td>
-<td id="T_8a725_row0_col3" class="data row0 col3">0.1941</td>
+<th id="T_a5620_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Linear Regression</th>
+<td id="T_a5620_row0_col0" class="data row0 col0">0.0006</td>
+<td id="T_a5620_row0_col1" class="data row0 col1">0.0015</td>
+<td id="T_a5620_row0_col2" class="data row0 col2">1.0000</td>
+<td id="T_a5620_row0_col3" class="data row0 col3">0.2075</td>
 </tr>
 <tr class="even">
-<th id="T_8a725_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Ridge</th>
-<td id="T_8a725_row1_col0" class="data row1 col0">0.0017</td>
-<td id="T_8a725_row1_col1" class="data row1 col1">0.0033</td>
-<td id="T_8a725_row1_col2" class="data row1 col2">1.0000</td>
-<td id="T_8a725_row1_col3" class="data row1 col3">0.1825</td>
+<th id="T_a5620_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Ridge</th>
+<td id="T_a5620_row1_col0" class="data row1 col0">0.0017</td>
+<td id="T_a5620_row1_col1" class="data row1 col1">0.0033</td>
+<td id="T_a5620_row1_col2" class="data row1 col2">1.0000</td>
+<td id="T_a5620_row1_col3" class="data row1 col3">0.1983</td>
 </tr>
 <tr class="odd">
-<th id="T_8a725_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Lasso</th>
-<td id="T_8a725_row2_col0" class="data row2 col0">0.8359</td>
-<td id="T_8a725_row2_col1" class="data row2 col1">1.1550</td>
-<td id="T_8a725_row2_col2" class="data row2 col2">0.9999</td>
-<td id="T_8a725_row2_col3" class="data row2 col3">0.2393</td>
+<th id="T_a5620_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Lasso</th>
+<td id="T_a5620_row2_col0" class="data row2 col0">0.8359</td>
+<td id="T_a5620_row2_col1" class="data row2 col1">1.1550</td>
+<td id="T_a5620_row2_col2" class="data row2 col2">0.9999</td>
+<td id="T_a5620_row2_col3" class="data row2 col3">0.2029</td>
 </tr>
 <tr class="even">
-<th id="T_8a725_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">ElasticNet</th>
-<td id="T_8a725_row3_col0" class="data row3 col0">21.3449</td>
-<td id="T_8a725_row3_col1" class="data row3 col1">30.1334</td>
-<td id="T_8a725_row3_col2" class="data row3 col2">0.9476</td>
-<td id="T_8a725_row3_col3" class="data row3 col3">0.4799</td>
+<th id="T_a5620_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">ElasticNet</th>
+<td id="T_a5620_row3_col0" class="data row3 col0">21.3449</td>
+<td id="T_a5620_row3_col1" class="data row3 col1">30.1334</td>
+<td id="T_a5620_row3_col2" class="data row3 col2">0.9476</td>
+<td id="T_a5620_row3_col3" class="data row3 col3">0.3575</td>
 </tr>
 </tbody>
 </table>
@@ -819,10 +868,11 @@ Table&nbsp;1: Benchmarking — Modelos de Regresión
 </section>
 <section id="modelo-de-clasificación-riesgo-de-entrega-tardía" class="level2">
 <h2 class="anchored" data-anchor-id="modelo-de-clasificación-riesgo-de-entrega-tardía">Modelo de Clasificación: Riesgo de Entrega Tardía</h2>
-<section id="paso-1-selección-de-features-por-importancia" class="level3">
-<h3 class="anchored" data-anchor-id="paso-1-selección-de-features-por-importancia">Paso 1 — Selección de Features por Importancia</h3>
+<p>Benchmarking de cuatro modelos de clasificación para predecir <code>Late_delivery_risk</code> a partir de variables con mayor importancia.</p>
+<section id="selección-de-features-por-importancia" class="level3">
+<h3 class="anchored" data-anchor-id="selección-de-features-por-importancia">Selección de Features por Importancia</h3>
 <p>Se usa un Decision Tree de referencia para filtrar variables con importancia ≥ 1%.</p>
-<div id="clf-feature-selection" class="cell" data-execution_count="14">
+<div id="clf-feature-selection" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, classification_report</span>
@@ -886,9 +936,9 @@ Prueba       : X=(36104, 2)  | y=(36104,)</code></pre>
 </div>
 </div>
 </section>
-<section id="paso-2-benchmarking-de-clasificadores" class="level3">
-<h3 class="anchored" data-anchor-id="paso-2-benchmarking-de-clasificadores">Paso 2 — Benchmarking de Clasificadores</h3>
-<div id="cell-clf-benchmarking" class="cell" data-execution_count="15">
+<section id="benchmarking-de-clasificadores" class="level3">
+<h3 class="anchored" data-anchor-id="benchmarking-de-clasificadores">Benchmarking de Clasificadores</h3>
+<div id="cell-clf-benchmarking" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
@@ -943,10 +993,10 @@ Prueba       : X=(36104, 2)  | y=(36104,)</code></pre>
 <span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>display(clf_results_df.style.<span class="bu">format</span>(<span class="st">"</span><span class="sc">{:.4f}</span><span class="st">"</span>).set_caption(<span class="st">"Benchmarking — Modelos de Clasificación"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>✔ Logistic Regression    entrenado en 0.0666s
-✔ Decision Tree          entrenado en 0.0364s
-✔ Random Forest          entrenado en 0.5551s
-✔ XGBoost                entrenado en 4.5409s
+<pre><code>✔ Logistic Regression    entrenado en 0.1037s
+✔ Decision Tree          entrenado en 0.0356s
+✔ Random Forest          entrenado en 0.5183s
+✔ XGBoost                entrenado en 0.5316s
 🏆 Mejor Accuracy : Logistic Regression
 🏆 Mejor F1-Score : Logistic Regression
 🏆 Mejor ROC-AUC  : Decision Tree</code></pre>
@@ -955,22 +1005,22 @@ Prueba       : X=(36104, 2)  | y=(36104,)</code></pre>
 <style type="text/css">
 </style>
 
-<div id="T_8ab62" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
+<div id="T_663de" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_8ab62-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_663de-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2: Benchmarking — Modelos de Clasificación
 </figcaption>
-<div aria-describedby="T_8ab62-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_8ab62" class="caption-top table table-sm table-striped small">
+<div aria-describedby="T_663de-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="T_663de" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_8ab62_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Accuracy</th>
-<th id="T_8ab62_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Precision</th>
-<th id="T_8ab62_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Recall</th>
-<th id="T_8ab62_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">F1-Score</th>
-<th id="T_8ab62_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">ROC-AUC</th>
-<th id="T_8ab62_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Tiempo(s)</th>
+<th id="T_663de_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Accuracy</th>
+<th id="T_663de_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Precision</th>
+<th id="T_663de_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Recall</th>
+<th id="T_663de_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">F1-Score</th>
+<th id="T_663de_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">ROC-AUC</th>
+<th id="T_663de_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Tiempo(s)</th>
 </tr>
 <tr class="even">
 <th class="index_name level0" data-quarto-table-cell-role="th">Modelo</th>
@@ -984,40 +1034,40 @@ Table&nbsp;2: Benchmarking — Modelos de Clasificación
 </thead>
 <tbody>
 <tr class="odd">
-<th id="T_8ab62_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Logistic Regression</th>
-<td id="T_8ab62_row0_col0" class="data row0 col0">0.9745</td>
-<td id="T_8ab62_row0_col1" class="data row0 col1">0.9555</td>
-<td id="T_8ab62_row0_col2" class="data row0 col2">1.0000</td>
-<td id="T_8ab62_row0_col3" class="data row0 col3">0.9772</td>
-<td id="T_8ab62_row0_col4" class="data row0 col4">0.9727</td>
-<td id="T_8ab62_row0_col5" class="data row0 col5">0.0666</td>
+<th id="T_663de_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Logistic Regression</th>
+<td id="T_663de_row0_col0" class="data row0 col0">0.9745</td>
+<td id="T_663de_row0_col1" class="data row0 col1">0.9555</td>
+<td id="T_663de_row0_col2" class="data row0 col2">1.0000</td>
+<td id="T_663de_row0_col3" class="data row0 col3">0.9772</td>
+<td id="T_663de_row0_col4" class="data row0 col4">0.9727</td>
+<td id="T_663de_row0_col5" class="data row0 col5">0.1037</td>
 </tr>
 <tr class="even">
-<th id="T_8ab62_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Decision Tree</th>
-<td id="T_8ab62_row1_col0" class="data row1 col0">0.9745</td>
-<td id="T_8ab62_row1_col1" class="data row1 col1">0.9555</td>
-<td id="T_8ab62_row1_col2" class="data row1 col2">1.0000</td>
-<td id="T_8ab62_row1_col3" class="data row1 col3">0.9772</td>
-<td id="T_8ab62_row1_col4" class="data row1 col4">0.9728</td>
-<td id="T_8ab62_row1_col5" class="data row1 col5">0.0364</td>
+<th id="T_663de_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Decision Tree</th>
+<td id="T_663de_row1_col0" class="data row1 col0">0.9745</td>
+<td id="T_663de_row1_col1" class="data row1 col1">0.9555</td>
+<td id="T_663de_row1_col2" class="data row1 col2">1.0000</td>
+<td id="T_663de_row1_col3" class="data row1 col3">0.9772</td>
+<td id="T_663de_row1_col4" class="data row1 col4">0.9728</td>
+<td id="T_663de_row1_col5" class="data row1 col5">0.0356</td>
 </tr>
 <tr class="odd">
-<th id="T_8ab62_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Random Forest</th>
-<td id="T_8ab62_row2_col0" class="data row2 col0">0.9745</td>
-<td id="T_8ab62_row2_col1" class="data row2 col1">0.9555</td>
-<td id="T_8ab62_row2_col2" class="data row2 col2">1.0000</td>
-<td id="T_8ab62_row2_col3" class="data row2 col3">0.9772</td>
-<td id="T_8ab62_row2_col4" class="data row2 col4">0.9728</td>
-<td id="T_8ab62_row2_col5" class="data row2 col5">0.5551</td>
+<th id="T_663de_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Random Forest</th>
+<td id="T_663de_row2_col0" class="data row2 col0">0.9745</td>
+<td id="T_663de_row2_col1" class="data row2 col1">0.9555</td>
+<td id="T_663de_row2_col2" class="data row2 col2">1.0000</td>
+<td id="T_663de_row2_col3" class="data row2 col3">0.9772</td>
+<td id="T_663de_row2_col4" class="data row2 col4">0.9728</td>
+<td id="T_663de_row2_col5" class="data row2 col5">0.5183</td>
 </tr>
 <tr class="even">
-<th id="T_8ab62_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">XGBoost</th>
-<td id="T_8ab62_row3_col0" class="data row3 col0">0.9745</td>
-<td id="T_8ab62_row3_col1" class="data row3 col1">0.9555</td>
-<td id="T_8ab62_row3_col2" class="data row3 col2">1.0000</td>
-<td id="T_8ab62_row3_col3" class="data row3 col3">0.9772</td>
-<td id="T_8ab62_row3_col4" class="data row3 col4">0.9728</td>
-<td id="T_8ab62_row3_col5" class="data row3 col5">4.5409</td>
+<th id="T_663de_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">XGBoost</th>
+<td id="T_663de_row3_col0" class="data row3 col0">0.9745</td>
+<td id="T_663de_row3_col1" class="data row3 col1">0.9555</td>
+<td id="T_663de_row3_col2" class="data row3 col2">1.0000</td>
+<td id="T_663de_row3_col3" class="data row3 col3">0.9772</td>
+<td id="T_663de_row3_col4" class="data row3 col4">0.9728</td>
+<td id="T_663de_row3_col5" class="data row3 col5">0.5316</td>
 </tr>
 </tbody>
 </table>
@@ -1027,9 +1077,9 @@ Table&nbsp;2: Benchmarking — Modelos de Clasificación
 </div>
 </div>
 </section>
-<section id="paso-3-métricas-por-modelo-y-curva-roc" class="level3">
-<h3 class="anchored" data-anchor-id="paso-3-métricas-por-modelo-y-curva-roc">Paso 3 — Métricas por Modelo y Curva ROC</h3>
-<div id="cell-clf-metrics-bar" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="16">
+<section id="métricas-por-modelo-y-curva-roc" class="level3">
+<h3 class="anchored" data-anchor-id="métricas-por-modelo-y-curva-roc">Métricas por Modelo y Curva ROC</h3>
+<div id="cell-clf-metrics-bar" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="17">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1038,7 +1088,7 @@ Table&nbsp;2: Benchmarking — Modelos de Clasificación
 </div>
 </div>
 </div>
-<div id="cell-clf-roc-curve" class="cell" data-fig-height="5" data-fig-width="6" data-execution_count="17">
+<div id="cell-clf-roc-curve" class="cell" data-fig-height="5" data-fig-width="6" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1048,54 +1098,6 @@ Table&nbsp;2: Benchmarking — Modelos de Clasificación
 </div>
 </div>
 </section>
-</section>
-<section id="importancia-de-variables" class="level2">
-<h2 class="anchored" data-anchor-id="importancia-de-variables">Importancia de Variables</h2>
-<p>El análisis revela que los días de envío —real y programado— concentran más del 99% de la importancia total en el árbol de decisión, lo que valida la intuición operativa sobre los factores determinantes del retraso.</p>
-<div id="feature-importance" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="18">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="report_files/figure-html/feature-importance-output-1.png" id="feature-importance-1" width="661" height="374" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div id="feature-importance-2" class="cell-output cell-output-display">
-<style type="text/css">
-</style>
-
-<table id="T_243f3" class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_243f3_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Importancia (Gini)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th id="T_243f3_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Days for shipping (real)</th>
-<td id="T_243f3_row0_col0" class="data row0 col0">0.5323</td>
-</tr>
-<tr class="even">
-<th id="T_243f3_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Days for shipment (scheduled)</th>
-<td id="T_243f3_row1_col0" class="data row1 col0">0.4670</td>
-</tr>
-<tr class="odd">
-<th id="T_243f3_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Latitude</th>
-<td id="T_243f3_row2_col0" class="data row2 col0">0.0002</td>
-</tr>
-<tr class="even">
-<th id="T_243f3_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Order Zipcode</th>
-<td id="T_243f3_row3_col0" class="data row3 col0">0.0002</td>
-</tr>
-<tr class="odd">
-<th id="T_243f3_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Longitude</th>
-<td id="T_243f3_row4_col0" class="data row4 col0">0.0001</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </section>
 </section>
 <section id="conclusiones-y-recomendaciones" class="level1">

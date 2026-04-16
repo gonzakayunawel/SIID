@@ -68,9 +68,9 @@ execute:
 
 # Resumen Ejecutivo
 
-Este informe técnico documenta la transformación de datos crudos en inteligencia operativa para la gestión de la cadena de suministros (Supply Chain Managment). Utilizando técnicas avanzadas de **Ciencia de Datos**, hemos analizado el ecosistema de **DataCo Global** para diagnosticar ineficiencias logísticas.
+Este informe técnico documenta la transformación de datos crudos en inteligencia operativa para la gestión de la cadena de suministros (Supply Chain Managment). Utilizando técnicas avanzadas de **Ciencia de Datos**, se ha analizado el ecosistema de **DataCo Global** para diagnosticar ineficiencias logísticas.
 
-Los resultados demuestran que, a través de modelos de clasificación como **Logistic Regression** o **XGBoost**, es posible anticipar interrupciones en la entrega con una precisión superior al **95%**. Por otra lado, con el uso de modelos como **Linear Regression**, podemos hacer una previsión de las ventas con R^2^ igual a 1. 
+Los resultados demuestran que, a través de modelos de clasificación como **Logistic Regression** o **XGBoost**, es posible anticipar interrupciones en la entrega con una precisión superior al **95%**. Por otra lado, con el uso de modelos como **Linear Regression**, podemos hacer una previsión de las ventas con un R^2^ igual a 1. 
 
 El análisis se estructura en cuatro pilares: contextualización del negocio y calidad de datos, diagnóstico exploratorio con análisis probabilístico, benchmarking de modelos predictivos y recomendaciones de optimización estratégica.
 
@@ -164,15 +164,26 @@ El volumen de ventas presenta estacionalidad marcada. La tendencia mensual permi
 #| fig-width: 7
 #| fig-height: 4
 #| out-width: "100%"
-df['order_date'] = pd.to_datetime(df['order date (DateOrders)'])
-df['order_month'] = df['order_date'].dt.to_period('M')
 
-monthly_sales = df.groupby('order_month')['Sales'].sum().reset_index()
-monthly_sales['order_month'] = monthly_sales['order_month'].astype(str)
+import matplotlib.dates as mdates
 
-plt.figure(figsize=(7, 4))
-sns.lineplot(data=monthly_sales, x='order_month', y='Sales')
-plt.xticks(rotation=45)
+df["order_date"] = pd.to_datetime(df["order date (DateOrders)"])
+df["order_month"] = df["order_date"].dt.to_period("M")
+
+monthly_sales = df.groupby("order_month")["Sales"].sum().reset_index()
+monthly_sales["order_month"] = monthly_sales["order_month"].astype(str)
+
+# Convertir a datetime para usar DateFormatter
+monthly_sales["order_date"] = pd.to_datetime(monthly_sales["order_month"])
+
+fig, ax = plt.subplots(figsize=(7, 4))
+sns.lineplot(data=monthly_sales, x="order_date", y="Sales", ax=ax)
+
+# Formatear eje X
+ax.xaxis.set_major_locator(mdates.MonthLocator(interval=3))  # Cada 3 meses
+ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %y"))  # Ene 15, Feb 15
+
+plt.xticks(rotation=45, ha="right")
 plt.title("Tendencia Mensual de Ventas (USD)")
 plt.xlabel("Mes")
 plt.ylabel("Ventas Totales")
@@ -190,12 +201,18 @@ DataCo opera en múltiples regiones. Europa y LATAM concentran la mayor parte de
 #| fig-width: 7
 #| fig-height: 4
 #| out-width: "100%"
-market_counts = df['Market'].value_counts()
+market_counts = df["Market"].value_counts()
 
 plt.figure(figsize=(7, 4))
-sns.barplot(x=market_counts.index, y=market_counts.values,
-            hue=market_counts.index, palette='viridis', legend=False)
+sns.barplot(
+    x=market_counts.index,
+    y=market_counts.values,
+    hue=market_counts.index,
+    palette="viridis",
+    legend=False,
+)
 plt.title("Distribución de Órdenes por Mercado")
+plt.xlabel("Mercado")
 plt.ylabel("Cantidad de Órdenes")
 plt.tight_layout()
 plt.show()
@@ -209,14 +226,20 @@ plt.show()
 #| fig-width: 7
 #| fig-height: 4
 #| out-width: "100%"
-status_pct = df['Delivery Status'].value_counts(normalize=True).mul(100).round(2)
+status_pct = df["Delivery Status"].value_counts(normalize=True).mul(100).round(2)
 display(status_pct.rename("Proporción (%)").to_frame())
 
 plt.figure(figsize=(7, 4))
-sns.barplot(x=status_pct.values, y=status_pct.index,
-            hue=status_pct.index, palette='muted', legend=False)
+sns.barplot(
+    x=status_pct.values,
+    y=status_pct.index,
+    hue=status_pct.index,
+    palette="muted",
+    legend=False,
+)
 plt.title("Estado de Entregas — Proporción (%)")
 plt.xlabel("Porcentaje (%)")
+plt.ylabel("Estado de entrega")
 plt.tight_layout()
 plt.show()
 ```
@@ -234,8 +257,9 @@ El **54.8%** de los envíos llega tarde, lo que confirma la urgencia del problem
 #| fig-height: 4
 #| out-width: "100%"
 plt.figure(figsize=(7, 4))
-sns.histplot(df['Days for shipping (real)'], kde=True, discrete=True, color='steelblue')
+sns.histplot(df["Days for shipping (real)"], kde=True, discrete=True, color="steelblue")
 plt.title("Distribución — Días de Envío Real")
+plt.ylabel("Frecuencia")
 plt.xlabel("Días")
 plt.tight_layout()
 plt.show()
@@ -250,9 +274,10 @@ plt.show()
 #| fig-height: 4
 #| out-width: "100%"
 plt.figure(figsize=(7, 4))
-sns.histplot(df['Benefit per order'], bins=50, kde=True, color='teal')
+sns.histplot(df["Benefit per order"], bins=50, kde=True, color="teal")
 plt.title("Distribución de Beneficios por Orden")
 plt.xlabel("Beneficio (USD)")
+plt.ylabel("Frecuencia")
 plt.tight_layout()
 plt.show()
 ```
@@ -352,6 +377,78 @@ print(f"Error estándar (SE): {SE:.4f}")
 print(f"Intervalo de confianza 95%: [{IC_L:.2f}, {IC_U:.2f}] USD")
 ```
 
+## Importancia de Características
+
+El análisis revela que los días de envío —real y programado— concentran más del 99% de la importancia total en el árbol de decisión, lo que valida la intuición operativa sobre los factores determinantes del retraso.
+
+```{python}
+#| label: feature-importance
+#| echo: false
+#| fig-width: 7
+#| fig-height: 4
+#| out-width: "100%"
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+
+TARGET_CLF = "Late_delivery_risk"
+
+drop_cols_clf = [
+    TARGET_CLF,
+    "Customer Id",
+    "Order Customer Id",
+    "Order Id",
+    "Order Item Id",
+    "Order Item Cardprod Id",
+    "Product Card Id",
+    "Product Category Id",
+    "Category Id",
+    "Department Id",
+    "Product Description",
+]
+
+numeric_cols_clf = df.select_dtypes(include=[np.number]).columns.tolist()
+feature_cols_clf = [c for c in numeric_cols_clf if c not in drop_cols_clf]
+
+X_clf = df[feature_cols_clf]
+y_clf = df[TARGET_CLF]
+
+X_train_clf, X_test_clf, y_train_clf, y_test_clf = train_test_split(
+    X_clf, y_clf, test_size=0.2, random_state=42, stratify=y_clf
+)
+
+dt_ref = Pipeline(
+    [
+        ("imputer", SimpleImputer(strategy="median")),
+        ("scaler", StandardScaler()),
+        ("model", DecisionTreeClassifier(max_depth=6, random_state=42)),
+    ]
+)
+dt_ref.fit(X_train_clf, y_train_clf)
+
+importances = pd.Series(
+    dt_ref.named_steps["model"].feature_importances_, index=feature_cols_clf
+).sort_values(ascending=False)
+
+IMPORTANCE_THRESHOLD = 0.01
+selected_features = importances[importances >= IMPORTANCE_THRESHOLD].index.tolist()
+
+fig, ax = plt.subplots(figsize=(7, 4))
+importances.plot(kind="bar", ax=ax, color="steelblue", edgecolor="white")
+ax.set_title("Importancia de Características — Decision Tree", fontsize=12, pad=12)
+ax.set_ylabel("Importancia (Gini)")
+plt.xticks(rotation=45, ha="right", fontsize=8)
+plt.tight_layout()
+plt.show()
+
+display(
+    importances.head(5).rename("Importancia (Gini)").to_frame().style.format("{:.4f}")
+)
+```
+
 ## Matriz de Correlación
 
 ```{python}
@@ -394,7 +491,7 @@ display(
 
 # Definición del Problema y Metodología
 
-## Selección del Problema: Late Delivery Risk
+## Selección del Problema: Late Delivery Risk y Sales
 
 En la logística moderna, el cumplimiento de los tiempos de entrega es el factor crítico de la satisfacción del cliente. DataCo define el **Riesgo de Entrega Tardía** (`Late_delivery_risk`) como un indicador binario activo cuando el tiempo real de envío supera al tiempo programado.
 
@@ -403,6 +500,8 @@ Dado que el ~55% de las órdenes presenta este riesgo, su predicción temprana p
 - Notificar proactivamente al cliente.
 - Reasignar transportistas en rutas críticas.
 - Optimizar la planificación de inventarios regionales.
+
+Por otra parte, las ventas (`Sales`) son el motor financiero que genera ingresos y rentabilidad empresarial, permitiendo reinversión en operaciones, innovación y crecimiento. En **supply chain**, optimizar ventas mediante entregas puntuales, reducción de costos y satisfacción del cliente es fundamental para la sostenibilidad y competitividad del negocio.
 
 ## Preprocesamiento y Prevención de Data Leakage
 
@@ -492,7 +591,9 @@ display(results_reg_df.style.format("{:.4f}").set_caption("Benchmarking — Mode
 
 ## Modelo de Clasificación: Riesgo de Entrega Tardía
 
-### Paso 1 — Selección de Features por Importancia
+Benchmarking de cuatro modelos de clasificación para predecir `Late_delivery_risk` a partir de variables con mayor importancia.
+
+### Selección de Features por Importancia
 
 Se usa un Decision Tree de referencia para filtrar variables con importancia ≥ 1%.
 
@@ -551,7 +652,7 @@ print(f"\nEntrenamiento: X={X_train_f.shape} | y={y_train_f.shape}")
 print(f"Prueba       : X={X_test_f.shape}  | y={y_test_f.shape}")
 ```
 
-### Paso 2 — Benchmarking de Clasificadores
+### Benchmarking de Clasificadores
 
 ```{python}
 #| label: clf-benchmarking
@@ -608,7 +709,7 @@ print(f"🏆 Mejor ROC-AUC  : {clf_results_df['ROC-AUC'].idxmax()}")
 display(clf_results_df.style.format("{:.4f}").set_caption("Benchmarking — Modelos de Clasificación"))
 ```
 
-### Paso 3 — Métricas por Modelo y Curva ROC
+### Métricas por Modelo y Curva ROC
 
 ```{python}
 #| label: clf-metrics-bar
@@ -676,31 +777,6 @@ plt.tight_layout()
 plt.show()
 ```
 
-## Importancia de Variables
-
-El análisis revela que los días de envío —real y programado— concentran más del 99% de la importancia total en el árbol de decisión, lo que valida la intuición operativa sobre los factores determinantes del retraso.
-
-```{python}
-#| label: feature-importance
-#| echo: false
-#| fig-width: 7
-#| fig-height: 4
-#| out-width: "100%"
-fig, ax = plt.subplots(figsize=(7, 4))
-importances.plot(kind="bar", ax=ax, color="steelblue", edgecolor="white")
-ax.set_title("Importancia de Características — Decision Tree", fontsize=12, pad=12)
-ax.set_ylabel("Importancia (Gini)")
-plt.xticks(rotation=45, ha="right", fontsize=8)
-plt.tight_layout()
-plt.show()
-
-display(
-    importances.head(5)
-    .rename("Importancia (Gini)")
-    .to_frame()
-    .style.format("{:.4f}")
-)
-```
 
 # Conclusiones y Recomendaciones
 
