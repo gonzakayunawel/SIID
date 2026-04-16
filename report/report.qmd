@@ -15,7 +15,9 @@ format:
     code-fold: true
     theme: cosmo
   pdf:
+    pdf-engine: xelatex
     toc: true
+    toc-depth: 3
     number-sections: true
     colorlinks: true
     geometry:
@@ -31,9 +33,14 @@ format:
         \usepackage{booktabs}
         \usepackage{longtable}
         \usepackage{float}
+        \usepackage[spanish]{babel}
+        \usepackage[utf8]{inputenc}
+        \usepackage{authblk}
+        \renewcommand\Affilfont{\small}
 execute:
   warning: false
   message: false
+  cache: false
 ---
 
 # Resumen Ejecutivo

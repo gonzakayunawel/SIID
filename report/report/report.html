@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<head>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
 
-<meta charset="utf-8" />
-<meta name="generator" content="quarto-1.9.36" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-
-<meta name="author" content="Gonzalo Cayunao Erices" />
-<meta name="dcterms.date" content="2026-04-16" />
+<meta name="author" content="Gonzalo Cayunao Erices">
+<meta name="dcterms.date" content="2026-04-16">
 
 <title>Reporte Técnico: Análisis de Riesgos en Supply Chain</title>
 <style>
@@ -64,19 +62,83 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-<!-- htmldependencies:E3FAD763 -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="report_files/libs/clipboard/clipboard.min.js"></script>
+<script src="report_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="report_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="report_files/libs/quarto-html/popper.min.js"></script>
+<script src="report_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="report_files/libs/quarto-html/anchor.min.js"></script>
+<link href="report_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="report_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="report_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="report_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="report_files/libs/bootstrap/bootstrap-c828ef22e261896bf08411c83b8e8702.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous" data-relocate-top="true"></script>
+
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
 
-<body>
+<body class="quarto-light">
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <div id="quarto-toc-target"></div>
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#resumen-ejecutivo" id="toc-resumen-ejecutivo" class="nav-link active" data-scroll-target="#resumen-ejecutivo">Resumen Ejecutivo</a></li>
+  <li><a href="#introducción-y-contexto" id="toc-introducción-y-contexto" class="nav-link" data-scroll-target="#introducción-y-contexto">Introducción y Contexto</a>
+  <ul class="collapse">
+  <li><a href="#descripción-del-dataset" id="toc-descripción-del-dataset" class="nav-link" data-scroll-target="#descripción-del-dataset">Descripción del Dataset</a></li>
+  <li><a href="#objetivos-del-proyecto" id="toc-objetivos-del-proyecto" class="nav-link" data-scroll-target="#objetivos-del-proyecto">Objetivos del Proyecto</a></li>
+  <li><a href="#calidad-de-datos" id="toc-calidad-de-datos" class="nav-link" data-scroll-target="#calidad-de-datos">Calidad de Datos</a></li>
+  <li><a href="#estadísticas-descriptivas" id="toc-estadísticas-descriptivas" class="nav-link" data-scroll-target="#estadísticas-descriptivas">Estadísticas Descriptivas</a></li>
+  </ul></li>
+  <li><a href="#análisis-exploratorio-de-datos-eda" id="toc-análisis-exploratorio-de-datos-eda" class="nav-link" data-scroll-target="#análisis-exploratorio-de-datos-eda">Análisis Exploratorio de Datos (EDA)</a>
+  <ul class="collapse">
+  <li><a href="#análisis-temporal" id="toc-análisis-temporal" class="nav-link" data-scroll-target="#análisis-temporal">Análisis Temporal</a></li>
+  <li><a href="#distribución-geográfica-y-mercados" id="toc-distribución-geográfica-y-mercados" class="nav-link" data-scroll-target="#distribución-geográfica-y-mercados">Distribución Geográfica y Mercados</a></li>
+  <li><a href="#distribución-del-estado-de-entregas" id="toc-distribución-del-estado-de-entregas" class="nav-link" data-scroll-target="#distribución-del-estado-de-entregas">Distribución del Estado de Entregas</a></li>
+  <li><a href="#distribuciones-de-variables-clave" id="toc-distribuciones-de-variables-clave" class="nav-link" data-scroll-target="#distribuciones-de-variables-clave">Distribuciones de Variables Clave</a>
+  <ul class="collapse">
+  <li><a href="#tiempo-real-de-envío" id="toc-tiempo-real-de-envío" class="nav-link" data-scroll-target="#tiempo-real-de-envío">Tiempo Real de Envío</a></li>
+  <li><a href="#beneficio-por-orden" id="toc-beneficio-por-orden" class="nav-link" data-scroll-target="#beneficio-por-orden">Beneficio por Orden</a></li>
+  </ul></li>
+  <li><a href="#análisis-probabilístico-y-teorema-de-bayes" id="toc-análisis-probabilístico-y-teorema-de-bayes" class="nav-link" data-scroll-target="#análisis-probabilístico-y-teorema-de-bayes">Análisis Probabilístico y Teorema de Bayes</a>
+  <ul class="collapse">
+  <li><a href="#probabilidades-marginales-y-conjuntas" id="toc-probabilidades-marginales-y-conjuntas" class="nav-link" data-scroll-target="#probabilidades-marginales-y-conjuntas">Probabilidades Marginales y Conjuntas</a></li>
+  <li><a href="#probabilidades-condicionales-vía-bayes" id="toc-probabilidades-condicionales-vía-bayes" class="nav-link" data-scroll-target="#probabilidades-condicionales-vía-bayes">Probabilidades Condicionales vía Bayes</a></li>
+  </ul></li>
+  <li><a href="#muestreo-aleatorio-e-intervalo-de-confianza" id="toc-muestreo-aleatorio-e-intervalo-de-confianza" class="nav-link" data-scroll-target="#muestreo-aleatorio-e-intervalo-de-confianza">Muestreo Aleatorio e Intervalo de Confianza</a></li>
+  <li><a href="#matriz-de-correlación" id="toc-matriz-de-correlación" class="nav-link" data-scroll-target="#matriz-de-correlación">Matriz de Correlación</a></li>
+  </ul></li>
+  <li><a href="#definición-del-problema-y-metodología" id="toc-definición-del-problema-y-metodología" class="nav-link" data-scroll-target="#definición-del-problema-y-metodología">Definición del Problema y Metodología</a>
+  <ul class="collapse">
+  <li><a href="#selección-del-problema-late-delivery-risk" id="toc-selección-del-problema-late-delivery-risk" class="nav-link" data-scroll-target="#selección-del-problema-late-delivery-risk">Selección del Problema: Late Delivery Risk</a></li>
+  <li><a href="#preprocesamiento-y-prevención-de-data-leakage" id="toc-preprocesamiento-y-prevención-de-data-leakage" class="nav-link" data-scroll-target="#preprocesamiento-y-prevención-de-data-leakage">Preprocesamiento y Prevención de Data Leakage</a></li>
+  </ul></li>
+  <li><a href="#implementación-y-evaluación-de-modelos" id="toc-implementación-y-evaluación-de-modelos" class="nav-link" data-scroll-target="#implementación-y-evaluación-de-modelos">Implementación y Evaluación de Modelos</a>
+  <ul class="collapse">
+  <li><a href="#modelo-de-regresión-predicción-de-ventas" id="toc-modelo-de-regresión-predicción-de-ventas" class="nav-link" data-scroll-target="#modelo-de-regresión-predicción-de-ventas">Modelo de Regresión: Predicción de Ventas</a></li>
+  <li><a href="#modelo-de-clasificación-riesgo-de-entrega-tardía" id="toc-modelo-de-clasificación-riesgo-de-entrega-tardía" class="nav-link" data-scroll-target="#modelo-de-clasificación-riesgo-de-entrega-tardía">Modelo de Clasificación: Riesgo de Entrega Tardía</a>
+  <ul class="collapse">
+  <li><a href="#paso-1-selección-de-features-por-importancia" id="toc-paso-1-selección-de-features-por-importancia" class="nav-link" data-scroll-target="#paso-1-selección-de-features-por-importancia">Paso 1 — Selección de Features por Importancia</a></li>
+  <li><a href="#paso-2-benchmarking-de-clasificadores" id="toc-paso-2-benchmarking-de-clasificadores" class="nav-link" data-scroll-target="#paso-2-benchmarking-de-clasificadores">Paso 2 — Benchmarking de Clasificadores</a></li>
+  <li><a href="#paso-3-métricas-por-modelo-y-curva-roc" id="toc-paso-3-métricas-por-modelo-y-curva-roc" class="nav-link" data-scroll-target="#paso-3-métricas-por-modelo-y-curva-roc">Paso 3 — Métricas por Modelo y Curva ROC</a></li>
+  </ul></li>
+  <li><a href="#importancia-de-variables" id="toc-importancia-de-variables" class="nav-link" data-scroll-target="#importancia-de-variables">Importancia de Variables</a></li>
+  </ul></li>
+  <li><a href="#conclusiones-y-recomendaciones" id="toc-conclusiones-y-recomendaciones" class="nav-link" data-scroll-target="#conclusiones-y-recomendaciones">Conclusiones y Recomendaciones</a>
+  <ul class="collapse">
+  <li><a href="#hallazgos-principales" id="toc-hallazgos-principales" class="nav-link" data-scroll-target="#hallazgos-principales">Hallazgos Principales</a></li>
+  <li><a href="#recomendaciones" id="toc-recomendaciones" class="nav-link" data-scroll-target="#recomendaciones">Recomendaciones</a></li>
+  </ul></li>
+  <li><a href="#bibliografía-y-referencias" id="toc-bibliografía-y-referencias" class="nav-link" data-scroll-target="#bibliografía-y-referencias">Bibliografía y Referencias</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="../../_tmp/report.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
 </div>
 <main class="content" id="quarto-document-content">
 
@@ -124,60 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<nav id="TOC" role="doc-toc">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#resumen-ejecutivo" id="toc-resumen-ejecutivo">Resumen Ejecutivo</a></li>
-  <li><a href="#introducción-y-contexto" id="toc-introducción-y-contexto">Introducción y Contexto</a>
-  <ul>
-  <li><a href="#descripción-del-dataset" id="toc-descripción-del-dataset">Descripción del Dataset</a></li>
-  <li><a href="#objetivos-del-proyecto" id="toc-objetivos-del-proyecto">Objetivos del Proyecto</a></li>
-  <li><a href="#calidad-de-datos" id="toc-calidad-de-datos">Calidad de Datos</a></li>
-  <li><a href="#estadísticas-descriptivas" id="toc-estadísticas-descriptivas">Estadísticas Descriptivas</a></li>
-  </ul></li>
-  <li><a href="#análisis-exploratorio-de-datos-eda" id="toc-análisis-exploratorio-de-datos-eda">Análisis Exploratorio de Datos (EDA)</a>
-  <ul>
-  <li><a href="#análisis-temporal" id="toc-análisis-temporal">Análisis Temporal</a></li>
-  <li><a href="#distribución-geográfica-y-mercados" id="toc-distribución-geográfica-y-mercados">Distribución Geográfica y Mercados</a></li>
-  <li><a href="#distribución-del-estado-de-entregas" id="toc-distribución-del-estado-de-entregas">Distribución del Estado de Entregas</a></li>
-  <li><a href="#distribuciones-de-variables-clave" id="toc-distribuciones-de-variables-clave">Distribuciones de Variables Clave</a>
-  <ul>
-  <li><a href="#tiempo-real-de-envío" id="toc-tiempo-real-de-envío">Tiempo Real de Envío</a></li>
-  <li><a href="#beneficio-por-orden" id="toc-beneficio-por-orden">Beneficio por Orden</a></li>
-  </ul></li>
-  <li><a href="#análisis-probabilístico-y-teorema-de-bayes" id="toc-análisis-probabilístico-y-teorema-de-bayes">Análisis Probabilístico y Teorema de Bayes</a>
-  <ul>
-  <li><a href="#probabilidades-marginales-y-conjuntas" id="toc-probabilidades-marginales-y-conjuntas">Probabilidades Marginales y Conjuntas</a></li>
-  <li><a href="#probabilidades-condicionales-vía-bayes" id="toc-probabilidades-condicionales-vía-bayes">Probabilidades Condicionales vía Bayes</a></li>
-  </ul></li>
-  <li><a href="#muestreo-aleatorio-e-intervalo-de-confianza" id="toc-muestreo-aleatorio-e-intervalo-de-confianza">Muestreo Aleatorio e Intervalo de Confianza</a></li>
-  <li><a href="#matriz-de-correlación" id="toc-matriz-de-correlación">Matriz de Correlación</a></li>
-  </ul></li>
-  <li><a href="#definición-del-problema-y-metodología" id="toc-definición-del-problema-y-metodología">Definición del Problema y Metodología</a>
-  <ul>
-  <li><a href="#selección-del-problema-late-delivery-risk" id="toc-selección-del-problema-late-delivery-risk">Selección del Problema: Late Delivery Risk</a></li>
-  <li><a href="#preprocesamiento-y-prevención-de-data-leakage" id="toc-preprocesamiento-y-prevención-de-data-leakage">Preprocesamiento y Prevención de Data Leakage</a></li>
-  </ul></li>
-  <li><a href="#implementación-y-evaluación-de-modelos" id="toc-implementación-y-evaluación-de-modelos">Implementación y Evaluación de Modelos</a>
-  <ul>
-  <li><a href="#modelo-de-regresión-predicción-de-ventas" id="toc-modelo-de-regresión-predicción-de-ventas">Modelo de Regresión: Predicción de Ventas</a></li>
-  <li><a href="#modelo-de-clasificación-riesgo-de-entrega-tardía" id="toc-modelo-de-clasificación-riesgo-de-entrega-tardía">Modelo de Clasificación: Riesgo de Entrega Tardía</a>
-  <ul>
-  <li><a href="#paso-1-selección-de-features-por-importancia" id="toc-paso-1-selección-de-features-por-importancia">Paso 1 — Selección de Features por Importancia</a></li>
-  <li><a href="#paso-2-benchmarking-de-clasificadores" id="toc-paso-2-benchmarking-de-clasificadores">Paso 2 — Benchmarking de Clasificadores</a></li>
-  <li><a href="#paso-3-métricas-por-modelo-y-curva-roc" id="toc-paso-3-métricas-por-modelo-y-curva-roc">Paso 3 — Métricas por Modelo y Curva ROC</a></li>
-  </ul></li>
-  <li><a href="#importancia-de-variables" id="toc-importancia-de-variables">Importancia de Variables</a></li>
-  </ul></li>
-  <li><a href="#conclusiones-y-recomendaciones" id="toc-conclusiones-y-recomendaciones">Conclusiones y Recomendaciones</a>
-  <ul>
-  <li><a href="#hallazgos-principales" id="toc-hallazgos-principales">Hallazgos Principales</a></li>
-  <li><a href="#recomendaciones" id="toc-recomendaciones">Recomendaciones</a></li>
-  </ul></li>
-  <li><a href="#bibliografía-y-referencias" id="toc-bibliografía-y-referencias">Bibliografía y Referencias</a></li>
-  </ul>
-</nav>
+
 <section id="resumen-ejecutivo" class="level1">
 <h1>Resumen Ejecutivo</h1>
 <p>Este informe técnico documenta la transformación de datos crudos en inteligencia operativa para la gestión de suministros. Utilizando técnicas avanzadas de <strong>Ciencia de Datos</strong>, hemos analizado el ecosistema de <strong>DataCo Global</strong> para diagnosticar ineficiencias logísticas.</p>
@@ -186,12 +195,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="introducción-y-contexto" class="level1">
 <h1>Introducción y Contexto</h1>
 <section id="descripción-del-dataset" class="level2">
-<h2>Descripción del Dataset</h2>
+<h2 class="anchored" data-anchor-id="descripción-del-dataset">Descripción del Dataset</h2>
 <p>El dataset <strong>DataCo Smart Supply Chain</strong> es una base de datos exhaustiva que integra registros de ventas y logística de una empresa con operaciones globales. Consta de <strong>180,519 registros</strong> y <strong>53 variables</strong>, abarcando el periodo 2015–2018.</p>
 <p>Las variables principales se agrupan en tres dimensiones:</p>
 <ul>
 <li><strong>Información del Cliente</strong>: Ubicación geográfica, segmentación y actividad.</li>
-<li><strong>Logística</strong>: Modos de envío, tiempos reales vs. programados y estado de entrega.</li>
+<li><strong>Logística</strong>: Modos de envío, tiempos reales vs.&nbsp;programados y estado de entrega.</li>
 <li><strong>Finanzas</strong>: Ventas totales, beneficios por orden y descuentos aplicados.</li>
 </ul>
 <div id="load-data" class="cell" data-execution_count="1">
@@ -201,7 +210,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="objetivos-del-proyecto" class="level2">
-<h2>Objetivos del Proyecto</h2>
+<h2 class="anchored" data-anchor-id="objetivos-del-proyecto">Objetivos del Proyecto</h2>
 <ol type="1">
 <li><strong>Identificar Patrones de Retraso</strong>: Detectar rutas y categorías de productos con mayor incidencia de entregas tardías.</li>
 <li><strong>Modelado Predictivo</strong>: Implementar algoritmos de clasificación para predecir <code>Late_delivery_risk</code> en tiempo real.</li>
@@ -209,15 +218,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 </section>
 <section id="calidad-de-datos" class="level2">
-<h2>Calidad de Datos</h2>
+<h2 class="anchored" data-anchor-id="calidad-de-datos">Calidad de Datos</h2>
 <p>Antes de cualquier análisis, se evalúan los valores faltantes. La detección temprana de columnas problemáticas guía las decisiones de preprocesamiento.</p>
 <div id="data-quality" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python cell-code"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nulos <span class="op">=</span> df.isna().<span class="bu">sum</span>()</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nulos <span class="op">=</span> df.isna().<span class="bu">sum</span>()</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>nulos_relevantes <span class="op">=</span> nulos[nulos <span class="op">&gt;</span> <span class="dv">0</span>].sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Columnas con valores nulos:&quot;</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(nulos_relevantes.to_string())</span></code></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Columnas con valores nulos:"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(nulos_relevantes.to_string())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Columnas con valores nulos:
@@ -230,27 +239,15 @@ Customer Zipcode            3</code></pre>
 <p><code>Product Description</code> está completamente vacía (0 registros no nulos) y será descartada. <code>Order Zipcode</code> tiene un 86% de nulos y no aporta valor discriminatorio. <code>Customer Zipcode</code> y <code>Customer Lname</code> tienen ausencias mínimas e irrelevantes para el modelado.</p>
 </section>
 <section id="estadísticas-descriptivas" class="level2">
-<h2>Estadísticas Descriptivas</h2>
+<h2 class="anchored" data-anchor-id="estadísticas-descriptivas">Estadísticas Descriptivas</h2>
 <div id="cell-describe" class="cell" data-execution_count="3">
 <div id="describe" class="cell-output cell-output-display">
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
-<tr class="header" style="text-align: right;">
+<tr class="header">
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">Ship Real</th>
 <th data-quarto-table-cell-role="th">Ship Sched</th>
@@ -263,7 +260,7 @@ Customer Zipcode            3</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">count</td>
+<th data-quarto-table-cell-role="th">count</th>
 <td>180519.00</td>
 <td>180519.00</td>
 <td>180519.00</td>
@@ -273,7 +270,7 @@ Customer Zipcode            3</code></pre>
 <td>180519.00</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">mean</td>
+<th data-quarto-table-cell-role="th">mean</th>
 <td>3.50</td>
 <td>2.93</td>
 <td>21.97</td>
@@ -283,7 +280,7 @@ Customer Zipcode            3</code></pre>
 <td>2.13</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">std</td>
+<th data-quarto-table-cell-role="th">std</th>
 <td>1.62</td>
 <td>1.37</td>
 <td>104.43</td>
@@ -293,7 +290,7 @@ Customer Zipcode            3</code></pre>
 <td>1.45</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">min</td>
+<th data-quarto-table-cell-role="th">min</th>
 <td>0.00</td>
 <td>0.00</td>
 <td>-4274.98</td>
@@ -303,7 +300,7 @@ Customer Zipcode            3</code></pre>
 <td>1.00</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">25%</td>
+<th data-quarto-table-cell-role="th">25%</th>
 <td>2.00</td>
 <td>2.00</td>
 <td>7.00</td>
@@ -313,7 +310,7 @@ Customer Zipcode            3</code></pre>
 <td>1.00</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">50%</td>
+<th data-quarto-table-cell-role="th">50%</th>
 <td>3.00</td>
 <td>4.00</td>
 <td>31.52</td>
@@ -323,7 +320,7 @@ Customer Zipcode            3</code></pre>
 <td>1.00</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">75%</td>
+<th data-quarto-table-cell-role="th">75%</th>
 <td>5.00</td>
 <td>4.00</td>
 <td>64.80</td>
@@ -333,7 +330,7 @@ Customer Zipcode            3</code></pre>
 <td>3.00</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">max</td>
+<th data-quarto-table-cell-role="th">max</th>
 <td>6.00</td>
 <td>4.00</td>
 <td>911.80</td>
@@ -359,53 +356,41 @@ Customer Zipcode            3</code></pre>
 <section id="análisis-exploratorio-de-datos-eda" class="level1">
 <h1>Análisis Exploratorio de Datos (EDA)</h1>
 <section id="análisis-temporal" class="level2">
-<h2>Análisis Temporal</h2>
+<h2 class="anchored" data-anchor-id="análisis-temporal">Análisis Temporal</h2>
 <p>El volumen de ventas presenta estacionalidad marcada. La tendencia mensual permite identificar picos operativos.</p>
 <div id="cell-temporal-analysis" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
-<figure>
-<p><img src="report_files/figure-html/temporal-analysis-output-1.png" id="temporal-analysis" width="662" height="374" /></p>
+<figure class="figure">
+<p><img src="report_files/figure-html/temporal-analysis-output-1.png" id="temporal-analysis" width="662" height="374" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
 <section id="distribución-geográfica-y-mercados" class="level2">
-<h2>Distribución Geográfica y Mercados</h2>
+<h2 class="anchored" data-anchor-id="distribución-geográfica-y-mercados">Distribución Geográfica y Mercados</h2>
 <p>DataCo opera en múltiples regiones. Europa y LATAM concentran la mayor parte de las transacciones, pero también presentan retos logísticos diferenciados.</p>
 <div id="cell-geographic-analysis" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
-<figure>
-<p><img src="report_files/figure-html/geographic-analysis-output-1.png" id="geographic-analysis" width="662" height="375" /></p>
+<figure class="figure">
+<p><img src="report_files/figure-html/geographic-analysis-output-1.png" id="geographic-analysis" width="662" height="375" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
 <section id="distribución-del-estado-de-entregas" class="level2">
-<h2>Distribución del Estado de Entregas</h2>
+<h2 class="anchored" data-anchor-id="distribución-del-estado-de-entregas">Distribución del Estado de Entregas</h2>
 <div id="delivery-status" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="6">
 <div id="delivery-status-1" class="cell-output cell-output-display">
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
-<tr class="header" style="text-align: right;">
+<tr class="header">
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">Proporción (%)</th>
 </tr>
@@ -416,19 +401,19 @@ Customer Zipcode            3</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Late delivery</td>
+<th data-quarto-table-cell-role="th">Late delivery</th>
 <td>54.83</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Advance shipping</td>
+<th data-quarto-table-cell-role="th">Advance shipping</th>
 <td>23.04</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Shipping on time</td>
+<th data-quarto-table-cell-role="th">Shipping on time</th>
 <td>17.84</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Shipping canceled</td>
+<th data-quarto-table-cell-role="th">Shipping canceled</th>
 <td>4.30</td>
 </tr>
 </tbody>
@@ -438,8 +423,8 @@ Customer Zipcode            3</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<figure>
-<p><img src="report_files/figure-html/delivery-status-output-2.png" id="delivery-status-2" width="661" height="374" /></p>
+<figure class="figure">
+<p><img src="report_files/figure-html/delivery-status-output-2.png" id="delivery-status-2" width="661" height="374" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -447,26 +432,26 @@ Customer Zipcode            3</code></pre>
 <p>El <strong>54.8%</strong> de los envíos llega tarde, lo que confirma la urgencia del problema y justifica la construcción de un modelo predictivo.</p>
 </section>
 <section id="distribuciones-de-variables-clave" class="level2">
-<h2>Distribuciones de Variables Clave</h2>
+<h2 class="anchored" data-anchor-id="distribuciones-de-variables-clave">Distribuciones de Variables Clave</h2>
 <section id="tiempo-real-de-envío" class="level3">
-<h3>Tiempo Real de Envío</h3>
+<h3 class="anchored" data-anchor-id="tiempo-real-de-envío">Tiempo Real de Envío</h3>
 <div id="cell-dist-shipping" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
-<figure>
-<p><img src="report_files/figure-html/dist-shipping-output-1.png" id="dist-shipping" width="662" height="374" /></p>
+<figure class="figure">
+<p><img src="report_files/figure-html/dist-shipping-output-1.png" id="dist-shipping" width="662" height="374" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
 <section id="beneficio-por-orden" class="level3">
-<h3>Beneficio por Orden</h3>
+<h3 class="anchored" data-anchor-id="beneficio-por-orden">Beneficio por Orden</h3>
 <div id="cell-benefit-dist" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
-<figure>
-<p><img src="report_files/figure-html/benefit-dist-output-1.png" id="benefit-dist" width="661" height="374" /></p>
+<figure class="figure">
+<p><img src="report_files/figure-html/benefit-dist-output-1.png" id="benefit-dist" width="661" height="374" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -475,7 +460,7 @@ Customer Zipcode            3</code></pre>
 </section>
 </section>
 <section id="análisis-probabilístico-y-teorema-de-bayes" class="level2">
-<h2>Análisis Probabilístico y Teorema de Bayes</h2>
+<h2 class="anchored" data-anchor-id="análisis-probabilístico-y-teorema-de-bayes">Análisis Probabilístico y Teorema de Bayes</h2>
 <p>Se definen tres eventos de interés para cuantificar escenarios críticos de logística:</p>
 <ul>
 <li><strong>A</strong>: Envío lento — <code>Days for shipping (real) ≥ 4</code></li>
@@ -483,33 +468,33 @@ Customer Zipcode            3</code></pre>
 <li><strong>C</strong>: Orden no rentable — <code>Benefit per order ≤ −100</code></li>
 </ul>
 <section id="probabilidades-marginales-y-conjuntas" class="level3">
-<h3>Probabilidades Marginales y Conjuntas</h3>
+<h3 class="anchored" data-anchor-id="probabilidades-marginales-y-conjuntas">Probabilidades Marginales y Conjuntas</h3>
 <div id="bayes-2var" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python cell-code"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>P_A <span class="op">=</span> (df[<span class="st">&quot;Days for shipping (real)&quot;</span>] <span class="op">&gt;=</span> <span class="dv">4</span>).mean()</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>P_B <span class="op">=</span> (df[<span class="st">&quot;Late_delivery_risk&quot;</span>] <span class="op">==</span> <span class="dv">1</span>).mean()</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>P_C <span class="op">=</span> (df[<span class="st">&quot;Benefit per order&quot;</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">100</span>).mean()</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>P_A <span class="op">=</span> (df[<span class="st">"Days for shipping (real)"</span>] <span class="op">&gt;=</span> <span class="dv">4</span>).mean()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>P_B <span class="op">=</span> (df[<span class="st">"Late_delivery_risk"</span>] <span class="op">==</span> <span class="dv">1</span>).mean()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>P_C <span class="op">=</span> (df[<span class="st">"Benefit per order"</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">100</span>).mean()</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>P_AB  <span class="op">=</span> ((df[<span class="st">&quot;Days for shipping (real)&quot;</span>] <span class="op">&gt;=</span> <span class="dv">4</span>) <span class="op">&amp;</span> (df[<span class="st">&quot;Late_delivery_risk&quot;</span>] <span class="op">==</span> <span class="dv">1</span>)).mean()</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>P_AC  <span class="op">=</span> ((df[<span class="st">&quot;Days for shipping (real)&quot;</span>] <span class="op">&gt;=</span> <span class="dv">4</span>) <span class="op">&amp;</span> (df[<span class="st">&quot;Benefit per order&quot;</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">100</span>)).mean()</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>P_BC  <span class="op">=</span> ((df[<span class="st">&quot;Late_delivery_risk&quot;</span>] <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (df[<span class="st">&quot;Benefit per order&quot;</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">100</span>)).mean()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>P_AB  <span class="op">=</span> ((df[<span class="st">"Days for shipping (real)"</span>] <span class="op">&gt;=</span> <span class="dv">4</span>) <span class="op">&amp;</span> (df[<span class="st">"Late_delivery_risk"</span>] <span class="op">==</span> <span class="dv">1</span>)).mean()</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>P_AC  <span class="op">=</span> ((df[<span class="st">"Days for shipping (real)"</span>] <span class="op">&gt;=</span> <span class="dv">4</span>) <span class="op">&amp;</span> (df[<span class="st">"Benefit per order"</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">100</span>)).mean()</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>P_BC  <span class="op">=</span> ((df[<span class="st">"Late_delivery_risk"</span>] <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (df[<span class="st">"Benefit per order"</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">100</span>)).mean()</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>P_ABC <span class="op">=</span> (</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    (df[<span class="st">&quot;Days for shipping (real)&quot;</span>] <span class="op">&gt;=</span> <span class="dv">4</span>) <span class="op">&amp;</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    (df[<span class="st">&quot;Late_delivery_risk&quot;</span>] <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    (df[<span class="st">&quot;Benefit per order&quot;</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">100</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    (df[<span class="st">"Days for shipping (real)"</span>] <span class="op">&gt;=</span> <span class="dv">4</span>) <span class="op">&amp;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    (df[<span class="st">"Late_delivery_risk"</span>] <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    (df[<span class="st">"Benefit per order"</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">100</span>)</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>).mean()</span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Probabilidades marginales:&quot;</span>)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;  P(A) Envío lento       = </span><span class="sc">{</span>P_A<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_A<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)&quot;</span>)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;  P(B) Riesgo de retraso = </span><span class="sc">{</span>P_B<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_B<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)&quot;</span>)</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;  P(C) Orden no rentable = </span><span class="sc">{</span>P_C<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_C<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)&quot;</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Probabilidades marginales:"</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A) Envío lento       = </span><span class="sc">{</span>P_A<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_A<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(B) Riesgo de retraso = </span><span class="sc">{</span>P_B<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_B<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(C) Orden no rentable = </span><span class="sc">{</span>P_C<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_C<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">Probabilidades conjuntas:&quot;</span>)</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;  P(A∩B)   = </span><span class="sc">{</span>P_AB<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_AB<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)&quot;</span>)</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;  P(A∩C)   = </span><span class="sc">{</span>P_AC<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_AC<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)&quot;</span>)</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;  P(B∩C)   = </span><span class="sc">{</span>P_BC<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_BC<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)&quot;</span>)</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;  P(A∩B∩C) = </span><span class="sc">{</span>P_ABC<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_ABC<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)&quot;</span>)</span></code></pre></div>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Probabilidades conjuntas:"</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A∩B)   = </span><span class="sc">{</span>P_AB<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_AB<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A∩C)   = </span><span class="sc">{</span>P_AC<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_AC<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(B∩C)   = </span><span class="sc">{</span>P_BC<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_BC<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A∩B∩C) = </span><span class="sc">{</span>P_ABC<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_ABC<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Probabilidades marginales:
@@ -526,28 +511,28 @@ Probabilidades conjuntas:
 </div>
 </section>
 <section id="probabilidades-condicionales-vía-bayes" class="level3">
-<h3>Probabilidades Condicionales vía Bayes</h3>
+<h3 class="anchored" data-anchor-id="probabilidades-condicionales-vía-bayes">Probabilidades Condicionales vía Bayes</h3>
 <div id="bayes-conditional" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python cell-code"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>P_A_dado_B        <span class="op">=</span> P_AB <span class="op">/</span> P_B</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>P_A_dado_B        <span class="op">=</span> P_AB <span class="op">/</span> P_B</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>P_B_dado_A        <span class="op">=</span> P_AB <span class="op">/</span> P_A</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>P_C_dado_A        <span class="op">=</span> P_AC <span class="op">/</span> P_A</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>P_BC_dado_A       <span class="op">=</span> P_ABC <span class="op">/</span> P_A</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>P_BC_dado_A_bayes <span class="op">=</span> (P_ABC <span class="op">/</span> P_BC) <span class="op">*</span> P_BC <span class="op">/</span> P_A   <span class="co"># verificación Bayes</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Probabilidades condicionales:&quot;</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;  P(B|A) = </span><span class="sc">{</span>P_B_dado_A<span class="sc">:.4f}</span><span class="ss"> (</span><span class="sc">{</span>P_B_dado_A<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%) → Dado envío lento → riesgo de retraso&quot;</span>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;  P(A|B) = </span><span class="sc">{</span>P_A_dado_B<span class="sc">:.4f}</span><span class="ss"> (</span><span class="sc">{</span>P_A_dado_B<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%) → Dado retraso → envío fue lento&quot;</span>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;  P(C|A) = </span><span class="sc">{</span>P_C_dado_A<span class="sc">:.4f}</span><span class="ss"> (</span><span class="sc">{</span>P_C_dado_A<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%) → Dado envío lento → orden no rentable&quot;</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;  P(B∩C|A) directo = </span><span class="sc">{</span>P_BC_dado_A<span class="sc">:.4f}</span><span class="ss"> (</span><span class="sc">{</span>P_BC_dado_A<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%) → Envío lento → retraso Y pérdida&quot;</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Probabilidades condicionales:"</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(B|A) = </span><span class="sc">{</span>P_B_dado_A<span class="sc">:.4f}</span><span class="ss"> (</span><span class="sc">{</span>P_B_dado_A<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%) → Dado envío lento → riesgo de retraso"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A|B) = </span><span class="sc">{</span>P_A_dado_B<span class="sc">:.4f}</span><span class="ss"> (</span><span class="sc">{</span>P_A_dado_B<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%) → Dado retraso → envío fue lento"</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(C|A) = </span><span class="sc">{</span>P_C_dado_A<span class="sc">:.4f}</span><span class="ss"> (</span><span class="sc">{</span>P_C_dado_A<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%) → Dado envío lento → orden no rentable"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(B∩C|A) directo = </span><span class="sc">{</span>P_BC_dado_A<span class="sc">:.4f}</span><span class="ss"> (</span><span class="sc">{</span>P_BC_dado_A<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%) → Envío lento → retraso Y pérdida"</span>)</span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">Verificación independencia (A y C):&quot;</span>)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;  P(A)·P(C) = </span><span class="sc">{</span>P_A<span class="op">*</span>P_C<span class="sc">:.4f}</span><span class="ss">  vs  P(A∩C) = </span><span class="sc">{</span>P_AC<span class="sc">:.4f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Verificación independencia (A y C):"</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A)·P(C) = </span><span class="sc">{</span>P_A<span class="op">*</span>P_C<span class="sc">:.4f}</span><span class="ss">  vs  P(A∩C) = </span><span class="sc">{</span>P_AC<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">abs</span>(P_A <span class="op">*</span> P_C <span class="op">-</span> P_AC) <span class="op">&lt;</span> <span class="fl">0.001</span>:</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;  → Eventos aproximadamente INDEPENDIENTES&quot;</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"  → Eventos aproximadamente INDEPENDIENTES"</span>)</span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;  → Eventos NO independientes (hay asociación)&quot;</span>)</span></code></pre></div>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"  → Eventos NO independientes (hay asociación)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Probabilidades condicionales:
@@ -565,14 +550,14 @@ Verificación independencia (A y C):
 </section>
 </section>
 <section id="muestreo-aleatorio-e-intervalo-de-confianza" class="level2">
-<h2>Muestreo Aleatorio e Intervalo de Confianza</h2>
+<h2 class="anchored" data-anchor-id="muestreo-aleatorio-e-intervalo-de-confianza">Muestreo Aleatorio e Intervalo de Confianza</h2>
 <p>Para validar la representatividad de una muestra, se aplica muestreo aleatorio simple (5%) y se construye un intervalo de confianza al 95% para la variable <code>Sales per customer</code>.</p>
 <div id="sampling-ci" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python cell-code"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df_muestra <span class="op">=</span> df.sample(frac<span class="op">=</span><span class="fl">0.05</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df_muestra <span class="op">=</span> df.sample(frac<span class="op">=</span><span class="fl">0.05</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>col <span class="op">=</span> <span class="st">&#39;Sales per customer&#39;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>col <span class="op">=</span> <span class="st">'Sales per customer'</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>media <span class="op">=</span> df_muestra[col].mean()</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>std   <span class="op">=</span> df_muestra[col].std()</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>n     <span class="op">=</span> <span class="bu">len</span>(df_muestra)</span>
@@ -584,15 +569,15 @@ Verificación independencia (A y C):
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>IC_L <span class="op">=</span> media <span class="op">-</span> error</span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>IC_U <span class="op">=</span> media <span class="op">+</span> error</span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Muestra: n = </span><span class="sc">{</span>n<span class="sc">:,}</span><span class="ss"> (</span><span class="sc">{</span>n<span class="op">/</span><span class="bu">len</span>(df)<span class="op">*</span><span class="dv">100</span><span class="sc">:.0f}</span><span class="ss">% del total)&quot;</span>)</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Media muestral de &#39;</span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">&#39;: </span><span class="sc">{</span>media<span class="sc">:.2f}</span><span class="ss"> USD&quot;</span>)</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Desviación estándar: </span><span class="sc">{</span>std<span class="sc">:.2f}</span><span class="ss">&quot;</span>)</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Error estándar (SE): </span><span class="sc">{</span>SE<span class="sc">:.4f}</span><span class="ss">&quot;</span>)</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Intervalo de confianza 95%: [</span><span class="sc">{</span>IC_L<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>IC_U<span class="sc">:.2f}</span><span class="ss">] USD&quot;</span>)</span></code></pre></div>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Muestra: n = </span><span class="sc">{</span>n<span class="sc">:,}</span><span class="ss"> (</span><span class="sc">{</span>n<span class="op">/</span><span class="bu">len</span>(df)<span class="op">*</span><span class="dv">100</span><span class="sc">:.0f}</span><span class="ss">% del total)"</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Media muestral de '</span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">': </span><span class="sc">{</span>media<span class="sc">:.2f}</span><span class="ss"> USD"</span>)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Desviación estándar: </span><span class="sc">{</span>std<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Error estándar (SE): </span><span class="sc">{</span>SE<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Intervalo de confianza 95%: [</span><span class="sc">{</span>IC_L<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>IC_U<span class="sc">:.2f}</span><span class="ss">] USD"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Muestra: n = 9,026 (5% del total)
-Media muestral de &#39;Sales per customer&#39;: 184.39 USD
+Media muestral de 'Sales per customer': 184.39 USD
 Desviación estándar: 120.41
 Error estándar (SE): 1.2674
 Intervalo de confianza 95%: [181.91, 186.88] USD</code></pre>
@@ -600,12 +585,12 @@ Intervalo de confianza 95%: [181.91, 186.88] USD</code></pre>
 </div>
 </section>
 <section id="matriz-de-correlación" class="level2">
-<h2>Matriz de Correlación</h2>
+<h2 class="anchored" data-anchor-id="matriz-de-correlación">Matriz de Correlación</h2>
 <div id="correlation-matrix" class="cell" data-fig-height="6" data-fig-width="7" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div>
-<figure>
-<p><img src="report_files/figure-html/correlation-matrix-output-1.png" id="correlation-matrix-1" width="657" height="564" /></p>
+<figure class="figure">
+<p><img src="report_files/figure-html/correlation-matrix-output-1.png" id="correlation-matrix-1" width="657" height="564" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -615,58 +600,46 @@ Correlaciones con Late_delivery_risk (por valor absoluto):</code></pre>
 </div>
 <div id="correlation-matrix-2" class="cell-output cell-output-display">
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
-<tr class="header" style="text-align: right;">
+<tr class="header">
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">Correlación</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Days for shipping (real)</td>
+<th data-quarto-table-cell-role="th">Days for shipping (real)</th>
 <td>0.401415</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Days for shipment (scheduled)</td>
+<th data-quarto-table-cell-role="th">Days for shipment (scheduled)</th>
 <td>-0.369352</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Order Zipcode</td>
+<th data-quarto-table-cell-role="th">Order Zipcode</th>
 <td>-0.014131</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Sales per customer</td>
+<th data-quarto-table-cell-role="th">Sales per customer</th>
 <td>-0.003791</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Order Item Total</td>
+<th data-quarto-table-cell-role="th">Order Item Total</th>
 <td>-0.003791</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Order Profit Per Order</td>
+<th data-quarto-table-cell-role="th">Order Profit Per Order</th>
 <td>-0.003727</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">Benefit per order</td>
+<th data-quarto-table-cell-role="th">Benefit per order</th>
 <td>-0.003727</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Sales</td>
+<th data-quarto-table-cell-role="th">Sales</th>
 <td>-0.003564</td>
 </tr>
 </tbody>
@@ -680,7 +653,7 @@ Correlaciones con Late_delivery_risk (por valor absoluto):</code></pre>
 <section id="definición-del-problema-y-metodología" class="level1">
 <h1>Definición del Problema y Metodología</h1>
 <section id="selección-del-problema-late-delivery-risk" class="level2">
-<h2>Selección del Problema: Late Delivery Risk</h2>
+<h2 class="anchored" data-anchor-id="selección-del-problema-late-delivery-risk">Selección del Problema: Late Delivery Risk</h2>
 <p>En la logística moderna, el cumplimiento de los tiempos de entrega es el factor crítico de la satisfacción del cliente. DataCo define el <strong>Riesgo de Entrega Tardía</strong> (<code>Late_delivery_risk</code>) como un indicador binario activo cuando el tiempo real de envío supera al tiempo programado.</p>
 <p>Dado que el ~55% de las órdenes presenta este riesgo, su predicción temprana permite:</p>
 <ul>
@@ -690,7 +663,7 @@ Correlaciones con Late_delivery_risk (por valor absoluto):</code></pre>
 </ul>
 </section>
 <section id="preprocesamiento-y-prevención-de-data-leakage" class="level2">
-<h2>Preprocesamiento y Prevención de Data Leakage</h2>
+<h2 class="anchored" data-anchor-id="preprocesamiento-y-prevención-de-data-leakage">Preprocesamiento y Prevención de Data Leakage</h2>
 <p>Se aplicaron las siguientes transformaciones en todos los pipelines de modelado:</p>
 <ol type="1">
 <li><strong>Imputación de valores nulos</strong> mediante la mediana (<code>SimpleImputer(strategy="median")</code>).</li>
@@ -708,12 +681,12 @@ Correlaciones con Late_delivery_risk (por valor absoluto):</code></pre>
 <h1>Implementación y Evaluación de Modelos</h1>
 <p>El modelado se abordó desde dos perspectivas: regresión (predicción de ventas totales) y clasificación (predicción del riesgo de entrega tardía).</p>
 <section id="modelo-de-regresión-predicción-de-ventas" class="level2">
-<h2>Modelo de Regresión: Predicción de Ventas</h2>
+<h2 class="anchored" data-anchor-id="modelo-de-regresión-predicción-de-ventas">Modelo de Regresión: Predicción de Ventas</h2>
 <p>Benchmarking de cuatro modelos lineales para estimar <code>Sales</code> a partir de variables numéricas del pedido.</p>
 <div id="cell-regression-model" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb11"><pre class="sourceCode python cell-code"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> ElasticNet, Lasso, LinearRegression, Ridge</span>
@@ -722,19 +695,19 @@ Correlaciones con Late_delivery_risk (por valor absoluto):</code></pre>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>TARGET <span class="op">=</span> <span class="st">&#39;Sales&#39;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>TARGET <span class="op">=</span> <span class="st">'Sales'</span></span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>drop_cols <span class="op">=</span> [</span>
 <span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    TARGET,</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Customer Id&#39;</span>, <span class="st">&#39;Order Customer Id&#39;</span>, <span class="st">&#39;Order Id&#39;</span>,</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Order Item Id&#39;</span>, <span class="st">&#39;Order Item Cardprod Id&#39;</span>,</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Product Card Id&#39;</span>, <span class="st">&#39;Product Category Id&#39;</span>, <span class="st">&#39;Category Id&#39;</span>, <span class="st">&#39;Department Id&#39;</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Customer Id'</span>, <span class="st">'Order Customer Id'</span>, <span class="st">'Order Id'</span>,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Order Item Id'</span>, <span class="st">'Order Item Cardprod Id'</span>,</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Product Card Id'</span>, <span class="st">'Product Category Id'</span>, <span class="st">'Category Id'</span>, <span class="st">'Department Id'</span>,</span>
 <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fuga de datos — derivadas de Sales</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Order Item Total&#39;</span>,</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Order Profit Per Order&#39;</span>,</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Benefit per order&#39;</span>,</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Order Item Total'</span>,</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Order Profit Per Order'</span>,</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Benefit per order'</span>,</span>
 <span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sin datos útiles</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Product Description&#39;</span>,</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Product Description'</span>,</span>
 <span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>numeric_cols <span class="op">=</span> df.select_dtypes(include<span class="op">=</span>[np.number]).columns.tolist()</span>
@@ -746,35 +719,35 @@ Correlaciones con Late_delivery_risk (por valor absoluto):</code></pre>
 <span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
 <span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>models_reg <span class="op">=</span> {</span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Linear Regression&quot;</span>: LinearRegression(),</span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Ridge&quot;</span>:             Ridge(alpha<span class="op">=</span><span class="fl">1.0</span>),</span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Lasso&quot;</span>:             Lasso(alpha<span class="op">=</span><span class="fl">1.0</span>, max_iter<span class="op">=</span><span class="dv">5000</span>),</span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;ElasticNet&quot;</span>:        ElasticNet(alpha<span class="op">=</span><span class="fl">1.0</span>, l1_ratio<span class="op">=</span><span class="fl">0.5</span>, max_iter<span class="op">=</span><span class="dv">5000</span>),</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Linear Regression"</span>: LinearRegression(),</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Ridge"</span>:             Ridge(alpha<span class="op">=</span><span class="fl">1.0</span>),</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Lasso"</span>:             Lasso(alpha<span class="op">=</span><span class="fl">1.0</span>, max_iter<span class="op">=</span><span class="dv">5000</span>),</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ElasticNet"</span>:        ElasticNet(alpha<span class="op">=</span><span class="fl">1.0</span>, l1_ratio<span class="op">=</span><span class="fl">0.5</span>, max_iter<span class="op">=</span><span class="dv">5000</span>),</span>
 <span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>results_reg <span class="op">=</span> []</span>
 <span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, model <span class="kw">in</span> models_reg.items():</span>
 <span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>    pipe <span class="op">=</span> Pipeline([</span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>        (<span class="st">&quot;imputer&quot;</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">&quot;median&quot;</span>)),</span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>        (<span class="st">&quot;scaler&quot;</span>,  StandardScaler()),</span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>        (<span class="st">&quot;model&quot;</span>,   model),</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"imputer"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)),</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"scaler"</span>,  StandardScaler()),</span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"model"</span>,   model),</span>
 <span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>    ])</span>
 <span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> time.time()</span>
 <span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>    pipe.fit(X_train, y_train)</span>
 <span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>    elapsed <span class="op">=</span> time.time() <span class="op">-</span> start</span>
 <span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>    y_pred <span class="op">=</span> pipe.predict(X_test)</span>
 <span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>    results_reg.append({</span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Modelo&quot;</span>:    name,</span>
-<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;MAE&quot;</span>:       <span class="bu">round</span>(mean_absolute_error(y_test, y_pred), <span class="dv">4</span>),</span>
-<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;RMSE&quot;</span>:      <span class="bu">round</span>(root_mean_squared_error(y_test, y_pred), <span class="dv">4</span>),</span>
-<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;R²&quot;</span>:        <span class="bu">round</span>(r2_score(y_test, y_pred), <span class="dv">4</span>),</span>
-<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Tiempo(s)&quot;</span>: <span class="bu">round</span>(elapsed, <span class="dv">4</span>),</span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Modelo"</span>:    name,</span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>        <span class="st">"MAE"</span>:       <span class="bu">round</span>(mean_absolute_error(y_test, y_pred), <span class="dv">4</span>),</span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>        <span class="st">"RMSE"</span>:      <span class="bu">round</span>(root_mean_squared_error(y_test, y_pred), <span class="dv">4</span>),</span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>        <span class="st">"R²"</span>:        <span class="bu">round</span>(r2_score(y_test, y_pred), <span class="dv">4</span>),</span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Tiempo(s)"</span>: <span class="bu">round</span>(elapsed, <span class="dv">4</span>),</span>
 <span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>    })</span>
 <span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>results_reg_df <span class="op">=</span> pd.DataFrame(results_reg).set_index(<span class="st">&quot;Modelo&quot;</span>).sort_values(<span class="st">&quot;R²&quot;</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\u2705</span><span class="ss"> Mejor modelo por R²: </span><span class="sc">{</span>results_reg_df[<span class="st">&#39;R²&#39;</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>display(results_reg_df.style.<span class="bu">format</span>(<span class="st">&quot;</span><span class="sc">{:.4f}</span><span class="st">&quot;</span>).set_caption(<span class="st">&quot;Benchmarking — Modelos de Regresión&quot;</span>))</span></code></pre></div>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>results_reg_df <span class="op">=</span> pd.DataFrame(results_reg).set_index(<span class="st">"Modelo"</span>).sort_values(<span class="st">"R²"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\u2705</span><span class="ss"> Mejor modelo por R²: </span><span class="sc">{</span>results_reg_df[<span class="st">'R²'</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>display(results_reg_df.style.<span class="bu">format</span>(<span class="st">"</span><span class="sc">{:.4f}</span><span class="st">"</span>).set_caption(<span class="st">"Benchmarking — Modelos de Regresión"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>✅ Mejor modelo por R²: Linear Regression</code></pre>
@@ -783,57 +756,57 @@ Correlaciones con Late_delivery_risk (por valor absoluto):</code></pre>
 <style type="text/css">
 </style>
 
-<div id="T_44665" class="quarto-float quarto-figure quarto-figure-center" data-quarto-postprocess="true">
-<figure class="quarto-float quarto-float-tbl">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_44665-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table 1: Benchmarking — Modelos de Regresión
+<div id="T_23ca8" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_23ca8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Benchmarking — Modelos de Regresión
 </figcaption>
-<div aria-describedby="T_44665-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_44665" class="caption-top" data-quarto-postprocess="true">
+<div aria-describedby="T_23ca8-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="T_23ca8" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th class="blank level0" data-quarto-table-cell-role="th"> </th>
-<th id="T_44665_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">MAE</th>
-<th id="T_44665_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">RMSE</th>
-<th id="T_44665_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">R²</th>
-<th id="T_44665_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Tiempo(s)</th>
+<th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th id="T_23ca8_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">MAE</th>
+<th id="T_23ca8_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">RMSE</th>
+<th id="T_23ca8_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">R²</th>
+<th id="T_23ca8_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Tiempo(s)</th>
 </tr>
 <tr class="even">
 <th class="index_name level0" data-quarto-table-cell-role="th">Modelo</th>
-<th class="blank col0" data-quarto-table-cell-role="th"> </th>
-<th class="blank col1" data-quarto-table-cell-role="th"> </th>
-<th class="blank col2" data-quarto-table-cell-role="th"> </th>
-<th class="blank col3" data-quarto-table-cell-role="th"> </th>
+<th class="blank col0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col1" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col2" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col3" data-quarto-table-cell-role="th">&nbsp;</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_44665_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Linear Regression</td>
-<td id="T_44665_row0_col0" class="data row0 col0">0.0006</td>
-<td id="T_44665_row0_col1" class="data row0 col1">0.0015</td>
-<td id="T_44665_row0_col2" class="data row0 col2">1.0000</td>
-<td id="T_44665_row0_col3" class="data row0 col3">0.2173</td>
+<th id="T_23ca8_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Linear Regression</th>
+<td id="T_23ca8_row0_col0" class="data row0 col0">0.0006</td>
+<td id="T_23ca8_row0_col1" class="data row0 col1">0.0015</td>
+<td id="T_23ca8_row0_col2" class="data row0 col2">1.0000</td>
+<td id="T_23ca8_row0_col3" class="data row0 col3">0.2074</td>
 </tr>
 <tr class="even">
-<td id="T_44665_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Ridge</td>
-<td id="T_44665_row1_col0" class="data row1 col0">0.0017</td>
-<td id="T_44665_row1_col1" class="data row1 col1">0.0033</td>
-<td id="T_44665_row1_col2" class="data row1 col2">1.0000</td>
-<td id="T_44665_row1_col3" class="data row1 col3">0.1747</td>
+<th id="T_23ca8_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Ridge</th>
+<td id="T_23ca8_row1_col0" class="data row1 col0">0.0017</td>
+<td id="T_23ca8_row1_col1" class="data row1 col1">0.0033</td>
+<td id="T_23ca8_row1_col2" class="data row1 col2">1.0000</td>
+<td id="T_23ca8_row1_col3" class="data row1 col3">0.1895</td>
 </tr>
 <tr class="odd">
-<td id="T_44665_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Lasso</td>
-<td id="T_44665_row2_col0" class="data row2 col0">0.8359</td>
-<td id="T_44665_row2_col1" class="data row2 col1">1.1550</td>
-<td id="T_44665_row2_col2" class="data row2 col2">0.9999</td>
-<td id="T_44665_row2_col3" class="data row2 col3">0.7657</td>
+<th id="T_23ca8_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Lasso</th>
+<td id="T_23ca8_row2_col0" class="data row2 col0">0.8359</td>
+<td id="T_23ca8_row2_col1" class="data row2 col1">1.1550</td>
+<td id="T_23ca8_row2_col2" class="data row2 col2">0.9999</td>
+<td id="T_23ca8_row2_col3" class="data row2 col3">0.1814</td>
 </tr>
 <tr class="even">
-<td id="T_44665_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">ElasticNet</td>
-<td id="T_44665_row3_col0" class="data row3 col0">21.3449</td>
-<td id="T_44665_row3_col1" class="data row3 col1">30.1334</td>
-<td id="T_44665_row3_col2" class="data row3 col2">0.9476</td>
-<td id="T_44665_row3_col3" class="data row3 col3">0.2627</td>
+<th id="T_23ca8_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">ElasticNet</th>
+<td id="T_23ca8_row3_col0" class="data row3 col0">21.3449</td>
+<td id="T_23ca8_row3_col1" class="data row3 col1">30.1334</td>
+<td id="T_23ca8_row3_col2" class="data row3 col2">0.9476</td>
+<td id="T_23ca8_row3_col3" class="data row3 col3">0.2575</td>
 </tr>
 </tbody>
 </table>
@@ -844,24 +817,24 @@ Table 1: Benchmarking — Modelos de Regresión
 </div>
 </section>
 <section id="modelo-de-clasificación-riesgo-de-entrega-tardía" class="level2">
-<h2>Modelo de Clasificación: Riesgo de Entrega Tardía</h2>
+<h2 class="anchored" data-anchor-id="modelo-de-clasificación-riesgo-de-entrega-tardía">Modelo de Clasificación: Riesgo de Entrega Tardía</h2>
 <section id="paso-1-selección-de-features-por-importancia" class="level3">
-<h3>Paso 1 — Selección de Features por Importancia</h3>
+<h3 class="anchored" data-anchor-id="paso-1-selección-de-features-por-importancia">Paso 1 — Selección de Features por Importancia</h3>
 <p>Se usa un Decision Tree de referencia para filtrar variables con importancia ≥ 1%.</p>
 <div id="clf-feature-selection" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python cell-code"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, classification_report</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, classification_report</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>TARGET_CLF <span class="op">=</span> <span class="st">&#39;Late_delivery_risk&#39;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>TARGET_CLF <span class="op">=</span> <span class="st">'Late_delivery_risk'</span></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>drop_cols_clf <span class="op">=</span> [</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    TARGET_CLF,</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Customer Id&#39;</span>, <span class="st">&#39;Order Customer Id&#39;</span>, <span class="st">&#39;Order Id&#39;</span>,</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Order Item Id&#39;</span>, <span class="st">&#39;Order Item Cardprod Id&#39;</span>,</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Product Card Id&#39;</span>, <span class="st">&#39;Product Category Id&#39;</span>, <span class="st">&#39;Category Id&#39;</span>, <span class="st">&#39;Department Id&#39;</span>,</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;Product Description&#39;</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Customer Id'</span>, <span class="st">'Order Customer Id'</span>, <span class="st">'Order Id'</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Order Item Id'</span>, <span class="st">'Order Item Cardprod Id'</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Product Card Id'</span>, <span class="st">'Product Category Id'</span>, <span class="st">'Category Id'</span>, <span class="st">'Department Id'</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Product Description'</span>,</span>
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>]</span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>numeric_cols_clf <span class="op">=</span> df.select_dtypes(include<span class="op">=</span>[np.number]).columns.tolist()</span>
@@ -875,23 +848,23 @@ Table 1: Benchmarking — Modelos de Regresión
 <span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>dt_ref <span class="op">=</span> Pipeline([</span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&quot;imputer&quot;</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">&quot;median&quot;</span>)),</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&quot;scaler&quot;</span>,  StandardScaler()),</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    (<span class="st">&quot;model&quot;</span>,   DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">6</span>, random_state<span class="op">=</span><span class="dv">42</span>)),</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"imputer"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)),</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"scaler"</span>,  StandardScaler()),</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>,   DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">6</span>, random_state<span class="op">=</span><span class="dv">42</span>)),</span>
 <span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>])</span>
 <span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>dt_ref.fit(X_train_clf, y_train_clf)</span>
 <span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>importances <span class="op">=</span> pd.Series(</span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    dt_ref.named_steps[<span class="st">&quot;model&quot;</span>].feature_importances_,</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    dt_ref.named_steps[<span class="st">"model"</span>].feature_importances_,</span>
 <span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>feature_cols_clf</span>
 <span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>).sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>IMPORTANCE_THRESHOLD <span class="op">=</span> <span class="fl">0.01</span></span>
 <span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>selected_features <span class="op">=</span> importances[importances <span class="op">&gt;=</span> IMPORTANCE_THRESHOLD].index.tolist()</span>
 <span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Features seleccionadas (</span><span class="sc">{</span><span class="bu">len</span>(selected_features)<span class="sc">}</span><span class="ss">):&quot;</span>)</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Features seleccionadas (</span><span class="sc">{</span><span class="bu">len</span>(selected_features)<span class="sc">}</span><span class="ss">):"</span>)</span>
 <span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> feat <span class="kw">in</span> selected_features:</span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;  </span><span class="sc">{</span>feat<span class="sc">:&lt;35}</span><span class="ss"> </span><span class="sc">{</span>importances[feat]<span class="sc">:.4f}</span><span class="ss">&quot;</span>)</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>feat<span class="sc">:&lt;35}</span><span class="ss"> </span><span class="sc">{</span>importances[feat]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
 <span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>X_final <span class="op">=</span> df[selected_features]</span>
 <span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>y_final <span class="op">=</span> df[TARGET_CLF]</span>
@@ -899,8 +872,8 @@ Table 1: Benchmarking — Modelos de Regresión
 <span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>X_train_f, X_test_f, y_train_f, y_test_f <span class="op">=</span> train_test_split(</span>
 <span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>    X_final, y_final, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>, stratify<span class="op">=</span>y_final</span>
 <span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="ss">Entrenamiento: X=</span><span class="sc">{</span>X_train_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss"> | y=</span><span class="sc">{</span>y_train_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Prueba       : X=</span><span class="sc">{</span>X_test_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">  | y=</span><span class="sc">{</span>y_test_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Entrenamiento: X=</span><span class="sc">{</span>X_train_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss"> | y=</span><span class="sc">{</span>y_train_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Prueba       : X=</span><span class="sc">{</span>X_test_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">  | y=</span><span class="sc">{</span>y_test_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Features seleccionadas (2):
@@ -913,11 +886,11 @@ Prueba       : X=(36104, 2)  | y=(36104,)</code></pre>
 </div>
 </section>
 <section id="paso-2-benchmarking-de-clasificadores" class="level3">
-<h3>Paso 2 — Benchmarking de Clasificadores</h3>
+<h3 class="anchored" data-anchor-id="paso-2-benchmarking-de-clasificadores">Paso 2 — Benchmarking de Clasificadores</h3>
 <div id="cell-clf-benchmarking" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python cell-code"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> (</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    accuracy_score, f1_score, precision_score, recall_score, roc_auc_score,</span>
@@ -925,13 +898,13 @@ Prueba       : X=(36104, 2)  | y=(36104,)</code></pre>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xgboost <span class="im">import</span> XGBClassifier</span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>clf_models <span class="op">=</span> {</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Logistic Regression&quot;</span>: LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>, random_state<span class="op">=</span><span class="dv">42</span>),</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Decision Tree&quot;</span>:       DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">6</span>, random_state<span class="op">=</span><span class="dv">42</span>),</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Random Forest&quot;</span>:       RandomForestClassifier(n_estimators<span class="op">=</span><span class="dv">100</span>, max_depth<span class="op">=</span><span class="dv">6</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Logistic Regression"</span>: LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>, random_state<span class="op">=</span><span class="dv">42</span>),</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Decision Tree"</span>:       DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">6</span>, random_state<span class="op">=</span><span class="dv">42</span>),</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Random Forest"</span>:       RandomForestClassifier(n_estimators<span class="op">=</span><span class="dv">100</span>, max_depth<span class="op">=</span><span class="dv">6</span>,</span>
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>                                                  random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>),</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;XGBoost&quot;</span>:             XGBClassifier(n_estimators<span class="op">=</span><span class="dv">100</span>, max_depth<span class="op">=</span><span class="dv">6</span>,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XGBoost"</span>:             XGBClassifier(n_estimators<span class="op">=</span><span class="dv">100</span>, max_depth<span class="op">=</span><span class="dv">6</span>,</span>
 <span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>                                         learning_rate<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">42</span>,</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>                                         eval_metric<span class="op">=</span><span class="st">&quot;logloss&quot;</span>,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>                                         eval_metric<span class="op">=</span><span class="st">"logloss"</span>,</span>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>                                         verbosity<span class="op">=</span><span class="dv">0</span>),</span>
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
@@ -939,9 +912,9 @@ Prueba       : X=(36104, 2)  | y=(36104,)</code></pre>
 <span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, model <span class="kw">in</span> clf_models.items():</span>
 <span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    pipe <span class="op">=</span> Pipeline([</span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>        (<span class="st">&quot;imputer&quot;</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">&quot;median&quot;</span>)),</span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>        (<span class="st">&quot;scaler&quot;</span>,  StandardScaler()),</span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>        (<span class="st">&quot;model&quot;</span>,   model),</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"imputer"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)),</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"scaler"</span>,  StandardScaler()),</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"model"</span>,   model),</span>
 <span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    ])</span>
 <span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> time.time()</span>
 <span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>    pipe.fit(X_train_f, y_train_f)</span>
@@ -951,28 +924,28 @@ Prueba       : X=(36104, 2)  | y=(36104,)</code></pre>
 <span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>    y_proba <span class="op">=</span> pipe.predict_proba(X_test_f)[:, <span class="dv">1</span>]</span>
 <span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>    clf_results.append({</span>
-<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Modelo&quot;</span>:    name,</span>
-<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Accuracy&quot;</span>:  accuracy_score(y_test_f, y_pred),</span>
-<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Precision&quot;</span>: precision_score(y_test_f, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>),</span>
-<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Recall&quot;</span>:    recall_score(y_test_f, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>),</span>
-<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;F1-Score&quot;</span>:  f1_score(y_test_f, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>),</span>
-<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;ROC-AUC&quot;</span>:   roc_auc_score(y_test_f, y_proba),</span>
-<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;Tiempo(s)&quot;</span>: <span class="bu">round</span>(elapsed, <span class="dv">4</span>),</span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Modelo"</span>:    name,</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Accuracy"</span>:  accuracy_score(y_test_f, y_pred),</span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Precision"</span>: precision_score(y_test_f, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>),</span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Recall"</span>:    recall_score(y_test_f, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>),</span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"F1-Score"</span>:  f1_score(y_test_f, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>),</span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ROC-AUC"</span>:   roc_auc_score(y_test_f, y_proba),</span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Tiempo(s)"</span>: <span class="bu">round</span>(elapsed, <span class="dv">4</span>),</span>
 <span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;✔ </span><span class="sc">{</span>name<span class="sc">:&lt;22}</span><span class="ss"> entrenado en </span><span class="sc">{</span>elapsed<span class="sc">:.4f}</span><span class="ss">s&quot;</span>)</span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"✔ </span><span class="sc">{</span>name<span class="sc">:&lt;22}</span><span class="ss"> entrenado en </span><span class="sc">{</span>elapsed<span class="sc">:.4f}</span><span class="ss">s"</span>)</span>
 <span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>clf_results_df <span class="op">=</span> pd.DataFrame(clf_results).set_index(<span class="st">&quot;Modelo&quot;</span>).sort_values(<span class="st">&quot;F1-Score&quot;</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>clf_results_df <span class="op">=</span> pd.DataFrame(clf_results).set_index(<span class="st">"Modelo"</span>).sort_values(<span class="st">"F1-Score"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;🏆 Mejor Accuracy : </span><span class="sc">{</span>clf_results_df[<span class="st">&#39;Accuracy&#39;</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;🏆 Mejor F1-Score : </span><span class="sc">{</span>clf_results_df[<span class="st">&#39;F1-Score&#39;</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;🏆 Mejor ROC-AUC  : </span><span class="sc">{</span>clf_results_df[<span class="st">&#39;ROC-AUC&#39;</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">&quot;</span>)</span>
-<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>display(clf_results_df.style.<span class="bu">format</span>(<span class="st">&quot;</span><span class="sc">{:.4f}</span><span class="st">&quot;</span>).set_caption(<span class="st">&quot;Benchmarking — Modelos de Clasificación&quot;</span>))</span></code></pre></div>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"🏆 Mejor Accuracy : </span><span class="sc">{</span>clf_results_df[<span class="st">'Accuracy'</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"🏆 Mejor F1-Score : </span><span class="sc">{</span>clf_results_df[<span class="st">'F1-Score'</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"🏆 Mejor ROC-AUC  : </span><span class="sc">{</span>clf_results_df[<span class="st">'ROC-AUC'</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>display(clf_results_df.style.<span class="bu">format</span>(<span class="st">"</span><span class="sc">{:.4f}</span><span class="st">"</span>).set_caption(<span class="st">"Benchmarking — Modelos de Clasificación"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>✔ Logistic Regression    entrenado en 0.0968s
-✔ Decision Tree          entrenado en 0.0365s
-✔ Random Forest          entrenado en 0.7263s
-✔ XGBoost                entrenado en 0.6820s
+<pre><code>✔ Logistic Regression    entrenado en 0.0870s
+✔ Decision Tree          entrenado en 0.0361s
+✔ Random Forest          entrenado en 0.7185s
+✔ XGBoost                entrenado en 0.6760s
 🏆 Mejor Accuracy : Logistic Regression
 🏆 Mejor F1-Score : Logistic Regression
 🏆 Mejor ROC-AUC  : Decision Tree</code></pre>
@@ -981,69 +954,69 @@ Prueba       : X=(36104, 2)  | y=(36104,)</code></pre>
 <style type="text/css">
 </style>
 
-<div id="T_afa11" class="quarto-float quarto-figure quarto-figure-center" data-quarto-postprocess="true">
-<figure class="quarto-float quarto-float-tbl">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_afa11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table 2: Benchmarking — Modelos de Clasificación
+<div id="T_d1968" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_d1968-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Benchmarking — Modelos de Clasificación
 </figcaption>
-<div aria-describedby="T_afa11-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_afa11" class="caption-top" data-quarto-postprocess="true">
+<div aria-describedby="T_d1968-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="T_d1968" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th class="blank level0" data-quarto-table-cell-role="th"> </th>
-<th id="T_afa11_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Accuracy</th>
-<th id="T_afa11_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Precision</th>
-<th id="T_afa11_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Recall</th>
-<th id="T_afa11_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">F1-Score</th>
-<th id="T_afa11_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">ROC-AUC</th>
-<th id="T_afa11_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Tiempo(s)</th>
+<th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th id="T_d1968_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Accuracy</th>
+<th id="T_d1968_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Precision</th>
+<th id="T_d1968_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Recall</th>
+<th id="T_d1968_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">F1-Score</th>
+<th id="T_d1968_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">ROC-AUC</th>
+<th id="T_d1968_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Tiempo(s)</th>
 </tr>
 <tr class="even">
 <th class="index_name level0" data-quarto-table-cell-role="th">Modelo</th>
-<th class="blank col0" data-quarto-table-cell-role="th"> </th>
-<th class="blank col1" data-quarto-table-cell-role="th"> </th>
-<th class="blank col2" data-quarto-table-cell-role="th"> </th>
-<th class="blank col3" data-quarto-table-cell-role="th"> </th>
-<th class="blank col4" data-quarto-table-cell-role="th"> </th>
-<th class="blank col5" data-quarto-table-cell-role="th"> </th>
+<th class="blank col0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col1" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col2" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col3" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col4" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col5" data-quarto-table-cell-role="th">&nbsp;</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_afa11_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Logistic Regression</td>
-<td id="T_afa11_row0_col0" class="data row0 col0">0.9745</td>
-<td id="T_afa11_row0_col1" class="data row0 col1">0.9555</td>
-<td id="T_afa11_row0_col2" class="data row0 col2">1.0000</td>
-<td id="T_afa11_row0_col3" class="data row0 col3">0.9772</td>
-<td id="T_afa11_row0_col4" class="data row0 col4">0.9727</td>
-<td id="T_afa11_row0_col5" class="data row0 col5">0.0968</td>
+<th id="T_d1968_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Logistic Regression</th>
+<td id="T_d1968_row0_col0" class="data row0 col0">0.9745</td>
+<td id="T_d1968_row0_col1" class="data row0 col1">0.9555</td>
+<td id="T_d1968_row0_col2" class="data row0 col2">1.0000</td>
+<td id="T_d1968_row0_col3" class="data row0 col3">0.9772</td>
+<td id="T_d1968_row0_col4" class="data row0 col4">0.9727</td>
+<td id="T_d1968_row0_col5" class="data row0 col5">0.0870</td>
 </tr>
 <tr class="even">
-<td id="T_afa11_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Decision Tree</td>
-<td id="T_afa11_row1_col0" class="data row1 col0">0.9745</td>
-<td id="T_afa11_row1_col1" class="data row1 col1">0.9555</td>
-<td id="T_afa11_row1_col2" class="data row1 col2">1.0000</td>
-<td id="T_afa11_row1_col3" class="data row1 col3">0.9772</td>
-<td id="T_afa11_row1_col4" class="data row1 col4">0.9728</td>
-<td id="T_afa11_row1_col5" class="data row1 col5">0.0365</td>
+<th id="T_d1968_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Decision Tree</th>
+<td id="T_d1968_row1_col0" class="data row1 col0">0.9745</td>
+<td id="T_d1968_row1_col1" class="data row1 col1">0.9555</td>
+<td id="T_d1968_row1_col2" class="data row1 col2">1.0000</td>
+<td id="T_d1968_row1_col3" class="data row1 col3">0.9772</td>
+<td id="T_d1968_row1_col4" class="data row1 col4">0.9728</td>
+<td id="T_d1968_row1_col5" class="data row1 col5">0.0361</td>
 </tr>
 <tr class="odd">
-<td id="T_afa11_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Random Forest</td>
-<td id="T_afa11_row2_col0" class="data row2 col0">0.9745</td>
-<td id="T_afa11_row2_col1" class="data row2 col1">0.9555</td>
-<td id="T_afa11_row2_col2" class="data row2 col2">1.0000</td>
-<td id="T_afa11_row2_col3" class="data row2 col3">0.9772</td>
-<td id="T_afa11_row2_col4" class="data row2 col4">0.9728</td>
-<td id="T_afa11_row2_col5" class="data row2 col5">0.7263</td>
+<th id="T_d1968_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Random Forest</th>
+<td id="T_d1968_row2_col0" class="data row2 col0">0.9745</td>
+<td id="T_d1968_row2_col1" class="data row2 col1">0.9555</td>
+<td id="T_d1968_row2_col2" class="data row2 col2">1.0000</td>
+<td id="T_d1968_row2_col3" class="data row2 col3">0.9772</td>
+<td id="T_d1968_row2_col4" class="data row2 col4">0.9728</td>
+<td id="T_d1968_row2_col5" class="data row2 col5">0.7185</td>
 </tr>
 <tr class="even">
-<td id="T_afa11_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">XGBoost</td>
-<td id="T_afa11_row3_col0" class="data row3 col0">0.9745</td>
-<td id="T_afa11_row3_col1" class="data row3 col1">0.9555</td>
-<td id="T_afa11_row3_col2" class="data row3 col2">1.0000</td>
-<td id="T_afa11_row3_col3" class="data row3 col3">0.9772</td>
-<td id="T_afa11_row3_col4" class="data row3 col4">0.9728</td>
-<td id="T_afa11_row3_col5" class="data row3 col5">0.6820</td>
+<th id="T_d1968_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">XGBoost</th>
+<td id="T_d1968_row3_col0" class="data row3 col0">0.9745</td>
+<td id="T_d1968_row3_col1" class="data row3 col1">0.9555</td>
+<td id="T_d1968_row3_col2" class="data row3 col2">1.0000</td>
+<td id="T_d1968_row3_col3" class="data row3 col3">0.9772</td>
+<td id="T_d1968_row3_col4" class="data row3 col4">0.9728</td>
+<td id="T_d1968_row3_col5" class="data row3 col5">0.6760</td>
 </tr>
 </tbody>
 </table>
@@ -1054,12 +1027,12 @@ Table 2: Benchmarking — Modelos de Clasificación
 </div>
 </section>
 <section id="paso-3-métricas-por-modelo-y-curva-roc" class="level3">
-<h3>Paso 3 — Métricas por Modelo y Curva ROC</h3>
+<h3 class="anchored" data-anchor-id="paso-3-métricas-por-modelo-y-curva-roc">Paso 3 — Métricas por Modelo y Curva ROC</h3>
 <div id="cell-clf-metrics-bar" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div>
-<figure>
-<p><img src="report_files/figure-html/clf-metrics-bar-output-1.png" id="clf-metrics-bar" width="662" height="374" /></p>
+<figure class="figure">
+<p><img src="report_files/figure-html/clf-metrics-bar-output-1.png" id="clf-metrics-bar" width="662" height="374" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1067,8 +1040,8 @@ Table 2: Benchmarking — Modelos de Clasificación
 <div id="cell-clf-roc-curve" class="cell" data-fig-height="5" data-fig-width="6" data-execution_count="17">
 <div class="cell-output cell-output-display">
 <div>
-<figure>
-<p><img src="report_files/figure-html/clf-roc-curve-output-1.png" id="clf-roc-curve" width="566" height="468" /></p>
+<figure class="figure">
+<p><img src="report_files/figure-html/clf-roc-curve-output-1.png" id="clf-roc-curve" width="566" height="468" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1076,13 +1049,13 @@ Table 2: Benchmarking — Modelos de Clasificación
 </section>
 </section>
 <section id="importancia-de-variables" class="level2">
-<h2>Importancia de Variables</h2>
+<h2 class="anchored" data-anchor-id="importancia-de-variables">Importancia de Variables</h2>
 <p>El análisis revela que los días de envío —real y programado— concentran más del 99% de la importancia total en el árbol de decisión, lo que valida la intuición operativa sobre los factores determinantes del retraso.</p>
 <div id="feature-importance" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div>
-<figure>
-<p><img src="report_files/figure-html/feature-importance-output-1.png" id="feature-importance-1" width="661" height="374" /></p>
+<figure class="figure">
+<p><img src="report_files/figure-html/feature-importance-output-1.png" id="feature-importance-1" width="661" height="374" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1090,33 +1063,33 @@ Table 2: Benchmarking — Modelos de Clasificación
 <style type="text/css">
 </style>
 
-<table id="T_fc9eb" class="caption-top" data-quarto-postprocess="true">
+<table id="T_f424c" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th class="blank level0" data-quarto-table-cell-role="th"> </th>
-<th id="T_fc9eb_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Importancia (Gini)</th>
+<th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th id="T_f424c_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Importancia (Gini)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_fc9eb_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Days for shipping (real)</td>
-<td id="T_fc9eb_row0_col0" class="data row0 col0">0.5323</td>
+<th id="T_f424c_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Days for shipping (real)</th>
+<td id="T_f424c_row0_col0" class="data row0 col0">0.5323</td>
 </tr>
 <tr class="even">
-<td id="T_fc9eb_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Days for shipment (scheduled)</td>
-<td id="T_fc9eb_row1_col0" class="data row1 col0">0.4670</td>
+<th id="T_f424c_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Days for shipment (scheduled)</th>
+<td id="T_f424c_row1_col0" class="data row1 col0">0.4670</td>
 </tr>
 <tr class="odd">
-<td id="T_fc9eb_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Latitude</td>
-<td id="T_fc9eb_row2_col0" class="data row2 col0">0.0002</td>
+<th id="T_f424c_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Latitude</th>
+<td id="T_f424c_row2_col0" class="data row2 col0">0.0002</td>
 </tr>
 <tr class="even">
-<td id="T_fc9eb_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Order Zipcode</td>
-<td id="T_fc9eb_row3_col0" class="data row3 col0">0.0002</td>
+<th id="T_f424c_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Order Zipcode</th>
+<td id="T_f424c_row3_col0" class="data row3 col0">0.0002</td>
 </tr>
 <tr class="odd">
-<td id="T_fc9eb_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Longitude</td>
-<td id="T_fc9eb_row4_col0" class="data row4 col0">0.0001</td>
+<th id="T_f424c_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Longitude</th>
+<td id="T_f424c_row4_col0" class="data row4 col0">0.0001</td>
 </tr>
 </tbody>
 </table>
@@ -1127,7 +1100,7 @@ Table 2: Benchmarking — Modelos de Clasificación
 <section id="conclusiones-y-recomendaciones" class="level1">
 <h1>Conclusiones y Recomendaciones</h1>
 <section id="hallazgos-principales" class="level2">
-<h2>Hallazgos Principales</h2>
+<h2 class="anchored" data-anchor-id="hallazgos-principales">Hallazgos Principales</h2>
 <ol type="1">
 <li><strong>Poder Predictivo</strong>: XGBoost anticipa retrasos de entrega con precisión superior al 95%, representando una ventaja competitiva significativa para DataCo.</li>
 <li><strong>Dominancia de Variables Logísticas</strong>: Los días de envío real y programado concentran prácticamente toda la importancia predictiva. Variables financieras y geográficas tienen impacto marginal.</li>
@@ -1136,7 +1109,7 @@ Table 2: Benchmarking — Modelos de Clasificación
 </ol>
 </section>
 <section id="recomendaciones" class="level2">
-<h2>Recomendaciones</h2>
+<h2 class="anchored" data-anchor-id="recomendaciones">Recomendaciones</h2>
 <ul>
 <li><strong>Sincronización de Tiempos</strong>: Ajustar <code>Scheduled Shipping Days</code> según analítica histórica regional, particularmente en Europa y LATAM.</li>
 <li><strong>Monitoreo en Tiempo Real</strong>: Desplegar el modelo XGBoost en el backend del ERP para alertar sobre riesgos en el momento de creación de la orden.</li>
@@ -1156,7 +1129,7 @@ Table 2: Benchmarking — Modelos de Clasificación
 
 </main>
 <!-- /main column -->
-<script id = "quarto-html-after-body" type="application/javascript">
+<script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -1558,6 +1531,7 @@ Table 2: Benchmarking — Modelos de Clasificación
   </script>
 </div> <!-- /content -->
 
-</body>
 
-</html>
+
+
+</body></html>
