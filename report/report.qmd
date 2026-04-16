@@ -13,6 +13,22 @@ format:
     toc: true
     number-sections: true
     colorlinks: true
+    geometry:
+      - top=20mm
+      - bottom=20mm
+      - left=20mm
+      - right=20mm
+      - heightrounded
+    code-overflow: wrap
+    fig-pos: "H"
+    include-in-header:
+      text: |
+        \usepackage{booktabs}
+        \usepackage{longtable}
+        \usepackage{float}
+execute:
+  warning: false
+  message: false
 ---
 
 # Resumen Ejecutivo
@@ -71,12 +87,13 @@ print(nulos_relevantes.to_string())
 ```{python}
 #| label: describe
 #| echo: false
+from IPython.display import display
 cols_desc = [
     'Days for shipping (real)', 'Days for shipment (scheduled)',
     'Benefit per order', 'Sales per customer',
     'Late_delivery_risk', 'Sales', 'Order Item Quantity'
 ]
-df[cols_desc].describe().round(2)
+display(df[cols_desc].describe().round(2))
 ```
 
 Puntos clave:
@@ -94,13 +111,16 @@ El volumen de ventas presenta estacionalidad marcada. La tendencia mensual permi
 ```{python}
 #| label: temporal-analysis
 #| echo: false
+#| fig-width: 7
+#| fig-height: 4
+#| out-width: "100%"
 df['order_date'] = pd.to_datetime(df['order date (DateOrders)'])
 df['order_month'] = df['order_date'].dt.to_period('M')
 
 monthly_sales = df.groupby('order_month')['Sales'].sum().reset_index()
 monthly_sales['order_month'] = monthly_sales['order_month'].astype(str)
 
-plt.figure(figsize=(10, 5))
+plt.figure(figsize=(7, 4))
 sns.lineplot(data=monthly_sales, x='order_month', y='Sales')
 plt.xticks(rotation=45)
 plt.title("Tendencia Mensual de Ventas (USD)")
@@ -117,13 +137,17 @@ DataCo opera en múltiples regiones. Europa y LATAM concentran la mayor parte de
 ```{python}
 #| label: geographic-analysis
 #| echo: false
+#| fig-width: 7
+#| fig-height: 4
+#| out-width: "100%"
 market_counts = df['Market'].value_counts()
 
-plt.figure(figsize=(8, 4))
+plt.figure(figsize=(7, 4))
 sns.barplot(x=market_counts.index, y=market_counts.values,
             hue=market_counts.index, palette='viridis', legend=False)
 plt.title("Distribución de Órdenes por Mercado")
 plt.ylabel("Cantidad de Órdenes")
+plt.tight_layout()
 plt.show()
 ```
 
@@ -132,9 +156,11 @@ plt.show()
 ```{python}
 #| label: delivery-status
 #| echo: false
+#| fig-width: 7
+#| fig-height: 4
+#| out-width: "100%"
 status_pct = df['Delivery Status'].value_counts(normalize=True).mul(100).round(2)
-print("Distribución del estado de entregas (%):")
-print(status_pct.to_string())
+display(status_pct.rename("Proporción (%)").to_frame())
 
 plt.figure(figsize=(7, 4))
 sns.barplot(x=status_pct.values, y=status_pct.index,
@@ -154,7 +180,10 @@ El **54.8%** de los envíos llega tarde, lo que confirma la urgencia del problem
 ```{python}
 #| label: dist-shipping
 #| echo: false
-plt.figure(figsize=(8, 4))
+#| fig-width: 7
+#| fig-height: 4
+#| out-width: "100%"
+plt.figure(figsize=(7, 4))
 sns.histplot(df['Days for shipping (real)'], kde=True, discrete=True, color='steelblue')
 plt.title("Distribución — Días de Envío Real")
 plt.xlabel("Días")
@@ -167,10 +196,14 @@ plt.show()
 ```{python}
 #| label: benefit-dist
 #| echo: false
-plt.figure(figsize=(8, 4))
+#| fig-width: 7
+#| fig-height: 4
+#| out-width: "100%"
+plt.figure(figsize=(7, 4))
 sns.histplot(df['Benefit per order'], bins=50, kde=True, color='teal')
 plt.title("Distribución de Beneficios por Orden")
 plt.xlabel("Beneficio (USD)")
+plt.tight_layout()
 plt.show()
 ```
 
@@ -274,12 +307,15 @@ print(f"Intervalo de confianza 95%: [{IC_L:.2f}, {IC_U:.2f}] USD")
 ```{python}
 #| label: correlation-matrix
 #| echo: false
+#| fig-width: 7
+#| fig-height: 6
+#| out-width: "100%"
 numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
 corr_matrix = df[numeric_cols].corr()
 
 mask = np.triu(np.ones_like(corr_matrix, dtype=bool))
 
-fig, ax = plt.subplots(figsize=(18, 14))
+fig, ax = plt.subplots(figsize=(7, 6))
 sns.heatmap(
     corr_matrix,
     mask=mask,
@@ -287,23 +323,24 @@ sns.heatmap(
     fmt='.2f',
     cmap='coolwarm',
     center=0,
-    linewidths=0.5,
-    annot_kws={'size': 8},
+    linewidths=0.3,
+    annot_kws={'size': 5},
     ax=ax
 )
-ax.set_title('Matriz de Correlación — Variables Numéricas', fontsize=16, pad=20)
-plt.xticks(rotation=45, ha='right', fontsize=9)
-plt.yticks(fontsize=9)
+ax.set_title('Matriz de Correlación — Variables Numéricas', fontsize=11, pad=12)
+plt.xticks(rotation=45, ha='right', fontsize=6)
+plt.yticks(fontsize=6)
 plt.tight_layout()
 plt.show()
 
 print("\nCorrelaciones con Late_delivery_risk (por valor absoluto):")
-print(
+display(
     corr_matrix['Late_delivery_risk']
     .drop('Late_delivery_risk')
     .sort_values(key=abs, ascending=False)
     .head(8)
-    .to_string()
+    .rename("Correlación")
+    .to_frame()
 )
 ```
 
@@ -534,16 +571,19 @@ print(f"🏆 Mejor ROC-AUC  : {clf_results_df['ROC-AUC'].idxmax()}")
 ```{python}
 #| label: clf-metrics-bar
 #| echo: false
+#| fig-width: 7
+#| fig-height: 4
+#| out-width: "100%"
 metrics = ["Accuracy", "Precision", "Recall", "F1-Score", "ROC-AUC"]
 
 clf_results_df[metrics].plot(
-    kind="bar", figsize=(12, 5), colormap="tab10",
+    kind="bar", figsize=(7, 4), colormap="tab10",
     edgecolor="white", rot=15
 )
-plt.title("Benchmarking — Métricas por Modelo", fontsize=14, pad=15)
+plt.title("Benchmarking — Métricas por Modelo", fontsize=12, pad=12)
 plt.ylabel("Score")
 plt.ylim(0, 1.05)
-plt.legend(loc="lower right")
+plt.legend(loc="lower right", fontsize=8)
 plt.tight_layout()
 plt.show()
 ```
@@ -551,6 +591,9 @@ plt.show()
 ```{python}
 #| label: clf-roc-curve
 #| echo: false
+#| fig-width: 6
+#| fig-height: 5
+#| out-width: "80%"
 from sklearn.metrics import auc, roc_curve
 
 clf_models_roc = {
@@ -563,7 +606,7 @@ clf_models_roc = {
                                          eval_metric="logloss", verbosity=0),
 }
 
-fig, ax = plt.subplots(figsize=(8, 7))
+fig, ax = plt.subplots(figsize=(6, 5))
 colors = ["#4C72B0", "#DD8452", "#55A868", "#C44E52"]
 
 for (name, model), color in zip(clf_models_roc.items(), colors):
@@ -582,10 +625,10 @@ for (name, model), color in zip(clf_models_roc.items(), colors):
 ax.plot([0, 1], [0, 1], "k--", lw=1.2, label="Aleatorio (AUC = 0.50)")
 ax.set_xlim([0.0, 1.0])
 ax.set_ylim([0.0, 1.05])
-ax.set_xlabel("Tasa de Falsos Positivos (FPR)", fontsize=12)
-ax.set_ylabel("Tasa de Verdaderos Positivos (TPR)", fontsize=12)
-ax.set_title("Curva ROC — Modelos de Clasificación\n(Late Delivery Risk)", fontsize=13, pad=15)
-ax.legend(loc="lower right", fontsize=10, framealpha=0.9)
+ax.set_xlabel("Tasa de Falsos Positivos (FPR)", fontsize=10)
+ax.set_ylabel("Tasa de Verdaderos Positivos (TPR)", fontsize=10)
+ax.set_title("Curva ROC — Modelos de Clasificación\n(Late Delivery Risk)", fontsize=11, pad=12)
+ax.legend(loc="lower right", fontsize=8, framealpha=0.9)
 ax.grid(alpha=0.3)
 plt.tight_layout()
 plt.show()
@@ -598,16 +641,23 @@ El análisis revela que los días de envío —real y programado— concentran m
 ```{python}
 #| label: feature-importance
 #| echo: false
-fig, ax = plt.subplots(figsize=(10, 6))
+#| fig-width: 7
+#| fig-height: 4
+#| out-width: "100%"
+fig, ax = plt.subplots(figsize=(7, 4))
 importances.plot(kind="bar", ax=ax, color="steelblue", edgecolor="white")
-ax.set_title("Importancia de Características — Decision Tree", fontsize=14, pad=15)
+ax.set_title("Importancia de Características — Decision Tree", fontsize=12, pad=12)
 ax.set_ylabel("Importancia (Gini)")
-plt.xticks(rotation=45, ha="right", fontsize=9)
+plt.xticks(rotation=45, ha="right", fontsize=8)
 plt.tight_layout()
 plt.show()
 
-print("\nTop 5 características más importantes:")
-print(importances.head(5).to_string(float_format="{:.4f}".format))
+display(
+    importances.head(5)
+    .rename("Importancia (Gini)")
+    .to_frame()
+    .style.format("{:.4f}")
+)
 ```
 
 # Conclusiones y Recomendaciones
