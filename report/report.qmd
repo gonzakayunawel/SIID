@@ -1,12 +1,12 @@
 ---
 title: "Reporte Técnico: Análisis de Riesgos en Supply Chain"
 subtitle: "Optimización de Entregas y Modelado Predictivo con DataCo Smart Supply Chain"
-author:
+author: 
   - name: "Gonzalo Cayunao Erices"
     affiliation: 
-      - name: "Sistemas de Información e Inteligencia de los Datos"
-      - name: "Doctorado en Ingeniería de Sistemas Avanzados"
-      - name: "Universidad Andrés Bello (CL), 2026"
+      - "Sistemas de Información e Inteligencia de los Datos"
+      - "Doctorado en Ingeniería de Sistemas Avanzados"
+      - "Universidad Andrés Bello (CL), 2026"
 date: today
 format:
   html:
@@ -15,6 +15,8 @@ format:
     code-fold: true
     theme: cosmo
   pdf:
+    title-block-style: default
+    mainfont: "Latin Modern Roman"
     pdf-engine: xelatex
     toc: true
     toc-depth: 3
@@ -29,14 +31,20 @@ format:
     code-overflow: wrap
     fig-pos: "H"
     include-in-header:
-      text: |
-        \usepackage{booktabs}
-        \usepackage{longtable}
-        \usepackage{float}
-        \usepackage[spanish]{babel}
-        \usepackage[utf8]{inputenc}
-        \usepackage{authblk}
-        \renewcommand\Affilfont{\small}
+      - text: |
+          \usepackage{fvextra}
+          \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines=true,breakanywhere=true}
+          \usepackage{booktabs}
+          \usepackage{longtable}
+          \usepackage{float}
+          \usepackage[spanish]{babel}
+          \usepackage[utf8]{inputenc}
+          \usepackage{authblk}
+          \renewcommand\Affilfont{\itshape\small}
+          \setkomafont{title}{\raggedright\bfseries\Large}
+          \setkomafont{subtitle}{\raggedright\mdseries\normalsize}
+          \setkomafont{author}{\raggedright\mdseries\normalsize}
+          \setkomafont{date}{\raggedright\mdseries\small}
 execute:
   warning: false
   message: false
