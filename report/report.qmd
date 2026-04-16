@@ -15,7 +15,7 @@ format:
     code-fold: true
     theme: cosmo
   pdf:
-    title-block-style: default
+    title-block-style: none
     mainfont: "Latin Modern Roman"
     pdf-engine: xelatex
     toc: true
