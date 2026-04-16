@@ -1,7 +1,12 @@
 ---
-title: "Reporte Técnico SIID: Análisis de Riesgos en Supply Chain"
+title: "Reporte Técnico: Análisis de Riesgos en Supply Chain"
 subtitle: "Optimización de Entregas y Modelado Predictivo con DataCo Smart Supply Chain"
-author: "Gonzalo Cayunao — Doctorado UNAB"
+author:
+  - name: "Gonzalo Cayunao Erices"
+    affiliation: 
+      - name: "Sistemas de Información e Inteligencia de los Datos"
+      - name: "Doctorado en Ingeniería de Sistemas Avanzados"
+      - name: "Universidad Andrés Bello (CL), 2026"
 date: today
 format:
   html:
