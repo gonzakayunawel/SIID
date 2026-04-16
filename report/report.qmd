@@ -88,12 +88,25 @@ print(nulos_relevantes.to_string())
 #| label: describe
 #| echo: false
 from IPython.display import display
+
 cols_desc = [
     'Days for shipping (real)', 'Days for shipment (scheduled)',
     'Benefit per order', 'Sales per customer',
     'Late_delivery_risk', 'Sales', 'Order Item Quantity'
 ]
-display(df[cols_desc].describe().round(2))
+
+# Nombres cortos para que quepan en la página PDF
+col_rename = {
+    'Days for shipping (real)':       'Ship Real',
+    'Days for shipment (scheduled)':  'Ship Sched',
+    'Benefit per order':              'Benefit/Ord',
+    'Sales per customer':             'Sales/Cust',
+    'Late_delivery_risk':             'Late Risk',
+    'Sales':                          'Sales',
+    'Order Item Quantity':            'Item Qty',
+}
+desc = df[cols_desc].rename(columns=col_rename).describe().round(2)
+display(desc)
 ```
 
 Puntos clave:
@@ -319,12 +332,10 @@ fig, ax = plt.subplots(figsize=(7, 6))
 sns.heatmap(
     corr_matrix,
     mask=mask,
-    annot=True,
-    fmt='.2f',
+    annot=False,
     cmap='coolwarm',
     center=0,
-    linewidths=0.3,
-    annot_kws={'size': 5},
+    linewidths=0.2,
     ax=ax
 )
 ax.set_title('Matriz de Correlación — Variables Numéricas', fontsize=11, pad=12)
@@ -438,11 +449,8 @@ for name, model in models_reg.items():
     })
 
 results_reg_df = pd.DataFrame(results_reg).set_index("Modelo").sort_values("R²", ascending=False)
-print("=" * 60)
-print("           BENCHMARKING — MODELOS DE REGRESIÓN")
-print("=" * 60)
-print(results_reg_df.to_string(float_format="{:.4f}".format))
-print("\n✅ Mejor modelo por R²:", results_reg_df["R²"].idxmax())
+print(f"\u2705 Mejor modelo por R²: {results_reg_df['R²'].idxmax()}")
+display(results_reg_df.style.format("{:.4f}").set_caption("Benchmarking — Modelos de Regresión"))
 ```
 
 ## Modelo de Clasificación: Riesgo de Entrega Tardía
@@ -557,13 +565,10 @@ for name, model in clf_models.items():
 
 clf_results_df = pd.DataFrame(clf_results).set_index("Modelo").sort_values("F1-Score", ascending=False)
 
-print("\n" + "=" * 72)
-print("              BENCHMARKING — MODELOS DE CLASIFICACIÓN")
-print("=" * 72)
-print(clf_results_df.to_string(float_format="{:.4f}".format))
-print(f"\n🏆 Mejor Accuracy : {clf_results_df['Accuracy'].idxmax()}")
+print(f"🏆 Mejor Accuracy : {clf_results_df['Accuracy'].idxmax()}")
 print(f"🏆 Mejor F1-Score : {clf_results_df['F1-Score'].idxmax()}")
 print(f"🏆 Mejor ROC-AUC  : {clf_results_df['ROC-AUC'].idxmax()}")
+display(clf_results_df.style.format("{:.4f}").set_caption("Benchmarking — Modelos de Clasificación"))
 ```
 
 ### Paso 3 — Métricas por Modelo y Curva ROC
