@@ -14,3 +14,9 @@ data/
 
 # Editor
 .vscode/
+
+# Report Quarto ipynb/pdf/html
+report/report.quarto_ipynb_*
+report/report.quarto_ipynb
+report/report.html
+report/report.pdf

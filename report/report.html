@@ -190,7 +190,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="resumen-ejecutivo" class="level1">
 <h1>Resumen Ejecutivo</h1>
 <p>Este informe técnico documenta la transformación de datos crudos en inteligencia operativa para la gestión de la cadena de suministros (Supply Chain Managment). Utilizando técnicas avanzadas de <strong>Ciencia de Datos</strong>, hemos analizado el ecosistema de <strong>DataCo Global</strong> para diagnosticar ineficiencias logísticas.</p>
-<p>Los resultados demuestran que, a través de modelos de clasificación como <strong>Logistic Regression</strong> o <strong>XGBoost</strong>, es posible anticipar interrupciones en la entrega con una precisión superior al <strong>95%</strong>, así como el uso de modelos como <strong>Linear Regression</strong> podemos hacer una previsión de <em>Sales</em> con R<sup>2</sup> de 1. El análisis se estructura en cuatro pilares: contextualización del negocio y calidad de datos, diagnóstico exploratorio con análisis probabilístico, benchmarking de modelos predictivos y recomendaciones de optimización estratégica.</p>
+<p>Los resultados demuestran que, a través de modelos de clasificación como <strong>Logistic Regression</strong> o <strong>XGBoost</strong>, es posible anticipar interrupciones en la entrega con una precisión superior al <strong>95%</strong>. Por otra lado, con el uso de modelos como <strong>Linear Regression</strong>, podemos hacer una previsión de las ventas con R<sup>2</sup> igual a 1.</p>
+<p>El análisis se estructura en cuatro pilares: contextualización del negocio y calidad de datos, diagnóstico exploratorio con análisis probabilístico, benchmarking de modelos predictivos y recomendaciones de optimización estratégica.</p>
 </section>
 <section id="introducción-y-contexto" class="level1">
 <h1>Introducción y Contexto</h1>
@@ -213,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="objetivos-del-proyecto">Objetivos del Proyecto</h2>
 <ol type="1">
 <li><strong>Identificar Patrones de Retraso</strong>: Detectar rutas y categorías de productos con mayor incidencia de entregas tardías.</li>
-<li><strong>Modelado Predictivo</strong>: Implementar algoritmos de clasificación para predecir <code>Late_delivery_risk</code> en tiempo real.</li>
+<li><strong>Modelado Predictivo</strong>: Implementar un benchmarking de algoritmos de clasificación para predecir <code>Late_delivery_risk</code> y un benchmarking de algoritmos de regresión para predecir <code>Sales</code>.</li>
 <li><strong>Optimización Operativa</strong>: Proveer recomendaciones basadas en datos para mejorar la confiabilidad de la cadena de suministro.</li>
 </ol>
 </section>
@@ -756,20 +757,20 @@ Correlaciones con Late_delivery_risk (por valor absoluto):</code></pre>
 <style type="text/css">
 </style>
 
-<div id="T_269dc" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
+<div id="T_8a725" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_269dc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_8a725-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: Benchmarking — Modelos de Regresión
 </figcaption>
-<div aria-describedby="T_269dc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_269dc" class="caption-top table table-sm table-striped small">
+<div aria-describedby="T_8a725-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="T_8a725" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_269dc_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">MAE</th>
-<th id="T_269dc_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">RMSE</th>
-<th id="T_269dc_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">R²</th>
-<th id="T_269dc_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Tiempo(s)</th>
+<th id="T_8a725_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">MAE</th>
+<th id="T_8a725_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">RMSE</th>
+<th id="T_8a725_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">R²</th>
+<th id="T_8a725_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Tiempo(s)</th>
 </tr>
 <tr class="even">
 <th class="index_name level0" data-quarto-table-cell-role="th">Modelo</th>
@@ -781,32 +782,32 @@ Table&nbsp;1: Benchmarking — Modelos de Regresión
 </thead>
 <tbody>
 <tr class="odd">
-<th id="T_269dc_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Linear Regression</th>
-<td id="T_269dc_row0_col0" class="data row0 col0">0.0006</td>
-<td id="T_269dc_row0_col1" class="data row0 col1">0.0015</td>
-<td id="T_269dc_row0_col2" class="data row0 col2">1.0000</td>
-<td id="T_269dc_row0_col3" class="data row0 col3">0.2689</td>
+<th id="T_8a725_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Linear Regression</th>
+<td id="T_8a725_row0_col0" class="data row0 col0">0.0006</td>
+<td id="T_8a725_row0_col1" class="data row0 col1">0.0015</td>
+<td id="T_8a725_row0_col2" class="data row0 col2">1.0000</td>
+<td id="T_8a725_row0_col3" class="data row0 col3">0.1941</td>
 </tr>
 <tr class="even">
-<th id="T_269dc_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Ridge</th>
-<td id="T_269dc_row1_col0" class="data row1 col0">0.0017</td>
-<td id="T_269dc_row1_col1" class="data row1 col1">0.0033</td>
-<td id="T_269dc_row1_col2" class="data row1 col2">1.0000</td>
-<td id="T_269dc_row1_col3" class="data row1 col3">0.1949</td>
+<th id="T_8a725_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Ridge</th>
+<td id="T_8a725_row1_col0" class="data row1 col0">0.0017</td>
+<td id="T_8a725_row1_col1" class="data row1 col1">0.0033</td>
+<td id="T_8a725_row1_col2" class="data row1 col2">1.0000</td>
+<td id="T_8a725_row1_col3" class="data row1 col3">0.1825</td>
 </tr>
 <tr class="odd">
-<th id="T_269dc_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Lasso</th>
-<td id="T_269dc_row2_col0" class="data row2 col0">0.8359</td>
-<td id="T_269dc_row2_col1" class="data row2 col1">1.1550</td>
-<td id="T_269dc_row2_col2" class="data row2 col2">0.9999</td>
-<td id="T_269dc_row2_col3" class="data row2 col3">0.3839</td>
+<th id="T_8a725_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Lasso</th>
+<td id="T_8a725_row2_col0" class="data row2 col0">0.8359</td>
+<td id="T_8a725_row2_col1" class="data row2 col1">1.1550</td>
+<td id="T_8a725_row2_col2" class="data row2 col2">0.9999</td>
+<td id="T_8a725_row2_col3" class="data row2 col3">0.2393</td>
 </tr>
 <tr class="even">
-<th id="T_269dc_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">ElasticNet</th>
-<td id="T_269dc_row3_col0" class="data row3 col0">21.3449</td>
-<td id="T_269dc_row3_col1" class="data row3 col1">30.1334</td>
-<td id="T_269dc_row3_col2" class="data row3 col2">0.9476</td>
-<td id="T_269dc_row3_col3" class="data row3 col3">0.5046</td>
+<th id="T_8a725_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">ElasticNet</th>
+<td id="T_8a725_row3_col0" class="data row3 col0">21.3449</td>
+<td id="T_8a725_row3_col1" class="data row3 col1">30.1334</td>
+<td id="T_8a725_row3_col2" class="data row3 col2">0.9476</td>
+<td id="T_8a725_row3_col3" class="data row3 col3">0.4799</td>
 </tr>
 </tbody>
 </table>
@@ -942,10 +943,10 @@ Prueba       : X=(36104, 2)  | y=(36104,)</code></pre>
 <span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>display(clf_results_df.style.<span class="bu">format</span>(<span class="st">"</span><span class="sc">{:.4f}</span><span class="st">"</span>).set_caption(<span class="st">"Benchmarking — Modelos de Clasificación"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>✔ Logistic Regression    entrenado en 0.1015s
-✔ Decision Tree          entrenado en 0.0371s
-✔ Random Forest          entrenado en 0.7212s
-✔ XGBoost                entrenado en 5.2995s
+<pre><code>✔ Logistic Regression    entrenado en 0.0666s
+✔ Decision Tree          entrenado en 0.0364s
+✔ Random Forest          entrenado en 0.5551s
+✔ XGBoost                entrenado en 4.5409s
 🏆 Mejor Accuracy : Logistic Regression
 🏆 Mejor F1-Score : Logistic Regression
 🏆 Mejor ROC-AUC  : Decision Tree</code></pre>
@@ -954,22 +955,22 @@ Prueba       : X=(36104, 2)  | y=(36104,)</code></pre>
 <style type="text/css">
 </style>
 
-<div id="T_3a78a" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
+<div id="T_8ab62" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_3a78a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_8ab62-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2: Benchmarking — Modelos de Clasificación
 </figcaption>
-<div aria-describedby="T_3a78a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_3a78a" class="caption-top table table-sm table-striped small">
+<div aria-describedby="T_8ab62-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="T_8ab62" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_3a78a_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Accuracy</th>
-<th id="T_3a78a_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Precision</th>
-<th id="T_3a78a_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Recall</th>
-<th id="T_3a78a_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">F1-Score</th>
-<th id="T_3a78a_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">ROC-AUC</th>
-<th id="T_3a78a_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Tiempo(s)</th>
+<th id="T_8ab62_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Accuracy</th>
+<th id="T_8ab62_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Precision</th>
+<th id="T_8ab62_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Recall</th>
+<th id="T_8ab62_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">F1-Score</th>
+<th id="T_8ab62_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">ROC-AUC</th>
+<th id="T_8ab62_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Tiempo(s)</th>
 </tr>
 <tr class="even">
 <th class="index_name level0" data-quarto-table-cell-role="th">Modelo</th>
@@ -983,40 +984,40 @@ Table&nbsp;2: Benchmarking — Modelos de Clasificación
 </thead>
 <tbody>
 <tr class="odd">
-<th id="T_3a78a_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Logistic Regression</th>
-<td id="T_3a78a_row0_col0" class="data row0 col0">0.9745</td>
-<td id="T_3a78a_row0_col1" class="data row0 col1">0.9555</td>
-<td id="T_3a78a_row0_col2" class="data row0 col2">1.0000</td>
-<td id="T_3a78a_row0_col3" class="data row0 col3">0.9772</td>
-<td id="T_3a78a_row0_col4" class="data row0 col4">0.9727</td>
-<td id="T_3a78a_row0_col5" class="data row0 col5">0.1015</td>
+<th id="T_8ab62_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Logistic Regression</th>
+<td id="T_8ab62_row0_col0" class="data row0 col0">0.9745</td>
+<td id="T_8ab62_row0_col1" class="data row0 col1">0.9555</td>
+<td id="T_8ab62_row0_col2" class="data row0 col2">1.0000</td>
+<td id="T_8ab62_row0_col3" class="data row0 col3">0.9772</td>
+<td id="T_8ab62_row0_col4" class="data row0 col4">0.9727</td>
+<td id="T_8ab62_row0_col5" class="data row0 col5">0.0666</td>
 </tr>
 <tr class="even">
-<th id="T_3a78a_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Decision Tree</th>
-<td id="T_3a78a_row1_col0" class="data row1 col0">0.9745</td>
-<td id="T_3a78a_row1_col1" class="data row1 col1">0.9555</td>
-<td id="T_3a78a_row1_col2" class="data row1 col2">1.0000</td>
-<td id="T_3a78a_row1_col3" class="data row1 col3">0.9772</td>
-<td id="T_3a78a_row1_col4" class="data row1 col4">0.9728</td>
-<td id="T_3a78a_row1_col5" class="data row1 col5">0.0371</td>
+<th id="T_8ab62_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Decision Tree</th>
+<td id="T_8ab62_row1_col0" class="data row1 col0">0.9745</td>
+<td id="T_8ab62_row1_col1" class="data row1 col1">0.9555</td>
+<td id="T_8ab62_row1_col2" class="data row1 col2">1.0000</td>
+<td id="T_8ab62_row1_col3" class="data row1 col3">0.9772</td>
+<td id="T_8ab62_row1_col4" class="data row1 col4">0.9728</td>
+<td id="T_8ab62_row1_col5" class="data row1 col5">0.0364</td>
 </tr>
 <tr class="odd">
-<th id="T_3a78a_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Random Forest</th>
-<td id="T_3a78a_row2_col0" class="data row2 col0">0.9745</td>
-<td id="T_3a78a_row2_col1" class="data row2 col1">0.9555</td>
-<td id="T_3a78a_row2_col2" class="data row2 col2">1.0000</td>
-<td id="T_3a78a_row2_col3" class="data row2 col3">0.9772</td>
-<td id="T_3a78a_row2_col4" class="data row2 col4">0.9728</td>
-<td id="T_3a78a_row2_col5" class="data row2 col5">0.7212</td>
+<th id="T_8ab62_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Random Forest</th>
+<td id="T_8ab62_row2_col0" class="data row2 col0">0.9745</td>
+<td id="T_8ab62_row2_col1" class="data row2 col1">0.9555</td>
+<td id="T_8ab62_row2_col2" class="data row2 col2">1.0000</td>
+<td id="T_8ab62_row2_col3" class="data row2 col3">0.9772</td>
+<td id="T_8ab62_row2_col4" class="data row2 col4">0.9728</td>
+<td id="T_8ab62_row2_col5" class="data row2 col5">0.5551</td>
 </tr>
 <tr class="even">
-<th id="T_3a78a_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">XGBoost</th>
-<td id="T_3a78a_row3_col0" class="data row3 col0">0.9745</td>
-<td id="T_3a78a_row3_col1" class="data row3 col1">0.9555</td>
-<td id="T_3a78a_row3_col2" class="data row3 col2">1.0000</td>
-<td id="T_3a78a_row3_col3" class="data row3 col3">0.9772</td>
-<td id="T_3a78a_row3_col4" class="data row3 col4">0.9728</td>
-<td id="T_3a78a_row3_col5" class="data row3 col5">5.2995</td>
+<th id="T_8ab62_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">XGBoost</th>
+<td id="T_8ab62_row3_col0" class="data row3 col0">0.9745</td>
+<td id="T_8ab62_row3_col1" class="data row3 col1">0.9555</td>
+<td id="T_8ab62_row3_col2" class="data row3 col2">1.0000</td>
+<td id="T_8ab62_row3_col3" class="data row3 col3">0.9772</td>
+<td id="T_8ab62_row3_col4" class="data row3 col4">0.9728</td>
+<td id="T_8ab62_row3_col5" class="data row3 col5">4.5409</td>
 </tr>
 </tbody>
 </table>
@@ -1063,33 +1064,33 @@ Table&nbsp;2: Benchmarking — Modelos de Clasificación
 <style type="text/css">
 </style>
 
-<table id="T_16946" class="caption-top table table-sm table-striped small">
+<table id="T_243f3" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_16946_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Importancia (Gini)</th>
+<th id="T_243f3_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Importancia (Gini)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th id="T_16946_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Days for shipping (real)</th>
-<td id="T_16946_row0_col0" class="data row0 col0">0.5323</td>
+<th id="T_243f3_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Days for shipping (real)</th>
+<td id="T_243f3_row0_col0" class="data row0 col0">0.5323</td>
 </tr>
 <tr class="even">
-<th id="T_16946_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Days for shipment (scheduled)</th>
-<td id="T_16946_row1_col0" class="data row1 col0">0.4670</td>
+<th id="T_243f3_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Days for shipment (scheduled)</th>
+<td id="T_243f3_row1_col0" class="data row1 col0">0.4670</td>
 </tr>
 <tr class="odd">
-<th id="T_16946_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Latitude</th>
-<td id="T_16946_row2_col0" class="data row2 col0">0.0002</td>
+<th id="T_243f3_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Latitude</th>
+<td id="T_243f3_row2_col0" class="data row2 col0">0.0002</td>
 </tr>
 <tr class="even">
-<th id="T_16946_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Order Zipcode</th>
-<td id="T_16946_row3_col0" class="data row3 col0">0.0002</td>
+<th id="T_243f3_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Order Zipcode</th>
+<td id="T_243f3_row3_col0" class="data row3 col0">0.0002</td>
 </tr>
 <tr class="odd">
-<th id="T_16946_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Longitude</th>
-<td id="T_16946_row4_col0" class="data row4 col0">0.0001</td>
+<th id="T_243f3_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Longitude</th>
+<td id="T_243f3_row4_col0" class="data row4 col0">0.0001</td>
 </tr>
 </tbody>
 </table>

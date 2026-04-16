@@ -63,15 +63,14 @@ format:
 execute:
   warning: false
   message: false
-  cache: true
-  freeze: auto
+  cache: false
 ---
 
 # Resumen Ejecutivo
 
 Este informe técnico documenta la transformación de datos crudos en inteligencia operativa para la gestión de la cadena de suministros (Supply Chain Managment). Utilizando técnicas avanzadas de **Ciencia de Datos**, hemos analizado el ecosistema de **DataCo Global** para diagnosticar ineficiencias logísticas.
 
-Los resultados demuestran que, a través de modelos de clasificación como **Logistic Regression** o **XGBoost**, es posible anticipar interrupciones en la entrega con una precisión superior al **95%**. Por otra lado, con el uso de modelos de la familia de **Linear Regression**, podemos hacer una previsión de *Sales* con R^2^ igual a 1. 
+Los resultados demuestran que, a través de modelos de clasificación como **Logistic Regression** o **XGBoost**, es posible anticipar interrupciones en la entrega con una precisión superior al **95%**. Por otra lado, con el uso de modelos como **Linear Regression**, podemos hacer una previsión de las ventas con R^2^ igual a 1. 
 
 El análisis se estructura en cuatro pilares: contextualización del negocio y calidad de datos, diagnóstico exploratorio con análisis probabilístico, benchmarking de modelos predictivos y recomendaciones de optimización estratégica.
 
@@ -102,7 +101,7 @@ print(f"Dataset cargado: {df.shape[0]:,} filas × {df.shape[1]} columnas")
 ## Objetivos del Proyecto
 
 1. **Identificar Patrones de Retraso**: Detectar rutas y categorías de productos con mayor incidencia de entregas tardías.
-2. **Modelado Predictivo**: Implementar algoritmos de clasificación para predecir `Late_delivery_risk` en tiempo real.
+2. **Modelado Predictivo**: Implementar un benchmarking de algoritmos de clasificación para predecir `Late_delivery_risk` y un benchmarking de algoritmos de regresión para predecir `Sales`.
 3. **Optimización Operativa**: Proveer recomendaciones basadas en datos para mejorar la confiabilidad de la cadena de suministro.
 
 ## Calidad de Datos
