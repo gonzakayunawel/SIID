@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Gonzalo Cayunao — Doctorado UNAB">
+<meta name="author" content="Gonzalo Cayunao Erices">
 <meta name="dcterms.date" content="2026-04-15">
 
-<title>Reporte Técnico SIID: Análisis de Riesgos en Supply Chain</title>
+<title>Reporte Técnico: Análisis de Riesgos en Supply Chain</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -144,21 +144,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Reporte Técnico SIID: Análisis de Riesgos en Supply Chain</h1>
+<h1 class="title">Reporte Técnico: Análisis de Riesgos en Supply Chain</h1>
 <p class="subtitle lead">Optimización de Entregas y Modelado Predictivo con DataCo Smart Supply Chain</p>
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliations</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Gonzalo Cayunao Erices </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            Sistemas de Información e Inteligencia de los Datos
+          </p>
+        <p class="affiliation">
+            Doctorado en Ingeniería de Sistemas Avanzados
+          </p>
+        <p class="affiliation">
+            Universidad Andrés Bello (CL), 2026
+          </p>
+      </div>
+  </div>
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Gonzalo Cayunao — Doctorado UNAB </p>
-          </div>
-  </div>
-    
+      
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
@@ -228,7 +241,7 @@ Customer Zipcode            3</code></pre>
 <section id="estadísticas-descriptivas" class="level2">
 <h2 class="anchored" data-anchor-id="estadísticas-descriptivas">Estadísticas Descriptivas</h2>
 <div id="cell-describe" class="cell" data-execution_count="3">
-<div id="describe" class="cell-output cell-output-display" data-execution_count="3">
+<div id="describe" class="cell-output cell-output-display">
 <div>
 
 
@@ -236,13 +249,13 @@ Customer Zipcode            3</code></pre>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Days for shipping (real)</th>
-<th data-quarto-table-cell-role="th">Days for shipment (scheduled)</th>
-<th data-quarto-table-cell-role="th">Benefit per order</th>
-<th data-quarto-table-cell-role="th">Sales per customer</th>
-<th data-quarto-table-cell-role="th">Late_delivery_risk</th>
+<th data-quarto-table-cell-role="th">Ship Real</th>
+<th data-quarto-table-cell-role="th">Ship Sched</th>
+<th data-quarto-table-cell-role="th">Benefit/Ord</th>
+<th data-quarto-table-cell-role="th">Sales/Cust</th>
+<th data-quarto-table-cell-role="th">Late Risk</th>
 <th data-quarto-table-cell-role="th">Sales</th>
-<th data-quarto-table-cell-role="th">Order Item Quantity</th>
+<th data-quarto-table-cell-role="th">Item Qty</th>
 </tr>
 </thead>
 <tbody>
@@ -345,11 +358,11 @@ Customer Zipcode            3</code></pre>
 <section id="análisis-temporal" class="level2">
 <h2 class="anchored" data-anchor-id="análisis-temporal">Análisis Temporal</h2>
 <p>El volumen de ventas presenta estacionalidad marcada. La tendencia mensual permite identificar picos operativos.</p>
-<div id="cell-temporal-analysis" class="cell" data-execution_count="4">
+<div id="cell-temporal-analysis" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="report_files/figure-html/temporal-analysis-output-1.png" id="temporal-analysis" width="950" height="470" class="figure-img"></p>
+<p><img src="report_files/figure-html/temporal-analysis-output-1.png" id="temporal-analysis" width="662" height="374" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -358,11 +371,11 @@ Customer Zipcode            3</code></pre>
 <section id="distribución-geográfica-y-mercados" class="level2">
 <h2 class="anchored" data-anchor-id="distribución-geográfica-y-mercados">Distribución Geográfica y Mercados</h2>
 <p>DataCo opera en múltiples regiones. Europa y LATAM concentran la mayor parte de las transacciones, pero también presentan retos logísticos diferenciados.</p>
-<div id="cell-geographic-analysis" class="cell" data-execution_count="5">
+<div id="cell-geographic-analysis" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="report_files/figure-html/geographic-analysis-output-1.png" id="geographic-analysis" width="684" height="379" class="figure-img"></p>
+<p><img src="report_files/figure-html/geographic-analysis-output-1.png" id="geographic-analysis" width="662" height="375" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -370,19 +383,48 @@ Customer Zipcode            3</code></pre>
 </section>
 <section id="distribución-del-estado-de-entregas" class="level2">
 <h2 class="anchored" data-anchor-id="distribución-del-estado-de-entregas">Distribución del Estado de Entregas</h2>
-<div id="cell-delivery-status" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-stdout">
-<pre><code>Distribución del estado de entregas (%):
-Delivery Status
-Late delivery        54.83
-Advance shipping     23.04
-Shipping on time     17.84
-Shipping canceled     4.30</code></pre>
+<div id="delivery-status" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="6">
+<div id="delivery-status-1" class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Proporción (%)</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Delivery Status</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Late delivery</th>
+<td>54.83</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Advance shipping</th>
+<td>23.04</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Shipping on time</th>
+<td>17.84</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Shipping canceled</th>
+<td>4.30</td>
+</tr>
+</tbody>
+</table>
+
+</div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="report_files/figure-html/delivery-status-output-2.png" id="delivery-status" width="661" height="374" class="figure-img"></p>
+<p><img src="report_files/figure-html/delivery-status-output-2.png" id="delivery-status-2" width="661" height="374" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -393,11 +435,11 @@ Shipping canceled     4.30</code></pre>
 <h2 class="anchored" data-anchor-id="distribuciones-de-variables-clave">Distribuciones de Variables Clave</h2>
 <section id="tiempo-real-de-envío" class="level3">
 <h3 class="anchored" data-anchor-id="tiempo-real-de-envío">Tiempo Real de Envío</h3>
-<div id="cell-dist-shipping" class="cell" data-execution_count="7">
+<div id="cell-dist-shipping" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="report_files/figure-html/dist-shipping-output-1.png" id="dist-shipping" width="758" height="374" class="figure-img"></p>
+<p><img src="report_files/figure-html/dist-shipping-output-1.png" id="dist-shipping" width="662" height="374" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -405,11 +447,11 @@ Shipping canceled     4.30</code></pre>
 </section>
 <section id="beneficio-por-orden" class="level3">
 <h3 class="anchored" data-anchor-id="beneficio-por-orden">Beneficio por Orden</h3>
-<div id="cell-benefit-dist" class="cell" data-execution_count="8">
+<div id="cell-benefit-dist" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="report_files/figure-html/benefit-dist-output-1.png" id="benefit-dist" width="693" height="377" class="figure-img"></p>
+<p><img src="report_files/figure-html/benefit-dist-output-1.png" id="benefit-dist" width="661" height="374" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -430,29 +472,29 @@ Shipping canceled     4.30</code></pre>
 <div id="bayes-2var" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>P_A <span class="op">=</span> (df[<span class="st">"Days for shipping (real)"</span>] <span class="op">&gt;=</span> <span class="dv">4</span>).mean()</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>P_B <span class="op">=</span> (df[<span class="st">"Late_delivery_risk"</span>] <span class="op">==</span> <span class="dv">1</span>).mean()</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>P_C <span class="op">=</span> (df[<span class="st">"Benefit per order"</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">100</span>).mean()</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>P_AB  <span class="op">=</span> ((df[<span class="st">"Days for shipping (real)"</span>] <span class="op">&gt;=</span> <span class="dv">4</span>) <span class="op">&amp;</span> (df[<span class="st">"Late_delivery_risk"</span>] <span class="op">==</span> <span class="dv">1</span>)).mean()</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>P_AC  <span class="op">=</span> ((df[<span class="st">"Days for shipping (real)"</span>] <span class="op">&gt;=</span> <span class="dv">4</span>) <span class="op">&amp;</span> (df[<span class="st">"Benefit per order"</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">100</span>)).mean()</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>P_BC  <span class="op">=</span> ((df[<span class="st">"Late_delivery_risk"</span>] <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (df[<span class="st">"Benefit per order"</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">100</span>)).mean()</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>P_ABC <span class="op">=</span> (</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    (df[<span class="st">"Days for shipping (real)"</span>] <span class="op">&gt;=</span> <span class="dv">4</span>) <span class="op">&amp;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    (df[<span class="st">"Late_delivery_risk"</span>] <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    (df[<span class="st">"Benefit per order"</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">100</span>)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>).mean()</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Probabilidades marginales:"</span>)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A) Envío lento       = </span><span class="sc">{</span>P_A<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_A<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(B) Riesgo de retraso = </span><span class="sc">{</span>P_B<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_B<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(C) Orden no rentable = </span><span class="sc">{</span>P_C<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_C<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Probabilidades conjuntas:"</span>)</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A∩B)   = </span><span class="sc">{</span>P_AB<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_AB<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A∩C)   = </span><span class="sc">{</span>P_AC<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_AC<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(B∩C)   = </span><span class="sc">{</span>P_BC<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_BC<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A∩B∩C) = </span><span class="sc">{</span>P_ABC<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_ABC<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>P_A <span class="op">=</span> (df[<span class="st">"Days for shipping (real)"</span>] <span class="op">&gt;=</span> <span class="dv">4</span>).mean()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>P_B <span class="op">=</span> (df[<span class="st">"Late_delivery_risk"</span>] <span class="op">==</span> <span class="dv">1</span>).mean()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>P_C <span class="op">=</span> (df[<span class="st">"Benefit per order"</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">100</span>).mean()</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>P_AB  <span class="op">=</span> ((df[<span class="st">"Days for shipping (real)"</span>] <span class="op">&gt;=</span> <span class="dv">4</span>) <span class="op">&amp;</span> (df[<span class="st">"Late_delivery_risk"</span>] <span class="op">==</span> <span class="dv">1</span>)).mean()</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>P_AC  <span class="op">=</span> ((df[<span class="st">"Days for shipping (real)"</span>] <span class="op">&gt;=</span> <span class="dv">4</span>) <span class="op">&amp;</span> (df[<span class="st">"Benefit per order"</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">100</span>)).mean()</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>P_BC  <span class="op">=</span> ((df[<span class="st">"Late_delivery_risk"</span>] <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (df[<span class="st">"Benefit per order"</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">100</span>)).mean()</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>P_ABC <span class="op">=</span> (</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    (df[<span class="st">"Days for shipping (real)"</span>] <span class="op">&gt;=</span> <span class="dv">4</span>) <span class="op">&amp;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    (df[<span class="st">"Late_delivery_risk"</span>] <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    (df[<span class="st">"Benefit per order"</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">100</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>).mean()</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Probabilidades marginales:"</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A) Envío lento       = </span><span class="sc">{</span>P_A<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_A<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(B) Riesgo de retraso = </span><span class="sc">{</span>P_B<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_B<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(C) Orden no rentable = </span><span class="sc">{</span>P_C<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_C<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Probabilidades conjuntas:"</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A∩B)   = </span><span class="sc">{</span>P_AB<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_AB<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A∩C)   = </span><span class="sc">{</span>P_AC<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_AC<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(B∩C)   = </span><span class="sc">{</span>P_BC<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_BC<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A∩B∩C) = </span><span class="sc">{</span>P_ABC<span class="sc">:.4f}</span><span class="ss">  (</span><span class="sc">{</span>P_ABC<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Probabilidades marginales:
@@ -473,24 +515,24 @@ Probabilidades conjuntas:
 <div id="bayes-conditional" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>P_A_dado_B        <span class="op">=</span> P_AB <span class="op">/</span> P_B</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>P_B_dado_A        <span class="op">=</span> P_AB <span class="op">/</span> P_A</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>P_C_dado_A        <span class="op">=</span> P_AC <span class="op">/</span> P_A</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>P_BC_dado_A       <span class="op">=</span> P_ABC <span class="op">/</span> P_A</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>P_BC_dado_A_bayes <span class="op">=</span> (P_ABC <span class="op">/</span> P_BC) <span class="op">*</span> P_BC <span class="op">/</span> P_A   <span class="co"># verificación Bayes</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Probabilidades condicionales:"</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(B|A) = </span><span class="sc">{</span>P_B_dado_A<span class="sc">:.4f}</span><span class="ss"> (</span><span class="sc">{</span>P_B_dado_A<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%) → Dado envío lento → riesgo de retraso"</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A|B) = </span><span class="sc">{</span>P_A_dado_B<span class="sc">:.4f}</span><span class="ss"> (</span><span class="sc">{</span>P_A_dado_B<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%) → Dado retraso → envío fue lento"</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(C|A) = </span><span class="sc">{</span>P_C_dado_A<span class="sc">:.4f}</span><span class="ss"> (</span><span class="sc">{</span>P_C_dado_A<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%) → Dado envío lento → orden no rentable"</span>)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(B∩C|A) directo = </span><span class="sc">{</span>P_BC_dado_A<span class="sc">:.4f}</span><span class="ss"> (</span><span class="sc">{</span>P_BC_dado_A<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%) → Envío lento → retraso Y pérdida"</span>)</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Verificación independencia (A y C):"</span>)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A)·P(C) = </span><span class="sc">{</span>P_A<span class="op">*</span>P_C<span class="sc">:.4f}</span><span class="ss">  vs  P(A∩C) = </span><span class="sc">{</span>P_AC<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">abs</span>(P_A <span class="op">*</span> P_C <span class="op">-</span> P_AC) <span class="op">&lt;</span> <span class="fl">0.001</span>:</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"  → Eventos aproximadamente INDEPENDIENTES"</span>)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"  → Eventos NO independientes (hay asociación)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>P_A_dado_B        <span class="op">=</span> P_AB <span class="op">/</span> P_B</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>P_B_dado_A        <span class="op">=</span> P_AB <span class="op">/</span> P_A</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>P_C_dado_A        <span class="op">=</span> P_AC <span class="op">/</span> P_A</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>P_BC_dado_A       <span class="op">=</span> P_ABC <span class="op">/</span> P_A</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>P_BC_dado_A_bayes <span class="op">=</span> (P_ABC <span class="op">/</span> P_BC) <span class="op">*</span> P_BC <span class="op">/</span> P_A   <span class="co"># verificación Bayes</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Probabilidades condicionales:"</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(B|A) = </span><span class="sc">{</span>P_B_dado_A<span class="sc">:.4f}</span><span class="ss"> (</span><span class="sc">{</span>P_B_dado_A<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%) → Dado envío lento → riesgo de retraso"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A|B) = </span><span class="sc">{</span>P_A_dado_B<span class="sc">:.4f}</span><span class="ss"> (</span><span class="sc">{</span>P_A_dado_B<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%) → Dado retraso → envío fue lento"</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(C|A) = </span><span class="sc">{</span>P_C_dado_A<span class="sc">:.4f}</span><span class="ss"> (</span><span class="sc">{</span>P_C_dado_A<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%) → Dado envío lento → orden no rentable"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(B∩C|A) directo = </span><span class="sc">{</span>P_BC_dado_A<span class="sc">:.4f}</span><span class="ss"> (</span><span class="sc">{</span>P_BC_dado_A<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%) → Envío lento → retraso Y pérdida"</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Verificación independencia (A y C):"</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  P(A)·P(C) = </span><span class="sc">{</span>P_A<span class="op">*</span>P_C<span class="sc">:.4f}</span><span class="ss">  vs  P(A∩C) = </span><span class="sc">{</span>P_AC<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">abs</span>(P_A <span class="op">*</span> P_C <span class="op">-</span> P_AC) <span class="op">&lt;</span> <span class="fl">0.001</span>:</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"  → Eventos aproximadamente INDEPENDIENTES"</span>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"  → Eventos NO independientes (hay asociación)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Probabilidades condicionales:
@@ -513,25 +555,25 @@ Verificación independencia (A y C):
 <div id="sampling-ci" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_muestra <span class="op">=</span> df.sample(frac<span class="op">=</span><span class="fl">0.05</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>col <span class="op">=</span> <span class="st">'Sales per customer'</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>media <span class="op">=</span> df_muestra[col].mean()</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>std   <span class="op">=</span> df_muestra[col].std()</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>n     <span class="op">=</span> <span class="bu">len</span>(df_muestra)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>SE    <span class="op">=</span> std <span class="op">/</span> np.sqrt(n)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>Z     <span class="op">=</span> <span class="fl">1.96</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>error <span class="op">=</span> SE <span class="op">*</span> Z</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>IC_L <span class="op">=</span> media <span class="op">-</span> error</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>IC_U <span class="op">=</span> media <span class="op">+</span> error</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Muestra: n = </span><span class="sc">{</span>n<span class="sc">:,}</span><span class="ss"> (</span><span class="sc">{</span>n<span class="op">/</span><span class="bu">len</span>(df)<span class="op">*</span><span class="dv">100</span><span class="sc">:.0f}</span><span class="ss">% del total)"</span>)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Media muestral de '</span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">': </span><span class="sc">{</span>media<span class="sc">:.2f}</span><span class="ss"> USD"</span>)</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Desviación estándar: </span><span class="sc">{</span>std<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Error estándar (SE): </span><span class="sc">{</span>SE<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Intervalo de confianza 95%: [</span><span class="sc">{</span>IC_L<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>IC_U<span class="sc">:.2f}</span><span class="ss">] USD"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df_muestra <span class="op">=</span> df.sample(frac<span class="op">=</span><span class="fl">0.05</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>col <span class="op">=</span> <span class="st">'Sales per customer'</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>media <span class="op">=</span> df_muestra[col].mean()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>std   <span class="op">=</span> df_muestra[col].std()</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>n     <span class="op">=</span> <span class="bu">len</span>(df_muestra)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>SE    <span class="op">=</span> std <span class="op">/</span> np.sqrt(n)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>Z     <span class="op">=</span> <span class="fl">1.96</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>error <span class="op">=</span> SE <span class="op">*</span> Z</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>IC_L <span class="op">=</span> media <span class="op">-</span> error</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>IC_U <span class="op">=</span> media <span class="op">+</span> error</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Muestra: n = </span><span class="sc">{</span>n<span class="sc">:,}</span><span class="ss"> (</span><span class="sc">{</span>n<span class="op">/</span><span class="bu">len</span>(df)<span class="op">*</span><span class="dv">100</span><span class="sc">:.0f}</span><span class="ss">% del total)"</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Media muestral de '</span><span class="sc">{</span>col<span class="sc">}</span><span class="ss">': </span><span class="sc">{</span>media<span class="sc">:.2f}</span><span class="ss"> USD"</span>)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Desviación estándar: </span><span class="sc">{</span>std<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Error estándar (SE): </span><span class="sc">{</span>SE<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Intervalo de confianza 95%: [</span><span class="sc">{</span>IC_L<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>IC_U<span class="sc">:.2f}</span><span class="ss">] USD"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Muestra: n = 9,026 (5% del total)
@@ -544,25 +586,66 @@ Intervalo de confianza 95%: [181.91, 186.88] USD</code></pre>
 </section>
 <section id="matriz-de-correlación" class="level2">
 <h2 class="anchored" data-anchor-id="matriz-de-correlación">Matriz de Correlación</h2>
-<div id="cell-correlation-matrix" class="cell" data-execution_count="12">
+<div id="correlation-matrix" class="cell" data-fig-height="6" data-fig-width="7" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="report_files/figure-html/correlation-matrix-output-1.png" id="correlation-matrix" width="1598" height="1333" class="figure-img"></p>
+<p><img src="report_files/figure-html/correlation-matrix-output-1.png" id="correlation-matrix-1" width="657" height="564" class="figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-Correlaciones con Late_delivery_risk (por valor absoluto):
-Days for shipping (real)         0.401415
-Days for shipment (scheduled)   -0.369352
-Order Zipcode                   -0.014131
-Sales per customer              -0.003791
-Order Item Total                -0.003791
-Order Profit Per Order          -0.003727
-Benefit per order               -0.003727
-Sales                           -0.003564</code></pre>
+Correlaciones con Late_delivery_risk (por valor absoluto):</code></pre>
+</div>
+<div id="correlation-matrix-2" class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Correlación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Days for shipping (real)</th>
+<td>0.401415</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Days for shipment (scheduled)</th>
+<td>-0.369352</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Order Zipcode</th>
+<td>-0.014131</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Sales per customer</th>
+<td>-0.003791</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Order Item Total</th>
+<td>-0.003791</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Order Profit Per Order</th>
+<td>-0.003727</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Benefit per order</th>
+<td>-0.003727</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Sales</th>
+<td>-0.003564</td>
+</tr>
+</tbody>
+</table>
+
+</div>
 </div>
 </div>
 </section>
@@ -600,87 +683,136 @@ Sales                           -0.003564</code></pre>
 <section id="modelo-de-regresión-predicción-de-ventas" class="level2">
 <h2 class="anchored" data-anchor-id="modelo-de-regresión-predicción-de-ventas">Modelo de Regresión: Predicción de Ventas</h2>
 <p>Benchmarking de cuatro modelos lineales para estimar <code>Sales</code> a partir de variables numéricas del pedido.</p>
-<div id="regression-model" class="cell" data-execution_count="13">
+<div id="cell-regression-model" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> ElasticNet, Lasso, LinearRegression, Ridge</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, r2_score, root_mean_squared_error</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>TARGET <span class="op">=</span> <span class="st">'Sales'</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>drop_cols <span class="op">=</span> [</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    TARGET,</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Customer Id'</span>, <span class="st">'Order Customer Id'</span>, <span class="st">'Order Id'</span>,</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Order Item Id'</span>, <span class="st">'Order Item Cardprod Id'</span>,</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Product Card Id'</span>, <span class="st">'Product Category Id'</span>, <span class="st">'Category Id'</span>, <span class="st">'Department Id'</span>,</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fuga de datos — derivadas de Sales</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Order Item Total'</span>,</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Order Profit Per Order'</span>,</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Benefit per order'</span>,</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sin datos útiles</span></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Product Description'</span>,</span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>numeric_cols <span class="op">=</span> df.select_dtypes(include<span class="op">=</span>[np.number]).columns.tolist()</span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>feature_cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> numeric_cols <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> drop_cols]</span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[feature_cols]</span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[TARGET]</span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>models_reg <span class="op">=</span> {</span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Linear Regression"</span>: LinearRegression(),</span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Ridge"</span>:             Ridge(alpha<span class="op">=</span><span class="fl">1.0</span>),</span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Lasso"</span>:             Lasso(alpha<span class="op">=</span><span class="fl">1.0</span>, max_iter<span class="op">=</span><span class="dv">5000</span>),</span>
-<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ElasticNet"</span>:        ElasticNet(alpha<span class="op">=</span><span class="fl">1.0</span>, l1_ratio<span class="op">=</span><span class="fl">0.5</span>, max_iter<span class="op">=</span><span class="dv">5000</span>),</span>
-<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>results_reg <span class="op">=</span> []</span>
-<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, model <span class="kw">in</span> models_reg.items():</span>
-<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>    pipe <span class="op">=</span> Pipeline([</span>
-<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"imputer"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)),</span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"scaler"</span>,  StandardScaler()),</span>
-<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"model"</span>,   model),</span>
-<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>    ])</span>
-<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> time.time()</span>
-<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>    pipe.fit(X_train, y_train)</span>
-<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>    elapsed <span class="op">=</span> time.time() <span class="op">-</span> start</span>
-<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>    y_pred <span class="op">=</span> pipe.predict(X_test)</span>
-<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>    results_reg.append({</span>
-<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Modelo"</span>:    name,</span>
-<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>        <span class="st">"MAE"</span>:       <span class="bu">round</span>(mean_absolute_error(y_test, y_pred), <span class="dv">4</span>),</span>
-<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>        <span class="st">"RMSE"</span>:      <span class="bu">round</span>(root_mean_squared_error(y_test, y_pred), <span class="dv">4</span>),</span>
-<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>        <span class="st">"R²"</span>:        <span class="bu">round</span>(r2_score(y_test, y_pred), <span class="dv">4</span>),</span>
-<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Tiempo(s)"</span>: <span class="bu">round</span>(elapsed, <span class="dv">4</span>),</span>
-<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>results_reg_df <span class="op">=</span> pd.DataFrame(results_reg).set_index(<span class="st">"Modelo"</span>).sort_values(<span class="st">"R²"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">60</span>)</span>
-<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"           BENCHMARKING — MODELOS DE REGRESIÓN"</span>)</span>
-<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">60</span>)</span>
-<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(results_reg_df.to_string(float_format<span class="op">=</span><span class="st">"</span><span class="sc">{:.4f}</span><span class="st">"</span>.<span class="bu">format</span>))</span>
-<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">✅ Mejor modelo por R²:"</span>, results_reg_df[<span class="st">"R²"</span>].idxmax())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> ElasticNet, Lasso, LinearRegression, Ridge</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error, r2_score, root_mean_squared_error</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>TARGET <span class="op">=</span> <span class="st">'Sales'</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>drop_cols <span class="op">=</span> [</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    TARGET,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Customer Id'</span>, <span class="st">'Order Customer Id'</span>, <span class="st">'Order Id'</span>,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Order Item Id'</span>, <span class="st">'Order Item Cardprod Id'</span>,</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Product Card Id'</span>, <span class="st">'Product Category Id'</span>, <span class="st">'Category Id'</span>, <span class="st">'Department Id'</span>,</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fuga de datos — derivadas de Sales</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Order Item Total'</span>,</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Order Profit Per Order'</span>,</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Benefit per order'</span>,</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sin datos útiles</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Product Description'</span>,</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>numeric_cols <span class="op">=</span> df.select_dtypes(include<span class="op">=</span>[np.number]).columns.tolist()</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>feature_cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> numeric_cols <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> drop_cols]</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[feature_cols]</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df[TARGET]</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>models_reg <span class="op">=</span> {</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Linear Regression"</span>: LinearRegression(),</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Ridge"</span>:             Ridge(alpha<span class="op">=</span><span class="fl">1.0</span>),</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Lasso"</span>:             Lasso(alpha<span class="op">=</span><span class="fl">1.0</span>, max_iter<span class="op">=</span><span class="dv">5000</span>),</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ElasticNet"</span>:        ElasticNet(alpha<span class="op">=</span><span class="fl">1.0</span>, l1_ratio<span class="op">=</span><span class="fl">0.5</span>, max_iter<span class="op">=</span><span class="dv">5000</span>),</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>results_reg <span class="op">=</span> []</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, model <span class="kw">in</span> models_reg.items():</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>    pipe <span class="op">=</span> Pipeline([</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"imputer"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)),</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"scaler"</span>,  StandardScaler()),</span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"model"</span>,   model),</span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>    ])</span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> time.time()</span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>    pipe.fit(X_train, y_train)</span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>    elapsed <span class="op">=</span> time.time() <span class="op">-</span> start</span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>    y_pred <span class="op">=</span> pipe.predict(X_test)</span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>    results_reg.append({</span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Modelo"</span>:    name,</span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>        <span class="st">"MAE"</span>:       <span class="bu">round</span>(mean_absolute_error(y_test, y_pred), <span class="dv">4</span>),</span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>        <span class="st">"RMSE"</span>:      <span class="bu">round</span>(root_mean_squared_error(y_test, y_pred), <span class="dv">4</span>),</span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>        <span class="st">"R²"</span>:        <span class="bu">round</span>(r2_score(y_test, y_pred), <span class="dv">4</span>),</span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Tiempo(s)"</span>: <span class="bu">round</span>(elapsed, <span class="dv">4</span>),</span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>results_reg_df <span class="op">=</span> pd.DataFrame(results_reg).set_index(<span class="st">"Modelo"</span>).sort_values(<span class="st">"R²"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\u2705</span><span class="ss"> Mejor modelo por R²: </span><span class="sc">{</span>results_reg_df[<span class="st">'R²'</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>display(results_reg_df.style.<span class="bu">format</span>(<span class="st">"</span><span class="sc">{:.4f}</span><span class="st">"</span>).set_caption(<span class="st">"Benchmarking — Modelos de Regresión"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>============================================================
-           BENCHMARKING — MODELOS DE REGRESIÓN
-============================================================
-                      MAE    RMSE     R²  Tiempo(s)
-Modelo                                             
-Linear Regression  0.0006  0.0015 1.0000     0.2382
-Ridge              0.0017  0.0033 1.0000     0.1824
-Lasso              0.8359  1.1550 0.9999     0.1649
-ElasticNet        21.3449 30.1334 0.9476     0.2048
+<pre><code>✅ Mejor modelo por R²: Linear Regression</code></pre>
+</div>
+<div id="regression-model" class="cell-output cell-output-display">
+<style type="text/css">
+</style>
 
-✅ Mejor modelo por R²: Linear Regression</code></pre>
+<div id="T_74230" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_74230-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Benchmarking — Modelos de Regresión
+</figcaption>
+<div aria-describedby="T_74230-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="T_74230" class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th id="T_74230_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">MAE</th>
+<th id="T_74230_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">RMSE</th>
+<th id="T_74230_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">R²</th>
+<th id="T_74230_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Tiempo(s)</th>
+</tr>
+<tr class="even">
+<th class="index_name level0" data-quarto-table-cell-role="th">Modelo</th>
+<th class="blank col0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col1" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col2" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col3" data-quarto-table-cell-role="th">&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th id="T_74230_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Linear Regression</th>
+<td id="T_74230_row0_col0" class="data row0 col0">0.0006</td>
+<td id="T_74230_row0_col1" class="data row0 col1">0.0015</td>
+<td id="T_74230_row0_col2" class="data row0 col2">1.0000</td>
+<td id="T_74230_row0_col3" class="data row0 col3">0.2198</td>
+</tr>
+<tr class="even">
+<th id="T_74230_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Ridge</th>
+<td id="T_74230_row1_col0" class="data row1 col0">0.0017</td>
+<td id="T_74230_row1_col1" class="data row1 col1">0.0033</td>
+<td id="T_74230_row1_col2" class="data row1 col2">1.0000</td>
+<td id="T_74230_row1_col3" class="data row1 col3">0.1910</td>
+</tr>
+<tr class="odd">
+<th id="T_74230_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Lasso</th>
+<td id="T_74230_row2_col0" class="data row2 col0">0.8359</td>
+<td id="T_74230_row2_col1" class="data row2 col1">1.1550</td>
+<td id="T_74230_row2_col2" class="data row2 col2">0.9999</td>
+<td id="T_74230_row2_col3" class="data row2 col3">0.2732</td>
+</tr>
+<tr class="even">
+<th id="T_74230_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">ElasticNet</th>
+<td id="T_74230_row3_col0" class="data row3 col0">21.3449</td>
+<td id="T_74230_row3_col1" class="data row3 col1">30.1334</td>
+<td id="T_74230_row3_col2" class="data row3 col2">0.9476</td>
+<td id="T_74230_row3_col3" class="data row3 col3">0.1869</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -692,56 +824,56 @@ ElasticNet        21.3449 30.1334 0.9476     0.2048
 <div id="clf-feature-selection" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, classification_report</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>TARGET_CLF <span class="op">=</span> <span class="st">'Late_delivery_risk'</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>drop_cols_clf <span class="op">=</span> [</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    TARGET_CLF,</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Customer Id'</span>, <span class="st">'Order Customer Id'</span>, <span class="st">'Order Id'</span>,</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Order Item Id'</span>, <span class="st">'Order Item Cardprod Id'</span>,</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Product Card Id'</span>, <span class="st">'Product Category Id'</span>, <span class="st">'Category Id'</span>, <span class="st">'Department Id'</span>,</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Product Description'</span>,</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>numeric_cols_clf <span class="op">=</span> df.select_dtypes(include<span class="op">=</span>[np.number]).columns.tolist()</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>feature_cols_clf <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> numeric_cols_clf <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> drop_cols_clf]</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>X_clf <span class="op">=</span> df[feature_cols_clf]</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>y_clf <span class="op">=</span> df[TARGET_CLF]</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>X_train_clf, X_test_clf, y_train_clf, y_test_clf <span class="op">=</span> train_test_split(</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    X_clf, y_clf, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>, stratify<span class="op">=</span>y_clf</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>dt_ref <span class="op">=</span> Pipeline([</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"imputer"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)),</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"scaler"</span>,  StandardScaler()),</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>,   DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">6</span>, random_state<span class="op">=</span><span class="dv">42</span>)),</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>])</span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>dt_ref.fit(X_train_clf, y_train_clf)</span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>importances <span class="op">=</span> pd.Series(</span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    dt_ref.named_steps[<span class="st">"model"</span>].feature_importances_,</span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>feature_cols_clf</span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>).sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>IMPORTANCE_THRESHOLD <span class="op">=</span> <span class="fl">0.01</span></span>
-<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>selected_features <span class="op">=</span> importances[importances <span class="op">&gt;=</span> IMPORTANCE_THRESHOLD].index.tolist()</span>
-<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Features seleccionadas (</span><span class="sc">{</span><span class="bu">len</span>(selected_features)<span class="sc">}</span><span class="ss">):"</span>)</span>
-<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> feat <span class="kw">in</span> selected_features:</span>
-<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>feat<span class="sc">:&lt;35}</span><span class="ss"> </span><span class="sc">{</span>importances[feat]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>X_final <span class="op">=</span> df[selected_features]</span>
-<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>y_final <span class="op">=</span> df[TARGET_CLF]</span>
-<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>X_train_f, X_test_f, y_train_f, y_test_f <span class="op">=</span> train_test_split(</span>
-<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>    X_final, y_final, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>, stratify<span class="op">=</span>y_final</span>
-<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Entrenamiento: X=</span><span class="sc">{</span>X_train_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss"> | y=</span><span class="sc">{</span>y_train_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Prueba       : X=</span><span class="sc">{</span>X_test_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">  | y=</span><span class="sc">{</span>y_test_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score, classification_report</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>TARGET_CLF <span class="op">=</span> <span class="st">'Late_delivery_risk'</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>drop_cols_clf <span class="op">=</span> [</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    TARGET_CLF,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Customer Id'</span>, <span class="st">'Order Customer Id'</span>, <span class="st">'Order Id'</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Order Item Id'</span>, <span class="st">'Order Item Cardprod Id'</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Product Card Id'</span>, <span class="st">'Product Category Id'</span>, <span class="st">'Category Id'</span>, <span class="st">'Department Id'</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Product Description'</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>numeric_cols_clf <span class="op">=</span> df.select_dtypes(include<span class="op">=</span>[np.number]).columns.tolist()</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>feature_cols_clf <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> numeric_cols_clf <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> drop_cols_clf]</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>X_clf <span class="op">=</span> df[feature_cols_clf]</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>y_clf <span class="op">=</span> df[TARGET_CLF]</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>X_train_clf, X_test_clf, y_train_clf, y_test_clf <span class="op">=</span> train_test_split(</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    X_clf, y_clf, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>, stratify<span class="op">=</span>y_clf</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>dt_ref <span class="op">=</span> Pipeline([</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"imputer"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)),</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"scaler"</span>,  StandardScaler()),</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"model"</span>,   DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">6</span>, random_state<span class="op">=</span><span class="dv">42</span>)),</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>dt_ref.fit(X_train_clf, y_train_clf)</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>importances <span class="op">=</span> pd.Series(</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    dt_ref.named_steps[<span class="st">"model"</span>].feature_importances_,</span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span>feature_cols_clf</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>).sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>IMPORTANCE_THRESHOLD <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>selected_features <span class="op">=</span> importances[importances <span class="op">&gt;=</span> IMPORTANCE_THRESHOLD].index.tolist()</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Features seleccionadas (</span><span class="sc">{</span><span class="bu">len</span>(selected_features)<span class="sc">}</span><span class="ss">):"</span>)</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> feat <span class="kw">in</span> selected_features:</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>feat<span class="sc">:&lt;35}</span><span class="ss"> </span><span class="sc">{</span>importances[feat]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>X_final <span class="op">=</span> df[selected_features]</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>y_final <span class="op">=</span> df[TARGET_CLF]</span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>X_train_f, X_test_f, y_train_f, y_test_f <span class="op">=</span> train_test_split(</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>    X_final, y_final, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>, stratify<span class="op">=</span>y_final</span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Entrenamiento: X=</span><span class="sc">{</span>X_train_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss"> | y=</span><span class="sc">{</span>y_train_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Prueba       : X=</span><span class="sc">{</span>X_test_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">  | y=</span><span class="sc">{</span>y_test_f<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Features seleccionadas (2):
@@ -755,101 +887,161 @@ Prueba       : X=(36104, 2)  | y=(36104,)</code></pre>
 </section>
 <section id="paso-2-benchmarking-de-clasificadores" class="level3">
 <h3 class="anchored" data-anchor-id="paso-2-benchmarking-de-clasificadores">Paso 2 — Benchmarking de Clasificadores</h3>
-<div id="clf-benchmarking" class="cell" data-execution_count="15">
+<div id="cell-clf-benchmarking" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> (</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    accuracy_score, f1_score, precision_score, recall_score, roc_auc_score,</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xgboost <span class="im">import</span> XGBClassifier</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>clf_models <span class="op">=</span> {</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Logistic Regression"</span>: LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>, random_state<span class="op">=</span><span class="dv">42</span>),</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Decision Tree"</span>:       DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">6</span>, random_state<span class="op">=</span><span class="dv">42</span>),</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Random Forest"</span>:       RandomForestClassifier(n_estimators<span class="op">=</span><span class="dv">100</span>, max_depth<span class="op">=</span><span class="dv">6</span>,</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>                                                  random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>),</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XGBoost"</span>:             XGBClassifier(n_estimators<span class="op">=</span><span class="dv">100</span>, max_depth<span class="op">=</span><span class="dv">6</span>,</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>                                         learning_rate<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">42</span>,</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>                                         eval_metric<span class="op">=</span><span class="st">"logloss"</span>,</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>                                         verbosity<span class="op">=</span><span class="dv">0</span>),</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>clf_results <span class="op">=</span> []</span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, model <span class="kw">in</span> clf_models.items():</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    pipe <span class="op">=</span> Pipeline([</span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"imputer"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)),</span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"scaler"</span>,  StandardScaler()),</span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"model"</span>,   model),</span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>    ])</span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> time.time()</span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>    pipe.fit(X_train_f, y_train_f)</span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>    elapsed <span class="op">=</span> time.time() <span class="op">-</span> start</span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>    y_pred  <span class="op">=</span> pipe.predict(X_test_f)</span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>    y_proba <span class="op">=</span> pipe.predict_proba(X_test_f)[:, <span class="dv">1</span>]</span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>    clf_results.append({</span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Modelo"</span>:    name,</span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Accuracy"</span>:  accuracy_score(y_test_f, y_pred),</span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Precision"</span>: precision_score(y_test_f, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>),</span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Recall"</span>:    recall_score(y_test_f, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>),</span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"F1-Score"</span>:  f1_score(y_test_f, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>),</span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ROC-AUC"</span>:   roc_auc_score(y_test_f, y_proba),</span>
-<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Tiempo(s)"</span>: <span class="bu">round</span>(elapsed, <span class="dv">4</span>),</span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"✔ </span><span class="sc">{</span>name<span class="sc">:&lt;22}</span><span class="ss"> entrenado en </span><span class="sc">{</span>elapsed<span class="sc">:.4f}</span><span class="ss">s"</span>)</span>
-<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>clf_results_df <span class="op">=</span> pd.DataFrame(clf_results).set_index(<span class="st">"Modelo"</span>).sort_values(<span class="st">"F1-Score"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span> <span class="op">*</span> <span class="dv">72</span>)</span>
-<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"              BENCHMARKING — MODELOS DE CLASIFICACIÓN"</span>)</span>
-<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">72</span>)</span>
-<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(clf_results_df.to_string(float_format<span class="op">=</span><span class="st">"</span><span class="sc">{:.4f}</span><span class="st">"</span>.<span class="bu">format</span>))</span>
-<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">🏆 Mejor Accuracy : </span><span class="sc">{</span>clf_results_df[<span class="st">'Accuracy'</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"🏆 Mejor F1-Score : </span><span class="sc">{</span>clf_results_df[<span class="st">'F1-Score'</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"🏆 Mejor ROC-AUC  : </span><span class="sc">{</span>clf_results_df[<span class="st">'ROC-AUC'</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> (</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    accuracy_score, f1_score, precision_score, recall_score, roc_auc_score,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xgboost <span class="im">import</span> XGBClassifier</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>clf_models <span class="op">=</span> {</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Logistic Regression"</span>: LogisticRegression(max_iter<span class="op">=</span><span class="dv">1000</span>, random_state<span class="op">=</span><span class="dv">42</span>),</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Decision Tree"</span>:       DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">6</span>, random_state<span class="op">=</span><span class="dv">42</span>),</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Random Forest"</span>:       RandomForestClassifier(n_estimators<span class="op">=</span><span class="dv">100</span>, max_depth<span class="op">=</span><span class="dv">6</span>,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>                                                  random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>),</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XGBoost"</span>:             XGBClassifier(n_estimators<span class="op">=</span><span class="dv">100</span>, max_depth<span class="op">=</span><span class="dv">6</span>,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>                                         learning_rate<span class="op">=</span><span class="fl">0.1</span>, random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>                                         eval_metric<span class="op">=</span><span class="st">"logloss"</span>,</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>                                         verbosity<span class="op">=</span><span class="dv">0</span>),</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>clf_results <span class="op">=</span> []</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, model <span class="kw">in</span> clf_models.items():</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    pipe <span class="op">=</span> Pipeline([</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"imputer"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>)),</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"scaler"</span>,  StandardScaler()),</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"model"</span>,   model),</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    ])</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> time.time()</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>    pipe.fit(X_train_f, y_train_f)</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    elapsed <span class="op">=</span> time.time() <span class="op">-</span> start</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>    y_pred  <span class="op">=</span> pipe.predict(X_test_f)</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>    y_proba <span class="op">=</span> pipe.predict_proba(X_test_f)[:, <span class="dv">1</span>]</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>    clf_results.append({</span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Modelo"</span>:    name,</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Accuracy"</span>:  accuracy_score(y_test_f, y_pred),</span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Precision"</span>: precision_score(y_test_f, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>),</span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Recall"</span>:    recall_score(y_test_f, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>),</span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"F1-Score"</span>:  f1_score(y_test_f, y_pred, zero_division<span class="op">=</span><span class="dv">0</span>),</span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ROC-AUC"</span>:   roc_auc_score(y_test_f, y_proba),</span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Tiempo(s)"</span>: <span class="bu">round</span>(elapsed, <span class="dv">4</span>),</span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"✔ </span><span class="sc">{</span>name<span class="sc">:&lt;22}</span><span class="ss"> entrenado en </span><span class="sc">{</span>elapsed<span class="sc">:.4f}</span><span class="ss">s"</span>)</span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>clf_results_df <span class="op">=</span> pd.DataFrame(clf_results).set_index(<span class="st">"Modelo"</span>).sort_values(<span class="st">"F1-Score"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"🏆 Mejor Accuracy : </span><span class="sc">{</span>clf_results_df[<span class="st">'Accuracy'</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"🏆 Mejor F1-Score : </span><span class="sc">{</span>clf_results_df[<span class="st">'F1-Score'</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"🏆 Mejor ROC-AUC  : </span><span class="sc">{</span>clf_results_df[<span class="st">'ROC-AUC'</span>]<span class="sc">.</span>idxmax()<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>display(clf_results_df.style.<span class="bu">format</span>(<span class="st">"</span><span class="sc">{:.4f}</span><span class="st">"</span>).set_caption(<span class="st">"Benchmarking — Modelos de Clasificación"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>✔ Logistic Regression    entrenado en 0.0961s
-✔ Decision Tree          entrenado en 0.0345s
-✔ Random Forest          entrenado en 0.5292s
-✔ XGBoost                entrenado en 0.8393s
-
-========================================================================
-              BENCHMARKING — MODELOS DE CLASIFICACIÓN
-========================================================================
-                     Accuracy  Precision  Recall  F1-Score  ROC-AUC  Tiempo(s)
-Modelo                                                                        
-Logistic Regression    0.9745     0.9555  1.0000    0.9772   0.9727     0.0961
-Decision Tree          0.9745     0.9555  1.0000    0.9772   0.9728     0.0345
-Random Forest          0.9745     0.9555  1.0000    0.9772   0.9728     0.5292
-XGBoost                0.9745     0.9555  1.0000    0.9772   0.9728     0.8393
-
+<pre><code>✔ Logistic Regression    entrenado en 0.0911s
+✔ Decision Tree          entrenado en 0.0311s
+✔ Random Forest          entrenado en 0.5263s
+✔ XGBoost                entrenado en 0.7018s
 🏆 Mejor Accuracy : Logistic Regression
 🏆 Mejor F1-Score : Logistic Regression
 🏆 Mejor ROC-AUC  : Decision Tree</code></pre>
+</div>
+<div id="clf-benchmarking" class="cell-output cell-output-display">
+<style type="text/css">
+</style>
+
+<div id="T_c9b86" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_c9b86-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Benchmarking — Modelos de Clasificación
+</figcaption>
+<div aria-describedby="T_c9b86-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="T_c9b86" class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th id="T_c9b86_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Accuracy</th>
+<th id="T_c9b86_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Precision</th>
+<th id="T_c9b86_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Recall</th>
+<th id="T_c9b86_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">F1-Score</th>
+<th id="T_c9b86_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">ROC-AUC</th>
+<th id="T_c9b86_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Tiempo(s)</th>
+</tr>
+<tr class="even">
+<th class="index_name level0" data-quarto-table-cell-role="th">Modelo</th>
+<th class="blank col0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col1" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col2" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col3" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col4" data-quarto-table-cell-role="th">&nbsp;</th>
+<th class="blank col5" data-quarto-table-cell-role="th">&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th id="T_c9b86_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Logistic Regression</th>
+<td id="T_c9b86_row0_col0" class="data row0 col0">0.9745</td>
+<td id="T_c9b86_row0_col1" class="data row0 col1">0.9555</td>
+<td id="T_c9b86_row0_col2" class="data row0 col2">1.0000</td>
+<td id="T_c9b86_row0_col3" class="data row0 col3">0.9772</td>
+<td id="T_c9b86_row0_col4" class="data row0 col4">0.9727</td>
+<td id="T_c9b86_row0_col5" class="data row0 col5">0.0911</td>
+</tr>
+<tr class="even">
+<th id="T_c9b86_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Decision Tree</th>
+<td id="T_c9b86_row1_col0" class="data row1 col0">0.9745</td>
+<td id="T_c9b86_row1_col1" class="data row1 col1">0.9555</td>
+<td id="T_c9b86_row1_col2" class="data row1 col2">1.0000</td>
+<td id="T_c9b86_row1_col3" class="data row1 col3">0.9772</td>
+<td id="T_c9b86_row1_col4" class="data row1 col4">0.9728</td>
+<td id="T_c9b86_row1_col5" class="data row1 col5">0.0311</td>
+</tr>
+<tr class="odd">
+<th id="T_c9b86_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Random Forest</th>
+<td id="T_c9b86_row2_col0" class="data row2 col0">0.9745</td>
+<td id="T_c9b86_row2_col1" class="data row2 col1">0.9555</td>
+<td id="T_c9b86_row2_col2" class="data row2 col2">1.0000</td>
+<td id="T_c9b86_row2_col3" class="data row2 col3">0.9772</td>
+<td id="T_c9b86_row2_col4" class="data row2 col4">0.9728</td>
+<td id="T_c9b86_row2_col5" class="data row2 col5">0.5263</td>
+</tr>
+<tr class="even">
+<th id="T_c9b86_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">XGBoost</th>
+<td id="T_c9b86_row3_col0" class="data row3 col0">0.9745</td>
+<td id="T_c9b86_row3_col1" class="data row3 col1">0.9555</td>
+<td id="T_c9b86_row3_col2" class="data row3 col2">1.0000</td>
+<td id="T_c9b86_row3_col3" class="data row3 col3">0.9772</td>
+<td id="T_c9b86_row3_col4" class="data row3 col4">0.9728</td>
+<td id="T_c9b86_row3_col5" class="data row3 col5">0.7018</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
 </div>
 </div>
 </section>
 <section id="paso-3-métricas-por-modelo-y-curva-roc" class="level3">
 <h3 class="anchored" data-anchor-id="paso-3-métricas-por-modelo-y-curva-roc">Paso 3 — Métricas por Modelo y Curva ROC</h3>
-<div id="cell-clf-metrics-bar" class="cell" data-execution_count="16">
+<div id="cell-clf-metrics-bar" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="report_files/figure-html/clf-metrics-bar-output-1.png" id="clf-metrics-bar" width="1142" height="469" class="figure-img"></p>
+<p><img src="report_files/figure-html/clf-metrics-bar-output-1.png" id="clf-metrics-bar" width="662" height="374" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-clf-roc-curve" class="cell" data-execution_count="17">
+<div id="cell-clf-roc-curve" class="cell" data-fig-height="5" data-fig-width="6" data-execution_count="17">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="report_files/figure-html/clf-roc-curve-output-1.png" id="clf-roc-curve" width="759" height="661" class="figure-img"></p>
+<p><img src="report_files/figure-html/clf-roc-curve-output-1.png" id="clf-roc-curve" width="566" height="468" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -859,22 +1051,48 @@ XGBoost                0.9745     0.9555  1.0000    0.9772   0.9728     0.8393
 <section id="importancia-de-variables" class="level2">
 <h2 class="anchored" data-anchor-id="importancia-de-variables">Importancia de Variables</h2>
 <p>El análisis revela que los días de envío —real y programado— concentran más del 99% de la importancia total en el árbol de decisión, lo que valida la intuición operativa sobre los factores determinantes del retraso.</p>
-<div id="cell-feature-importance" class="cell" data-execution_count="18">
+<div id="feature-importance" class="cell" data-fig-height="4" data-fig-width="7" data-execution_count="18">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="report_files/figure-html/feature-importance-output-1.png" id="feature-importance" width="946" height="564" class="figure-img"></p>
+<p><img src="report_files/figure-html/feature-importance-output-1.png" id="feature-importance-1" width="661" height="374" class="figure-img"></p>
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Top 5 características más importantes:
-Days for shipping (real)        0.5323
-Days for shipment (scheduled)   0.4670
-Latitude                        0.0002
-Order Zipcode                   0.0002
-Longitude                       0.0001</code></pre>
+<div id="feature-importance-2" class="cell-output cell-output-display">
+<style type="text/css">
+</style>
+
+<table id="T_b20d7" class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
+<th id="T_b20d7_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Importancia (Gini)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th id="T_b20d7_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">Days for shipping (real)</th>
+<td id="T_b20d7_row0_col0" class="data row0 col0">0.5323</td>
+</tr>
+<tr class="even">
+<th id="T_b20d7_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">Days for shipment (scheduled)</th>
+<td id="T_b20d7_row1_col0" class="data row1 col0">0.4670</td>
+</tr>
+<tr class="odd">
+<th id="T_b20d7_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">Latitude</th>
+<td id="T_b20d7_row2_col0" class="data row2 col0">0.0002</td>
+</tr>
+<tr class="even">
+<th id="T_b20d7_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">Order Zipcode</th>
+<td id="T_b20d7_row3_col0" class="data row3 col0">0.0002</td>
+</tr>
+<tr class="odd">
+<th id="T_b20d7_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">Longitude</th>
+<td id="T_b20d7_row4_col0" class="data row4 col0">0.0001</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
