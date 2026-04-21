@@ -15,6 +15,7 @@ format:
     footer-emails: "g.cayunaoerices@uandresbello.edu"
     footer-color: "1a4f8a"
     keywords: ["Supply Chain", "Machine Learning", "Late Delivery Risk", "DataCo", "XGBoost"]
+    bibliography: references.bib
 ---
 
 # Introducción y Dataset
@@ -213,7 +214,5 @@ XGBoost y Random Forest alcanzan una precisión superior al **95%**, con ROC-AUC
 
 ## Referencias
 
-- Faiad, C. (2019). *DataCo Smart Supply Chain Dataset*. Kaggle.
-- Scikit-learn Developers. *Scikit-learn: Machine Learning in Python*. JMLR, 2011.
-- Chen, T. & Guestrin, C. (2016). *XGBoost: A Scalable Tree Boosting System*. KDD.
-- Repositorio SIID — Asignatura Sistemas de Información e Inteligencia de los Datos, Doctorado UNAB.
+::: {#refs}
+:::
