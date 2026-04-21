@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+title: "SIID: Sistema de inteligencia en logística para el curso doctoral"
+version: "v1.0.0"
+message: "Para citar este repositorio, por favor usa el DOI asociado en Zenodo."
+authors:
+  - name: "Gonzalo Cayunao Erices"
+    orcid: "https://orcid.org/0009-0002-5312-6371"
+    affiliation: "Universidad Andrés Bello, Doctorado en Ingeniería de Sistemas Avanzados"
+repository-code: "https://github.com/gonzakayunawel/SIID"

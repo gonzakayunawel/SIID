@@ -82,6 +82,12 @@ Para generar el póster en formato PDF (usa Typst internamente):
 ./render-poster.sh
 ```
 
+## 📝 Cita
+
+Si deseas citar este proyecto en tu investigación, puedes utilizar el archivo [CITATION.cff](CITATION.cff) o el siguiente formato:
+
+> Gonzalo Cayunao Erices. (2026). SIID: Sistema de inteligencia en logística para el curso doctoral (v1.0.0). GitHub. https://github.com/gonzakayunawel/SIID
+
 ## ⚖️ Licencia
 
 Este proyecto está bajo la **Licencia MIT**. Si utilizas este repositorio, por favor otorga el crédito correspondiente mencionando al autor original (**Gonzalo Cayunao Erices**). Consulta el archivo [LICENSE](LICENSE) para más detalles.
