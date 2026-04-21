@@ -1,6 +1,6 @@
 # SIID Project Overview
 
-SIID (Smart Industrial Information Dashboard) is a data analysis project focused on the **DataCo Smart Supply Chain** dataset. The project aims to perform exploratory data analysis (EDA) and potentially build predictive models for supply chain optimization, such as late delivery risk assessment.
+SIID (Sistemas de Información e Inteligencia de los Datos) is a data analysis project focused on the **DataCo Smart Supply Chain** dataset. The project aims to perform exploratory data analysis (EDA) and potentially build predictive models for supply chain optimization, such as late delivery risk assessment.
 
 ## Project Structure
 
