@@ -60,6 +60,11 @@ Las variables se agrupan en tres dimensiones: **información del cliente** (ubic
 
 : Tratamiento de valores faltantes {#tbl-nulls}
 
+```{=typst}
+#colbreak()
+= Método MAET
+```
+
 ## Método de Análisis Estocástico (MAET)
 
 Se propone el **Método de Análisis Estocástico para la Toma de Decisiones (MAET)** para formalizar la dinámica de la cadena de valor en cuatro fases:
@@ -90,10 +95,6 @@ Cuantificación de la probabilidad de ocurrencia de escenarios críticos:
 
 Se observa que A y C son **aproximadamente independientes**, indicando que la ineficiencia logística no implica necesariamente pérdida financiera inmediata.
 
-```{=typst}
-#colbreak()
-= Aplicación del Método MAET
-```
 
 ### Fase III: Motor de Inferencia (Teorema de Bayes)
 
@@ -101,7 +102,7 @@ Actualización de la probabilidad a posteriori ante evidencia observable:
 
 $$P(B | A) = \frac{P(A \cdot B)}{P(A)} = 0.7170 \approx 71.7\%$$
 
-Dado un envío lento (Fase I), la probabilidad de entrega tardía asciende al **71.7%**, permitiendo una intervención proactiva basada en señales tempranas.
+Dado un envío lento (Fase II), la probabilidad de entrega tardía asciende al **71.7%**, permitiendo una intervención proactiva basada en señales tempranas.
 
 ### Fase IV: Análisis de Flujo
 
@@ -123,7 +124,7 @@ La alta variabilidad en el flujo de entregas confirma la necesidad de un modelo 
 Análisis de sensibilidad sobre el riesgo de retraso:
 
 | Feature | Importancia (Gini) |
-|---------|--------------------|
+|---------|-------------------|
 | Days for shipping (real) | ~0.6800 |
 | Days for shipment (scheduled) | ~0.3150 |
 | Financial variables | < 0.0050 |
@@ -140,7 +141,7 @@ Las variables logísticas dominan con **>99% de importancia total**, validando e
 Pipeline: `SimpleImputer(median)` → `StandardScaler` → Estimador lineal [@scikit-learn]. Se eliminaron variables redundantes para prevenir *data leakage*.
 
 | Modelo | MAE | RMSE | R² |
-|--------|-----|------|----|
+|--------|-----|------|-----|
 | **Linear Reg.** | **~0** | **~0** | **1.0000** |
 | Ridge | ~0 | ~0 | 1.0000 |
 | Lasso | 38.21 | 47.85 | 0.8602 |
