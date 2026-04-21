@@ -15,8 +15,28 @@ data/
 # Editor
 .vscode/
 
-# Report Quarto ipynb/pdf/html
+# Quarto cache
+.quarto/
+**/.quarto/
+
+# Report — outputs
 report/report.quarto_ipynb_*
 report/report.quarto_ipynb
 report/report.html
 report/report.pdf
+
+# Poster — outputs e imágenes de template no utilizadas
+poster/poster.pdf
+poster/poster.typ
+poster/images/CodexRunicus.jpeg
+poster/images/fig-airquality-1.svg
+poster/images/ncstate.png
+poster/images/poster.png
+poster/images/readme_horizontal.png
+poster/images/readme_vertical.png
+poster/images/Rosetta_stone.png
+poster/images/Standard_lettering.png
+poster/images/Women_operating_typesetting_machines.png
+
+# Examples
+examples/

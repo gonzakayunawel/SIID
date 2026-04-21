@@ -1,5 +1,5 @@
 ---
-title: "Reporte Técnico: Análisis de Riesgos en Supply Chain"
+title: "Análisis de Riesgos en Supply Chain"
 subtitle: "Optimización de Entregas y Modelado Predictivo con DataCo Smart Supply Chain"
 author: 
   - name: "Gonzalo Cayunao Erices"
