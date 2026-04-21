@@ -60,32 +60,52 @@ Las variables se agrupan en tres dimensiones: **información del cliente** (ubic
 
 : Tratamiento de valores faltantes {#tbl-nulls}
 
-## Análisis Bayesiano
+## Método de Análisis Estocástico (MAET)
 
-Se definen tres eventos de interés logístico:
+Se propone el **Método de Análisis Estocástico para la Toma de Decisiones (MAET)** para formalizar la dinámica de la cadena de valor en cuatro fases:
 
-- **A**: Envío lento — `Days for shipping (real) ≥ 4`
-- **B**: Riesgo de retraso — `Late_delivery_risk = 1`
-- **C**: Orden no rentable — `Benefit per order ≤ −100`
+::: {.block fill="luma(230)" inset="8pt" radius="4pt"}
+[I. Arquitectura] $\rightarrow$ [II. Mapeo Riesgos] $\rightarrow$ [III. Motor Inferencia] $\rightarrow$ [IV. Análisis Flujo]
+:::
 
-**Probabilidades marginales:**
+### Fase I: Arquitectura del Sistema
 
-$$P(A) = 0.4257 \quad P(B) = 0.5480 \quad P(C) = 0.0719$$
+Formalización del dominio mediante variables aleatorias observables:
 
-**Resultado clave vía Teorema de Bayes:**
+| Variable | Media | Std | Min | Max |
+|----------|-------|-----|-----|-----|
+| Days shipping (real) | 3.51 | 1.77 | 0 | 6 |
+| Days shipment (sched.) | 2.82 | 1.09 | 0 | 4 |
+| Sales per customer (USD) | 183.72 | 127.58 | 10 | 1,444 |
 
-$$P(B | A) = \frac{P(A \cdot B)}{P(A)} = 0.7170 \approx 71.7\%$$
+: Variables estocásticas clave {#tbl-maet-i}
 
-Dado un envío lento, la probabilidad de entrega tardía asciende al **71.7%**. Además, A y C son **aproximadamente independientes** ($P(A) \cdot P(C) \approx P(A \cdot C)$), lo que indica que la rentabilidad no está directamente ligada al tiempo de envío.
+### Fase II: Mapeo de Riesgos
+
+Cuantificación de la probabilidad de ocurrencia de escenarios críticos:
+
+- **A**: Envío lento — `Days for shipping (real) ≥ 4` ($P(A) = 0.4257$)
+- **B**: Riesgo de retraso — `Late_delivery_risk = 1` ($P(B) = 0.5480$)
+- **C**: Orden no rentable — `Benefit per order ≤ −100` ($P(C) = 0.0719$)
+
+Se observa que A y C son **aproximadamente independientes**, indicando que la ineficiencia logística no implica necesariamente pérdida financiera inmediata.
 
 ```{=typst}
 #colbreak()
-= Análisis Exploratorio (EDA)
+= Aplicación del Método MAET
 ```
 
-## Distribución de Entregas
+### Fase III: Motor de Inferencia (Teorema de Bayes)
 
-La distribución del estado de entregas revela la magnitud del problema logístico:
+Actualización de la probabilidad a posteriori ante evidencia observable:
+
+$$P(B | A) = \frac{P(A \cdot B)}{P(A)} = 0.7170 \approx 71.7\%$$
+
+Dado un envío lento (Fase I), la probabilidad de entrega tardía asciende al **71.7%**, permitiendo una intervención proactiva basada en señales tempranas.
+
+### Fase IV: Análisis de Flujo
+
+Modelado de la acumulación de retardos y estados operativos:
 
 | Estado de Entrega | Proporción |
 |-------------------|------------|
@@ -94,66 +114,21 @@ La distribución del estado de entregas revela la magnitud del problema logísti
 | Shipping on time | 19.40% |
 | Shipping canceled | 3.26% |
 
-: Estado de entregas — DataCo Global {#tbl-delivery}
+: Distribución de estados operativos {#tbl-maet-iv}
 
-Más de la mitad de los envíos llega tarde, lo que justifica la construcción de un modelo predictivo temprano.
-
-## Distribución Geográfica
-
-Europa y LATAM concentran la mayor parte de las transacciones, pero también presentan la mayor variabilidad logística:
-
-| Mercado | Participación |
-|---------|---------------|
-| Europe | ~30% |
-| LATAM | ~24% |
-| USCA | ~23% |
-| Pacific Asia | ~15% |
-| Africa | ~8% |
-
-: Distribución de órdenes por mercado {#tbl-market}
-
-## Estadísticas Descriptivas Clave
-
-| Variable | Media | Std | Min | Max |
-|----------|-------|-----|-----|-----|
-| Days shipping (real) | 3.51 | 1.77 | 0 | 6 |
-| Days shipment (sched.) | 2.82 | 1.09 | 0 | 4 |
-| Benefit per order (USD) | 22.28 | 215.23 | −4,274 | 916 |
-| Sales per customer (USD) | 183.72 | 127.58 | 10 | 1,444 |
-| Late_delivery_risk | 0.55 | 0.50 | 0 | 1 |
-
-: Estadísticas descriptivas — variables clave {#tbl-desc}
-
-La cola izquierda de `Benefit per order` (mínimo −4,274 USD) confirma la existencia de una fracción significativa de órdenes no rentables.
+La alta variabilidad en el flujo de entregas confirma la necesidad de un modelo predictivo para identificar cuellos de botella estocásticos.
 
 ## Importancia de Características
 
-Un Decision Tree de referencia (max_depth=6) revela que los días de envío concentran prácticamente toda la importancia predictiva:
+Análisis de sensibilidad sobre el riesgo de retraso:
 
 | Feature | Importancia (Gini) |
 |---------|--------------------|
 | Days for shipping (real) | ~0.6800 |
 | Days for shipment (scheduled) | ~0.3150 |
-| Benefit per order | ~0.0030 |
-| Sales per customer | ~0.0010 |
+| Financial variables | < 0.0050 |
 
-: Top features — Decision Tree {#tbl-importance}
-
-Las variables logísticas dominan con **>99% de importancia total**, validando la intuición operativa sobre los factores determinantes del retraso.
-
-## Intervalo de Confianza (Muestra 5%)
-
-Muestreo aleatorio simple (n = 9,026 registros) para `Sales per customer`:
-
-::: {.block fill="luma(230)" inset="8pt" radius="4pt"}
-
-**Media muestral:** 183.72 USD
-
-**IC 95%:** [181.09, 186.35] USD
-
-El intervalo captura la media poblacional real, validando la representatividad del muestreo.
-
-:::
+Las variables logísticas dominan con **>99% de importancia total**, validando el enfoque del método MAET en los tiempos de ciclo.
 
 ```{=typst}
 #colbreak()
