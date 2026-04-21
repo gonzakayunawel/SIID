@@ -60,6 +60,11 @@ To generate the academic poster:
 ./render-poster.sh
 ```
 
+The **poster (`poster/poster.qmd`)** summarizes key insights:
+- **Bayesian Analysis:** Shows $P(B|A) \approx 71.7\%$ for late delivery given slow shipping.
+- **Predictive Performance:** XGBoost and Random Forest achieve **>95% accuracy** in predicting late delivery risk.
+- **Key Findings:** Logistic variables (shipping days) account for **>99%** of predictive importance.
+
 ### Working with Notebooks
 
 The project includes an `ipykernel` dependency. You can use your preferred Jupyter environment (VS Code, JupyterLab, etc.) and select the project's virtual environment as the kernel.

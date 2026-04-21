@@ -72,6 +72,11 @@ quarto render report/report.qmd
 ```
 
 ### Generar Póster Académico
+El póster resume los hallazgos críticos del proyecto, incluyendo:
+- **Análisis Bayesiano:** Probabilidad del 71.7% de entrega tardía ante envíos lentos.
+- **Modelado Predictivo:** Uso de **XGBoost** y **Random Forest** con una precisión (**Accuracy**) superior al **95%**.
+- **Hallazgos Clave:** Dominancia de variables logísticas (>99% de importancia) sobre las financieras/geográficas.
+
 Para generar el póster en formato PDF (usa Typst internamente):
 ```bash
 ./render-poster.sh
