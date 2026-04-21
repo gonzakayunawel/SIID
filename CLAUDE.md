@@ -52,6 +52,26 @@ Feature selection uses importance thresholding (≥1%). Be careful to avoid **da
 - `data/processed/` — for any transformed/cleaned data (not yet created)
 - Kaggle credentials must be configured locally for `kagglehub` to work
 
+## Poster (`poster/poster.qmd`)
+
+Poster científico en formato Typst (A0 landscape, 3 columnas) con los hallazgos del proyecto.
+
+```bash
+# Renderizar el poster (usar siempre este script, no quarto render directamente)
+bash render-poster.sh
+# Output: poster/poster.pdf (ignorado en git)
+```
+
+### Logo institucional — comportamiento importante
+
+Typst resuelve rutas de imágenes desde múltiples ubicaciones. Para que el logo aparezca, debe estar presente en **todas** las rutas siguientes:
+
+1. `poster/images/unab.png` — versionado en git
+2. `poster/_extensions/quarto-ext/poster/typst/packages/local/typst-poster/0.1.1/images/unab.png` — dentro de la extensión (versionado en git)
+3. `.quarto/typst/packages/local/typst-poster/0.1.1/images/unab.png` — directorio de caché regenerado por Quarto (copiado por `render-poster.sh`)
+
+**Si cambias el logo**, reemplaza el archivo en las ubicaciones 1 y 2, luego usa `bash render-poster.sh` (que copia hacia la ubicación 3 antes del render final).
+
 ## Linting
 
 Ruff is configured in `pyproject.toml`. Key ignores: `E501` (long lines), `F401`/`F811` (unused imports/redefinitions — common in notebooks), `E402` (late imports — common in analysis scripts). The `src` package is treated as first-party for import ordering.
