@@ -12,10 +12,12 @@ SIID es un proyecto de análisis de datos enfocado en el conjunto de datos **Dat
 │   ├── 02.EDA.ipynb
 │   └── 03.model.ipynb
 ├── report/            # Reportes generados (Quarto)
+├── poster/            # Material para póster académico (Quarto/Typst)
 ├── src/               # Código fuente (scripts de carga y procesamiento)
 │   └── load_data.py
 ├── main.py            # Punto de entrada principal
 ├── pyproject.toml     # Configuración de dependencias (uv)
+├── render-poster.sh   # Script para generar el póster
 └── GEMINI.md          # Documentación interna del proyecto
 ```
 
@@ -23,20 +25,23 @@ SIID es un proyecto de análisis de datos enfocado en el conjunto de datos **Dat
 
 - **Lenguaje:** Python (>=3.14)
 - **Análisis de Datos:** Pandas, NumPy, SciPy, Statsmodels.
-- **Machine Learning:** Scikit-learn.
+- **Machine Learning:** Scikit-learn, XGBoost.
 - **Visualización:** Seaborn, Matplotlib.
-- **Reportes:** Quarto.
+- **Reportes y Presentación:** Quarto, Typst.
 - **Gestor de Paquetes:** [uv](https://github.com/astral-sh/uv).
+- **Calidad de Código:** Ruff.
 
 ## ⚙️ Instalación y Uso
 
 ### Prerrequisitos
 
-Asegúrate de tener instalado `uv`. Puedes instalarlo con el siguiente comando:
+Asegúrate de tener instalado `uv` y `quarto`.
 
-```bash
-curl -LsSf https://astral-sh.uv.io/install.sh | sh
-```
+- Instalar `uv`:
+  ```bash
+  curl -LsSf https://astral-sh.uv.io/install.sh | sh
+  ```
+- [Instalar Quarto](https://quarto.org/docs/get-started/) (necesario para reportes y pósters).
 
 ### Configuración del Entorno
 
@@ -58,8 +63,22 @@ uv run src/load_data.py
 
 El proyecto incluye la dependencia `ipykernel`. Puedes usar tu entorno preferido (VS Code, JupyterLab, etc.) y seleccionar el entorno virtual del proyecto como kernel.
 
+## 📊 Reportes y Posters
+
+### Generar Reporte HTML
+Para renderizar el reporte analítico:
+```bash
+quarto render report/report.qmd
+```
+
+### Generar Póster Académico
+Para generar el póster en formato PDF (usa Typst internamente):
+```bash
+./render-poster.sh
+```
+
 ## 📈 Desarrollo
 
 - **Manejo de Datos:** Los datos crudos en `data/raw/` no deben modificarse directamente.
-- **Estilo:** Se siguen las convenciones estándar de Python (PEP 8).
+- **Calidad de Código:** Se utiliza `ruff` para mantener el estilo y la calidad del código.
 - **Dependencias:** Usa `uv add <paquete>` para agregar nuevas dependencias y `uv sync` para mantener el entorno actualizado.
