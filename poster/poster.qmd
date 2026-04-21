@@ -16,6 +16,7 @@ format:
     footer-color: "1a4f8a"
     keywords: ["Supply Chain", "Machine Learning", "Late Delivery Risk", "DataCo", "XGBoost"]
     bibliography: references.bib
+nocite: '@*'
 ---
 
 # Introducción y Dataset
@@ -33,7 +34,7 @@ Este estudio aplica técnicas de **Ciencia de Datos** para:
 
 ## Dataset: DataCo Smart Supply Chain
 
-El dataset integra registros de ventas y logística de una empresa con operaciones globales:
+El dataset integra registros de ventas y logística de una empresa con operaciones globales [@constante2019DataCoSMARTSUPPLY]:
 
 | Característica | Valor |
 |----------------|-------|
@@ -161,58 +162,36 @@ El intervalo captura la media poblacional real, validando la representatividad d
 
 ## Benchmarking — Regresión (Sales)
 
-Pipeline: `SimpleImputer(median)` → `StandardScaler` → Estimador lineal.
+Pipeline: `SimpleImputer(median)` → `StandardScaler` → Estimador lineal [@scikit-learn]. Se eliminaron variables redundantes para prevenir *data leakage*.
 
-**Prevención de data leakage:** se eliminaron `Order Item Total`, `Order Profit Per Order` y `Benefit per order` (derivadas de Sales).
+| Modelo | MAE | RMSE | R² |
+|--------|-----|------|----|
+| **Linear Reg.** | **~0** | **~0** | **1.0000** |
+| Ridge | ~0 | ~0 | 1.0000 |
+| Lasso | 38.21 | 47.85 | 0.8602 |
 
-| Modelo | MAE | RMSE | R² | Tiempo (s) |
-|--------|-----|------|----|------------|
-| **Linear Regression** | **~0** | **~0** | **1.0000** | 0.18 |
-| Ridge | ~0 | ~0 | 1.0000 | 0.08 |
-| Lasso | 38.21 | 47.85 | 0.8602 | 0.31 |
-| ElasticNet | 64.42 | 80.33 | 0.6248 | 0.28 |
-
-: Benchmarking modelos de regresión {#tbl-reg}
-
-Linear Regression y Ridge alcanzan R² = 1, indicando que `Sales` es linealmente determinada por combinaciones de las features numéricas seleccionadas.
+: Modelos de regresión {#tbl-reg}
 
 ## Benchmarking — Clasificación (Late Delivery Risk)
 
-Pipeline con features seleccionadas por importancia ≥ 1%.
+| Modelo | Accuracy | F1-Score | ROC-AUC |
+|--------|----------|-----------|---------|
+| **XGBoost** | **0.9551** | **0.9584** | **0.9551** |
+| **Random Forest** | **0.9551** | **0.9583** | **0.9551** |
+| Decision Tree | 0.9534 | 0.9565 | 0.9534 |
 
-| Modelo | Accuracy | Precision | Recall | F1-Score | ROC-AUC |
-|--------|----------|-----------|--------|----------|---------|
-| **XGBoost** | **0.9551** | **0.9568** | **0.9601** | **0.9584** | **0.9551** |
-| **Random Forest** | **0.9551** | **0.9571** | **0.9596** | **0.9583** | **0.9551** |
-| Decision Tree | 0.9534 | 0.9546 | 0.9585 | 0.9565 | 0.9534 |
-| Logistic Regression | 0.7082 | 0.7198 | 0.7570 | 0.7379 | 0.7082 |
+: Modelos de clasificación {#tbl-clf}
 
-: Benchmarking modelos de clasificación {#tbl-clf}
+XGBoost [@chen2016XGBoostScalableTree] y Random Forest superan el **95% de precisión**, con ROC-AUC de 0.955.
 
-XGBoost y Random Forest alcanzan una precisión superior al **95%**, con ROC-AUC de 0.955.
-
-## Hallazgos Principales
+## Hallazgos y Recomendaciones
 
 ::: {.block fill="luma(230)" inset="8pt" radius="4pt"}
-
-1. **Poder Predictivo:** XGBoost anticipa retrasos con >95% de precisión — ventaja competitiva directamente desplegable en el ERP.
-
-2. **Dominancia Logística:** Días de envío (real y programado) concentran >99% de la importancia predictiva. Variables financieras y geográficas tienen impacto marginal.
-
-3. **Escenario Crítico:** Solo el **3.06%** de las órdenes combina envío lento y pérdida económica ($P(A, C)$), pero representan el segmento de mayor daño operativo.
-
-4. **Determinismo de Ventas:** Sales es linealmente determinada por las features numéricas disponibles (R² = 1), lo que sugiere redundancia estructural en las variables financieras del dataset.
-
+1. **Poder Predictivo:** XGBoost anticipa retrasos con >95% de precisión [@gonzalocayunaoerices2026SIIDSistemaInteligencia].
+2. **Dominancia Logística:** Días de envío concentran >99% de la importancia predictiva.
+3. **Determinismo:** `Sales` es linealmente determinada (R²=1), sugiriendo redundancia en variables financieras.
+4. **Acción:** Desplegar XGBoost en ERP para alertas en tiempo real y ajustar tiempos según analítica regional.
 :::
-
-## Recomendaciones
-
-- **Monitoreo en Tiempo Real:** Desplegar XGBoost en el backend del ERP para alertar sobre riesgos en el momento de creación de la orden.
-- **Sincronización de Tiempos:** Ajustar `Scheduled Shipping Days` según analítica histórica regional (Europa y LATAM prioritarios).
-- **Gestión de Órdenes Críticas:** Priorizar revisión de órdenes con `Benefit ≤ −100` y `Days ≥ 4`.
-- **Expansión del Modelo:** Integrar variables externas (clima, condiciones portuarias) para mejorar precisión en rutas críticas.
-
-## Referencias
 
 ::: {#refs}
 :::
