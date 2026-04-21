@@ -82,8 +82,6 @@ Para generar el póster en formato PDF (usa Typst internamente):
 ./render-poster.sh
 ```
 
-## 📈 Desarrollo
+## ⚖️ Licencia
 
-- **Manejo de Datos:** Los datos crudos en `data/raw/` no deben modificarse directamente.
-- **Calidad de Código:** Se utiliza `ruff` para mantener el estilo y la calidad del código.
-- **Dependencias:** Usa `uv add <paquete>` para agregar nuevas dependencias y `uv sync` para mantener el entorno actualizado.
+Este proyecto está bajo la **Licencia MIT**. Si utilizas este repositorio, por favor otorga el crédito correspondiente mencionando al autor original (**Gonzalo Cayunao Erices**). Consulta el archivo [LICENSE](LICENSE) para más detalles.
