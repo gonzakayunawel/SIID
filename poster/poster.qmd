@@ -169,16 +169,20 @@ Pipeline: `SimpleImputer(median)` → `StandardScaler` → Estimador lineal [@sc
 | **Linear Reg.** | **~0** | **~0** | **1.0000** |
 | Ridge | ~0 | ~0 | 1.0000 |
 | Lasso | 38.21 | 47.85 | 0.8602 |
+| ElasticNet | 64.42 | 80.33 | 0.6248 |
 
 : Modelos de regresión {#tbl-reg}
 
 ## Benchmarking — Clasificación (Late Delivery Risk)
 
-| Modelo | Accuracy | F1-Score | ROC-AUC |
-|--------|----------|-----------|---------|
-| **XGBoost** | **0.9551** | **0.9584** | **0.9551** |
-| **Random Forest** | **0.9551** | **0.9583** | **0.9551** |
-| Decision Tree | 0.9534 | 0.9565 | 0.9534 |
+Pipeline con features seleccionadas por importancia ≥ 1%.
+
+| Modelo | Accuracy | Precision | Recall | F1-Score | ROC-AUC |
+|--------|----------|-----------|--------|----------|---------|
+| **XGBoost** | **0.9551** | **0.9568** | **0.9601** | **0.9584** | **0.9551** |
+| **Random Forest** | **0.9551** | **0.9571** | **0.9596** | **0.9583** | **0.9551** |
+| Decision Tree | 0.9534 | 0.9546 | 0.9585 | 0.9565 | 0.9534 |
+| Logistic Regression | 0.7082 | 0.7198 | 0.7570 | 0.7379 | 0.7082 |
 
 : Modelos de clasificación {#tbl-clf}
 
