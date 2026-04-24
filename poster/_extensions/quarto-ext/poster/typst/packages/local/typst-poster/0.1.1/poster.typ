@@ -97,6 +97,7 @@
         inset: 20pt,
         radius: 10pt,
         [
+          #set text(fill: white)
           #text(font: "Courier", size: footer_url_font_size, footer_url) 
           #h(1fr) 
           #text(size: footer_text_font_size, smallcaps(footer_text)) 
