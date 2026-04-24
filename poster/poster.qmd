@@ -105,6 +105,33 @@ Las variables se agrupan en tres dimensiones: **información del cliente** (ubic
 
 : Tratamiento de valores faltantes {#tbl-nulls}
 
+## Estadísticas Descriptivas
+
+```{python}
+#| label: tbl-describe
+#| tbl-cap: "Estadísticas descriptivas de variables clave"
+#| echo: false
+from IPython.display import display
+
+cols_desc = [
+    'Days for shipping (real)', 'Days for shipment (scheduled)',
+    'Benefit per order', 'Sales per customer',
+    'Late_delivery_risk', 'Sales', 'Order Item Quantity'
+]
+
+col_rename = {
+    'Days for shipping (real)':       'Ship Real',
+    'Days for shipment (scheduled)':  'Ship Sched',
+    'Benefit per order':              'Benefit/Ord',
+    'Sales per customer':             'Sales/Cust',
+    'Late_delivery_risk':             'Late Risk',
+    'Sales':                          'Sales',
+    'Order Item Quantity':            'Item Qty',
+}
+desc = df[cols_desc].rename(columns=col_rename).describe().round(2)
+display(desc)
+```
+
 ```{=typst}
 #colbreak()
 = Análisis MAET
