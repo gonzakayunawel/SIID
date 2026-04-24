@@ -96,6 +96,10 @@ Las variables se agrupan en tres dimensiones: **información del cliente** (ubic
 
 ## Calidad de Datos
 
+- **Product Description** está completamente vacía (0 registros no nulos) y será descartada.
+- **Order Zipcode** tiene un 86 % de nulos y no aporta valor discriminatorio. 
+- **Customer Zipcode** y **Customer Lname** tienen ausencias mínimas e irrelevantes para el modelado.
+
 | Columna | % Nulos | Decisión |
 |---------|---------|---------|
 | `Product Description` | 100% | Eliminada |
@@ -131,6 +135,14 @@ col_rename = {
 desc = df[cols_desc].rename(columns=col_rename).describe().round(2)
 display(desc)
 ```
+
+Puntos clave del Dataset:
+
+- **Late_delivery_risk**: media de 0.55 → el 55 % de las órdenes tiene riesgo de entrega tardía.
+- **Benefit per order**: mínimo de −4,274 USD → existen órdenes con pérdidas severas.
+- **Days for shipping (real)**: rango 0–6 días; 
+- **Days for shipment (scheduled)**: tiene máximo de 4.
+
 
 ```{=typst}
 #colbreak()
@@ -207,10 +219,12 @@ La alta variabilidad en el flujo de entregas confirma la necesidad de un modelo 
 Análisis de sensibilidad sobre el riesgo de retraso:
 
 | Feature | Importancia (Gini) |
-|---------|-------------------|
-| Days for shipping (real) | ~0.6800 |
-| Days for shipment (scheduled) | ~0.3150 |
-| Financial variables | < 0.0050 |
+|:------------------------------|:------------------:|
+| Days for shipping (real)      | ~0.6800            |
+| Days for shipment (scheduled) | ~0.3150            |
+| Financial variables           | < 0.0050           |
+
+: Importancia de características para el riesgo de retraso {#tbl-importance}
 
 Las variables logísticas dominan con **>99% de importancia total**, validando el enfoque del método MAET en los tiempos de ciclo.
 
