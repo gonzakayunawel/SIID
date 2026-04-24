@@ -40,7 +40,12 @@ from xgboost import XGBClassifier
 from sklearn.metrics import auc, roc_curve
 
 # Cargar datos
-df = pd.read_csv("../data/raw/DataCoSupplyChainDataset.csv", encoding="latin-1")
+import os
+csv_path = "data/raw/DataCoSupplyChainDataset.csv"
+if not os.path.exists(csv_path):
+    csv_path = "../" + csv_path
+
+df = pd.read_csv(csv_path, encoding="latin-1")
 
 # Preparación mínima para clasificación
 TARGET_CLF = 'Late_delivery_risk'
@@ -209,7 +214,8 @@ Pipeline con features seleccionadas por importancia ≥ 1%.
 #| echo: false
 #| fig-width: 6
 #| fig-height: 5
-#| out-width: "100%"
+#| out-width: "90%"
+#| fig-align: center
 
 clf_models_roc = {
     "Logistic Regression": LogisticRegression(max_iter=1000, random_state=42),
@@ -249,15 +255,15 @@ plt.tight_layout()
 plt.show()
 ```
 
-XGBoost [@chen2016XGBoostScalableTree] y Random Forest superan el **95% de precisión**, con ROC-AUC de 0.955.
+XGBoost [@chen2016XGBoostScalableTree] y Decision Tree superan el **97% de precisión**, con ROC-AUC de 0.9729.
 
 ## Hallazgos y Recomendaciones
 
 ::: {.block fill="luma(230)" inset="8pt" radius="4pt"}
-1. **Poder Predictivo:** XGBoost anticipa retrasos con >95% de precisión [@gonzalocayunaoerices2026SIIDSistemaInteligencia].
+1. **Poder Predictivo:** XGBoost anticipa retrasos con >97% de precisión [@gonzalocayunaoerices2026SIIDSistemaInteligencia].
 2. **Dominancia Logística:** Días de envío concentran >99% de la importancia predictiva.
 3. **Determinismo:** `Sales` es linealmente determinada (R²=1), sugiriendo redundancia en variables financieras.
-4. **Acción:** Desplegar XGBoost en ERP para alertas en tiempo real y ajustar tiempos según analítica regional.
+4. **Acción:** Desplegar XGBoost o Decision Tree en ERP para generar alertas en tiempo real y ajustar los tiempos según analítica regional.
 :::
 
 ::: {#refs}
