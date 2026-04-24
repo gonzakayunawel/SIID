@@ -19,6 +19,46 @@ format:
 nocite: '@*'
 ---
 
+```{python}
+#| label: setup
+#| echo: false
+#| message: false
+#| warning: false
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from xgboost import XGBClassifier
+from sklearn.metrics import auc, roc_curve
+
+# Cargar datos
+df = pd.read_csv("../data/raw/DataCoSupplyChainDataset.csv", encoding="latin-1")
+
+# Preparación mínima para clasificación
+TARGET_CLF = 'Late_delivery_risk'
+selected_features = [
+    'Days for shipping (real)', 
+    'Days for shipment (scheduled)', 
+    'Sales per customer', 
+    'Benefit per order'
+]
+
+X_final = df[selected_features]
+y_final = df[TARGET_CLF]
+
+X_train_f, X_test_f, y_train_f, y_test_f = train_test_split(
+    X_final, y_final, test_size=0.2, random_state=42, stratify=y_final
+)
+```
+
 # Introducción y Dataset
 
 ## Contexto del Problema
@@ -164,14 +204,50 @@ Pipeline: `SimpleImputer(median)` → `StandardScaler` → Estimador lineal [@sc
 
 Pipeline con features seleccionadas por importancia ≥ 1%.
 
-| Modelo | Accuracy | Precision | Recall | F1-Score | ROC-AUC |
-|--------|----------|-----------|--------|----------|---------|
-| **XGBoost** | **0.9551** | **0.9568** | **0.9601** | **0.9584** | **0.9551** |
-| **Random Forest** | **0.9551** | **0.9571** | **0.9596** | **0.9583** | **0.9551** |
-| Decision Tree | 0.9534 | 0.9546 | 0.9585 | 0.9565 | 0.9534 |
-| Logistic Regression | 0.7082 | 0.7198 | 0.7570 | 0.7379 | 0.7082 |
+```{python}
+#| label: clf-roc-curve
+#| echo: false
+#| fig-width: 6
+#| fig-height: 5
+#| out-width: "100%"
 
-: Modelos de clasificación {#tbl-clf}
+clf_models_roc = {
+    "Logistic Regression": LogisticRegression(max_iter=1000, random_state=42),
+    "Decision Tree":       DecisionTreeClassifier(max_depth=6, random_state=42),
+    "Random Forest":       RandomForestClassifier(n_estimators=100, max_depth=6,
+                                                  random_state=42, n_jobs=-1),
+    "XGBoost":             XGBClassifier(n_estimators=100, max_depth=6,
+                                         learning_rate=0.1, random_state=42,
+                                         eval_metric="logloss", verbosity=0),
+}
+
+fig, ax = plt.subplots(figsize=(6, 5))
+colors = ["#4C72B0", "#DD8452", "#55A868", "#C44E52"]
+
+for (name, model), color in zip(clf_models_roc.items(), colors):
+    pipe = Pipeline([
+        ("imputer", SimpleImputer(strategy="median")),
+        ("scaler",  StandardScaler()),
+        ("model",   model),
+    ])
+    pipe.fit(X_train_f, y_train_f)
+    y_proba = pipe.predict_proba(X_test_f)[:, 1]
+
+    fpr, tpr, _ = roc_curve(y_test_f, y_proba)
+    roc_auc = auc(fpr, tpr)
+    ax.plot(fpr, tpr, color=color, lw=2, label=f"{name}  (AUC = {roc_auc:.4f})")
+
+ax.plot([0, 1], [0, 1], "k--", lw=1.2, label="Aleatorio (AUC = 0.50)")
+ax.set_xlim([0.0, 1.0])
+ax.set_ylim([0.0, 1.05])
+ax.set_xlabel("Tasa de Falsos Positivos (FPR)", fontsize=10)
+ax.set_ylabel("Tasa de Verdaderos Positivos (TPR)", fontsize=10)
+ax.set_title("Curva ROC — Modelos de Clasificación", fontsize=11, pad=12)
+ax.legend(loc="lower right", fontsize=8, framealpha=0.9)
+ax.grid(alpha=0.3)
+plt.tight_layout()
+plt.show()
+```
 
 XGBoost [@chen2016XGBoostScalableTree] y Random Forest superan el **95% de precisión**, con ROC-AUC de 0.955.
 
