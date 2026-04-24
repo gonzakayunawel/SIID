@@ -959,6 +959,22 @@ wheels = [
 ]
 
 [[package]]
+name = "quarto"
+version = "0.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "ipykernel" },
+    { name = "jupyter-core" },
+    { name = "nbclient" },
+    { name = "nbformat" },
+    { name = "pyyaml" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/82/a4/33dc28f6fcd5ff80ee80b2afddea9bc46a42f5e2bbc000eeb1b5f6194918/quarto-0.1.0.tar.gz", hash = "sha256:d9a4978110204f5b9d3af39faa9e195083efcbac8f6a23789e29cb27c72ded15", size = 2920, upload-time = "2021-02-03T21:53:12.381Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7d/14/8af79508df038ab05953ecf862420c7f4cc131b1682f0c80cb4f78c58593/quarto-0.1.0-py3-none-any.whl", hash = "sha256:8138fc9d1bee6269a5436837baedc699a262be1478f96444d6f99029f1a114f0", size = 10319, upload-time = "2021-02-03T21:53:10.812Z" },
+]
+
+[[package]]
 name = "referencing"
 version = "0.37.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1132,6 +1148,7 @@ dependencies = [
     { name = "nbformat" },
     { name = "numpy" },
     { name = "pandas" },
+    { name = "quarto" },
     { name = "scikit-learn" },
     { name = "scipy" },
     { name = "seaborn" },
@@ -1154,6 +1171,7 @@ requires-dist = [
     { name = "nbformat", specifier = ">=5.10.4" },
     { name = "numpy", specifier = ">=2.4.3" },
     { name = "pandas", specifier = ">=3.0.1" },
+    { name = "quarto", specifier = ">=0.1.0" },
     { name = "scikit-learn", specifier = ">=1.8.0" },
     { name = "scipy", specifier = ">=1.17.1" },
     { name = "seaborn", specifier = ">=0.13.2" },

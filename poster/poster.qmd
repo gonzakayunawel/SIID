@@ -62,7 +62,7 @@ Las variables se agrupan en tres dimensiones: **información del cliente** (ubic
 
 ```{=typst}
 #colbreak()
-= Método MAET
+= Análisis MAET
 ```
 
 ## Método de Análisis Estocástico (MAET)
@@ -73,6 +73,9 @@ Se propone el **Método de Análisis Estocástico para la Toma de Decisiones (MA
 [I. Arquitectura] $\rightarrow$ [II. Mapeo Riesgos] $\rightarrow$ [III. Motor Inferencia] $\rightarrow$ [IV. Análisis Flujo]
 :::
 
+```{=typst}
+#v(2em)
+```
 ### Fase I: Arquitectura del Sistema
 
 Formalización del dominio mediante variables aleatorias observables:
@@ -85,6 +88,9 @@ Formalización del dominio mediante variables aleatorias observables:
 
 : Variables estocásticas clave {#tbl-maet-i}
 
+```{=typst}
+#v(2em)
+```
 ### Fase II: Mapeo de Riesgos
 
 Cuantificación de la probabilidad de ocurrencia de escenarios críticos:
@@ -95,7 +101,9 @@ Cuantificación de la probabilidad de ocurrencia de escenarios críticos:
 
 Se observa que A y C son **aproximadamente independientes**, indicando que la ineficiencia logística no implica necesariamente pérdida financiera inmediata.
 
-
+```{=typst}
+#v(2em)
+```
 ### Fase III: Motor de Inferencia (Teorema de Bayes)
 
 Actualización de la probabilidad a posteriori ante evidencia observable:
@@ -104,6 +112,9 @@ $$P(B | A) = \frac{P(A \cdot B)}{P(A)} = 0.7170 \approx 71.7\%$$
 
 Dado un envío lento (Fase II), la probabilidad de entrega tardía asciende al **71.7%**, permitiendo una intervención proactiva basada en señales tempranas.
 
+```{=typst}
+#v(2em)
+```
 ### Fase IV: Análisis de Flujo
 
 Modelado de la acumulación de retardos y estados operativos:
