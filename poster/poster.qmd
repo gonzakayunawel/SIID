@@ -192,7 +192,7 @@ Se observa que A y C son **aproximadamente independientes**, indicando que la in
 
 Actualización de la probabilidad a posteriori ante evidencia observable:
 
-$$P(B | A) = \frac{P(A \cdot B)}{P(A)} = 0.7170 \approx 71.7\%$$
+$$P(B | A) = \frac{P(A | B) \dot{P(B)}}{P(A)} = 0.7170 \approx 71.7\%$$
 
 Dado un envío lento (Fase II), la probabilidad de entrega tardía asciende al **71.7%**, permitiendo una intervención proactiva basada en señales tempranas.
 
